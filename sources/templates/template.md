@@ -10,3 +10,6 @@
 
 ![Third image](./images/3.png)
 [Download Link](https://www.creative-tim.com/product/notus-react) | [Live Preview](https://demos.creative-tim.com/notus-react/#/admin/dashboard)
+
+## Chart Sources
+- [nivo](https://nivo.rocks/chord/)
