@@ -11,7 +11,7 @@
 ![Third image](./images/3.png)
 [Download Link](https://www.creative-tim.com/product/notus-react) | [Live Preview](https://demos.creative-tim.com/notus-react/#/admin/dashboard)
 
-![Third image](./images/4.png)
+![Fourth image](./images/4.png)
 [Download Link](https://github.com/devias-io/material-kit-react) | [Live Preview](https://material-kit-react.devias.io/)
 
 
