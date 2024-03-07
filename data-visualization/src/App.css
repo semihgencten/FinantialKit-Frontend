@@ -1,0 +1,17 @@
+.main{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    margin: 16px;
+}
+.optionButton{
+    width: 256px;
+}

@@ -1,0 +1,23 @@
+.root-graph-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-content: center;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.graph-container {
+    height: 400px;
+    width: 600px; 
+}
+
+.indicator-container {
+  height: 200px;
+  width: 600px;
+}
