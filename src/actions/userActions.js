@@ -1,17 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import httpFetch from "utils/httpFetch";
 
-export const getIndices = createAsyncThunk(
-    "user/getIndices", 
+export const getWatchlist = createAsyncThunk(
+    "user/getWatchlist",
     async () => {
         const response = await httpFetch({
-            url:"api/user/watchlist",
-            method:"GET"
+            url:"/api/user/watchlist",
+            method: "GET"
         });
-        if (!response.ok) throw Error("Could not fetch watchlist.");
+        if (!response.ok) throw Error("Failed to load trendings.");
         return response.data;
     }
 )
+
 
 export const getPortfolio = createAsyncThunk(
     "user/getPortfolio", 
@@ -24,3 +25,4 @@ export const getPortfolio = createAsyncThunk(
         return response.data;
     }
 )
+

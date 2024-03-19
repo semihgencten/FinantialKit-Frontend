@@ -14,13 +14,13 @@ import httpFetch from "utils/httpFetch";
   },
 
 */
-export const getTrendigs = createAsyncThunk(
+export const getTrendings = createAsyncThunk(
     "stocks/getTrendings",
     async () => {
-        await new Promise(
-            (resolve) => setTimeout(resolve, 1000) 
-        );
-        const response = await httpFetch.get("/api/stocks/trending");
+        const response = await httpFetch({
+            url:"/api/stocks/trending",
+            method: "GET"
+        });
         if (!response.ok) throw Error("Failed to load trendings.");
         return response.data;
     }
@@ -41,12 +41,10 @@ export const getTrendigs = createAsyncThunk(
 export  const getTopGainers = createAsyncThunk(
     "stocks/getTopGainers",
     async () => {
-        await new Promise(
-            (resolve)=>{
-                setTimeout(resolve, 1000); 
-            }
-        );
-        const response =await httpFetch.get("/api/stocks/top-gainers");
+        const response =await httpFetch({
+            url:"/api/stocks/top-gainers",
+            method:"GET"
+        });
         return response.data;
     }
 )
@@ -68,12 +66,78 @@ export  const getTopGainers = createAsyncThunk(
 export const getStocks = createAsyncThunk(
     "stocks/getStocks",
     async () => {
-        await new Promise(
-            (resolve)=>{
-                setTimeout(resolve, 1000); 
-            }
-        );
-        const response =await httpFetch.get("/api/stocks/");
+        const response =await httpFetch({
+            url:"/api/stocks/",
+            method: 'GET',
+        });
         return response.data;
+    }
+)
+
+export const getOverview = createAsyncThunk(
+    "stocks/getOverview",
+    async ()=>{
+        const response = await httpFetch({
+            url:"/api/stocks/{symbol}/overview",
+            method:"GET"
+        })
+        return response
+    }
+)
+
+
+export const getTechnical = createAsyncThunk(
+    "stocks/getTechnical",
+    async ()=>{
+        const response = await httpFetch({
+            url:"/api/stocks/{symbol}/technicals",
+            method:"GET"
+        })
+        return response
+    }
+)
+
+export const getFinancials = createAsyncThunk(
+    "stocks/getFinancials",
+    async ()=>{
+        const response = await httpFetch({
+            url:"/api/stocks/{symbol}/financials",
+            method:"GET"
+        })
+        return response
+    }
+)
+
+
+export const getNews = createAsyncThunk(
+    "stocks/getNews",
+    async ()=>{
+        const response = await httpFetch({
+            url:"/api/stocks/{symbol}/news",
+            method:"GET"
+        })
+        return response
+    }
+)
+
+export const getCharts = createAsyncThunk(
+    "stocks/getCharts",
+    async ()=>{
+        const response = await httpFetch({
+            url:"/api/stocks/{symbol}/charts",
+            method:"GET"
+        })
+        return response
+    }
+)
+
+export const getPeerAnalysis = createAsyncThunk(
+    "stocks/getPeerAnalysis",
+    async ()=>{
+        const response = await httpFetch({
+            url:"/api/stocks/{symbol}/peerAnalysis",
+            method:"GET"
+        })
+        return response
     }
 )
