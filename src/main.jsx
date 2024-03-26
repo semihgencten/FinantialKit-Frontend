@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "@/layouts/default";
@@ -21,74 +21,117 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Provider } from "react-redux";
 import store from "@/store";
+import { IntlProvider } from 'react-intl';
+import LocaleContext from '@/LocaleContext';
 
-const routes = [
-  {
-    path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "/news",
-        element: <NewsPage />,
-      },
-      {
-        path: "/analysis",
-        element: <AnalysisPage />,
-      },
-      {
-        path: "/watchlist",
-        element: <WatchlistPage />,
-      },
-      {
-        path: "/my-portfolio",
-        element: <PortfolioPage />,
-      },
-      {
-        path: "/markets",
-        element: <MarketsPage />,
-      },
-    //   {
-    //     path: "/equities",
-    //     element: <EquitiesPage />,
-    //   },
-      {
-        path: "/equities/overview",
-        element: <EquitiesOverviewPage />,
-      },
-      {
-        path: "/equities/technicals",
-        element: <EquitiesTechnicalsPage />,
-      },
-      {
-        path: "/equities/financials",
-        element: <EquitiesFinancialsPage />,
-      },
-      {
-        path: "/equities/news",
-        element: <EquitiesNewsPage />,
-      },
-      {
-        path: "/equities/peer-analysis",
-        element: <EquitiesPeerAnalysisPage />,
-      },
-      {
-        path: "/equities/charts",
-        element: <EquitiesChartsPage />,
-      },
-    ],
-  },
-];
+const LocaleProvider = ({ children }) => {
+  const [locale, setLocale] = useState('en');
 
-const router = createBrowserRouter(routes);
+  return (
+    <LocaleContext.Provider value={{ locale, setLocale }}>
+      {children}
+    </LocaleContext.Provider>
+  );
+};
+
+const getMessages = (locale) => {
+  switch (locale) {
+    case 'fr':
+      return import('./translations/fr.json');
+    case 'en':
+    default:
+      return import('./translations/en.json');
+  }
+};
+
+const App = () => {
+  const { locale } = useContext(LocaleContext);
+  const [messages, setMessages] = useState(null);
+
+  useEffect(() => {
+    getMessages(locale).then((msgs) => setMessages(msgs.default));
+  }, [locale]);
+
+  if (!messages) return <div>Loading...</div>; 
+
+  const routes = [
+    {
+      path: "/",
+      element: <DefaultLayout />,
+      children: [
+        {
+          index: true,
+          element: <HomePage />,
+        },
+        {
+          path: "/news",
+          element: <NewsPage />,
+        },
+        {
+          path: "/analysis",
+          element: <AnalysisPage />,
+        },
+        {
+          path: "/watchlist",
+          element: <WatchlistPage />,
+        },
+        {
+          path: "/my-portfolio",
+          element: <PortfolioPage />,
+        },
+        {
+          path: "/markets",
+          element: <MarketsPage />,
+        },
+      //   {
+      //     path: "/equities",
+      //     element: <EquitiesPage />,
+      //   },
+        {
+          path: "/equities/overview",
+          element: <EquitiesOverviewPage />,
+        },
+        {
+          path: "/equities/technicals",
+          element: <EquitiesTechnicalsPage />,
+        },
+        {
+          path: "/equities/financials",
+          element: <EquitiesFinancialsPage />,
+        },
+        {
+          path: "/equities/news",
+          element: <EquitiesNewsPage />,
+        },
+        {
+          path: "/equities/peer-analysis",
+          element: <EquitiesPeerAnalysisPage />,
+        },
+        {
+          path: "/equities/charts",
+          element: <EquitiesChartsPage />,
+        },
+      ],
+    },
+  ];
+
+  const router = createBrowserRouter(routes);
+
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </IntlProvider>
+  );
+};
+
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <LocaleProvider>
+      <App />
+    </LocaleProvider>
   </React.StrictMode>
 );
