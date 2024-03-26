@@ -9,7 +9,7 @@ const DefaultLayout = () => {
   const location = useLocation();
   const currentPage = location.pathname.split("/").pop()
     ? location.pathname.split("/").pop().toLocaleUpperCase()
-    : "HOME";
+    : <FormattedMessage id="homepage.title" />;
 
   const { locale, setLocale } = useContext(LocaleContext);
 
@@ -44,7 +44,7 @@ const DefaultLayout = () => {
         </Grid>
         <Grid item xs={3}>
           <Typography variant="h3">
-            <FormattedMessage id="profile.label" defaultMessage="PROFILE" />  
+            <FormattedMessage id="profile.label" />  
           </Typography>
         </Grid>
       </Grid>
@@ -63,7 +63,7 @@ const DefaultLayout = () => {
                 sx={{ backgroundColor: "white" }}
                 onClick={() => navigate("/")}
               >
-                Home
+              <FormattedMessage id="homepage.title" />
               </Button>
             </Grid>
             <Grid item>
@@ -72,7 +72,7 @@ const DefaultLayout = () => {
                 sx={{ backgroundColor: "white" }}
                 onClick={() => navigate("/analysis")}
               >
-                analysis
+              <FormattedMessage id="analysis.page.title" />
               </Button>
             </Grid>
             <Grid item>
@@ -81,7 +81,7 @@ const DefaultLayout = () => {
                 sx={{ backgroundColor: "white" }}
                 onClick={() => navigate("/markets")}
               >
-                markets
+              <FormattedMessage id="markets.page.title" />
               </Button>
             </Grid>
             <Grid item>
@@ -90,7 +90,7 @@ const DefaultLayout = () => {
                 sx={{ backgroundColor: "white" }}
                 onClick={() => navigate("/my-portfolio")}
               >
-                My Portfolio
+              <FormattedMessage id="portfolio.page.title" />
               </Button>
             </Grid>
             <Grid item>
@@ -99,7 +99,7 @@ const DefaultLayout = () => {
                 sx={{ backgroundColor: "white" }}
                 onClick={() => navigate("/news")}
               >
-                news
+              <FormattedMessage id="news.page.title" />
               </Button>
             </Grid>
             <Grid item>
@@ -108,7 +108,7 @@ const DefaultLayout = () => {
                 sx={{ backgroundColor: "white" }}
                 onClick={() => navigate("/watchlist")}
               >
-                watchlist
+              <FormattedMessage id="watchlist.page.title" />
               </Button>
             </Grid>
           </Grid>

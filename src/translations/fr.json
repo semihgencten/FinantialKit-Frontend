@@ -1,6 +1,12 @@
 {
-    "greeting": "Bonjour, le monde!",
+    "greeting": "Bonjour, Monde !",
     "buttonLabel": "Cliquez moi",
+    "profile.label": "Profil",
     "homepage.title": "Page d'accueil",
-    "logo.label": "LOGO HERE"
+    "news.page.title": "Actualités",
+    "watchlist.page.title": "Liste de surveillance",
+    "portfolio.page.title": "Portefeuille",
+    "analysis.page.title": "Analyse",
+    "markets.page.title": "Marchés",
+    "logo.label": "LOGO ICI"
 }
