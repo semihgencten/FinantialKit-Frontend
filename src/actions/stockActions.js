@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import httpFetch from "utils/httpFetch";
+import httpFetch from "@/utils/httpFetch";
 
 /** 
  * Trendings getter
@@ -18,11 +18,11 @@ export const getTrendings = createAsyncThunk(
     "stocks/getTrendings",
     async () => {
         const response = await httpFetch({
-            url:"/api/stocks/trending",
+            url:"http://127.0.0.1:8000/api/stocks/trending",
             method: "GET"
         });
-        if (!response.ok) throw Error("Failed to load trendings.");
-        return response.data;
+        if (!response?.ok) throw Error("Failed to load trendings.");
+        return response?.data;
     }
 )
 

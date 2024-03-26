@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import httpFetch from "utils/httpFetch";
+import httpFetch from "@/utils/httpFetch";
 
 export const getNews = createAsyncThunk(
     "news/getNews", 
