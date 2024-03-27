@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import companySlice from "@/reducers/companySlice";
-
+import financeSlice from "@/reducers/financeSlice";
 export default configureStore({
   reducer: {
-    company: companySlice,
+    finance: financeSlice,
   },
 });

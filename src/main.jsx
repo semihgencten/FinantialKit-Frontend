@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "@/layouts/default";
 import HomePage from "@/pages/HomePage";
+import TestPage from "@/pages/TestPage";
 import NewsPage from "@/pages/NewsPage";
 import AnalysisPage from "@/pages/AnalysisPage";
 import WatchlistPage from "@/pages/WatchlistPage";
@@ -54,66 +55,70 @@ const App = () => {
 
   if (!messages) return <div>Loading...</div>; 
 
-  const routes = [
-    {
-      path: "/",
-      element: <DefaultLayout />,
-      children: [
-        {
-          index: true,
-          element: <HomePage />,
-        },
-        {
-          path: "/news",
-          element: <NewsPage />,
-        },
-        {
-          path: "/analysis",
-          element: <AnalysisPage />,
-        },
-        {
-          path: "/watchlist",
-          element: <WatchlistPage />,
-        },
-        {
-          path: "/my-portfolio",
-          element: <PortfolioPage />,
-        },
-        {
-          path: "/markets",
-          element: <MarketsPage />,
-        },
-      //   {
-      //     path: "/equities",
-      //     element: <EquitiesPage />,
-      //   },
-        {
-          path: "/equities/overview",
-          element: <EquitiesOverviewPage />,
-        },
-        {
-          path: "/equities/technicals",
-          element: <EquitiesTechnicalsPage />,
-        },
-        {
-          path: "/equities/financials",
-          element: <EquitiesFinancialsPage />,
-        },
-        {
-          path: "/equities/news",
-          element: <EquitiesNewsPage />,
-        },
-        {
-          path: "/equities/peer-analysis",
-          element: <EquitiesPeerAnalysisPage />,
-        },
-        {
-          path: "/equities/charts",
-          element: <EquitiesChartsPage />,
-        },
-      ],
-    },
-  ];
+const routes = [
+  {
+    path: "/",
+    element: <DefaultLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "/news",
+        element: <NewsPage />,
+      },
+      {
+        path: "/test",
+        element: <TestPage />,
+      },
+      {
+        path: "/analysis",
+        element: <AnalysisPage />,
+      },
+      {
+        path: "/watchlist",
+        element: <WatchlistPage />,
+      },
+      {
+        path: "/my-portfolio",
+        element: <PortfolioPage />,
+      },
+      {
+        path: "/markets",
+        element: <MarketsPage />,
+      },
+    //   {
+    //     path: "/equities",
+    //     element: <EquitiesPage />,
+    //   },
+      {
+        path: "/equities/overview",
+        element: <EquitiesOverviewPage />,
+      },
+      {
+        path: "/equities/technicals",
+        element: <EquitiesTechnicalsPage />,
+      },
+      {
+        path: "/equities/financials",
+        element: <EquitiesFinancialsPage />,
+      },
+      {
+        path: "/equities/news",
+        element: <EquitiesNewsPage />,
+      },
+      {
+        path: "/equities/peer-analysis",
+        element: <EquitiesPeerAnalysisPage />,
+      },
+      {
+        path: "/equities/charts",
+        element: <EquitiesChartsPage />,
+      },
+    ],
+  },
+];
 
   const router = createBrowserRouter(routes);
 
