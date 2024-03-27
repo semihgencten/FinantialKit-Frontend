@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "@/layouts/default";
@@ -22,6 +22,38 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Provider } from "react-redux";
 import store from "@/store";
+import { IntlProvider } from 'react-intl';
+import LocaleContext from '@/LocaleContext';
+
+const LocaleProvider = ({ children }) => {
+  const [locale, setLocale] = useState('en');
+
+  return (
+    <LocaleContext.Provider value={{ locale, setLocale }}>
+      {children}
+    </LocaleContext.Provider>
+  );
+};
+
+const getMessages = (locale) => {
+  switch (locale) {
+    case 'fr':
+      return import('./translations/fr.json');
+    case 'en':
+    default:
+      return import('./translations/en.json');
+  }
+};
+
+const App = () => {
+  const { locale } = useContext(LocaleContext);
+  const [messages, setMessages] = useState(null);
+
+  useEffect(() => {
+    getMessages(locale).then((msgs) => setMessages(msgs.default));
+  }, [locale]);
+
+  if (!messages) return <div>Loading...</div>; 
 
 const routes = [
   {
@@ -88,12 +120,23 @@ const routes = [
   },
 ];
 
-const router = createBrowserRouter(routes);
+  const router = createBrowserRouter(routes);
+
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </IntlProvider>
+  );
+};
+
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <LocaleProvider>
+      <App />
+    </LocaleProvider>
   </React.StrictMode>
 );
