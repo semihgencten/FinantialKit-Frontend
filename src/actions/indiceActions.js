@@ -5,10 +5,10 @@ export const getIndices = createAsyncThunk(
     "user/getIndices", 
     async () => {
         const response = await httpFetch({
-            url:"api/user/watchlist",
+            url:"/user/watchlist",
             method:"GET"
         });
-        if (!response.ok) throw Error("Could not fetch watchlist.");
+        // if (!response.ok) throw Error("Could not fetch watchlist.");
         return response.data;
     }
 )
@@ -16,12 +16,12 @@ export const getIndices = createAsyncThunk(
 export const getPortfolio = createAsyncThunk(
     "user/getPortfolio", 
     async () => {
-        return ["mrb"]
-        // const response = await httpFetch({
-        //     url:"/api/user/portfolio",
-        //     method:"GET"
-        // });
+        // return ["mrb"]
+        const response = await httpFetch({
+            url:"/user/portfolio",
+            method:"GET"
+        });
         // if (!response.ok) throw Error("Could not fetch portfolio.");
-        // return response.data;
+        return response.data;
     }
 )

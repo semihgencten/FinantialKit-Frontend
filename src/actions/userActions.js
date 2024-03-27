@@ -5,10 +5,10 @@ export const getWatchlist = createAsyncThunk(
     "user/getWatchlist",
     async () => {
         const response = await httpFetch({
-            url:"/api/user/watchlist",
+            url:"/user/watchlist",
             method: "GET"
         });
-        if (!response.ok) throw Error("Failed to load trendings.");
+        // if (!response.ok) throw Error("Failed to load trendings.");
         return response.data;
     }
 )
@@ -18,10 +18,10 @@ export const getPortfolio = createAsyncThunk(
     "user/getPortfolio", 
     async () => {
         const response = await httpFetch({
-            url:"/api/user/portfolio",
+            url:"/user/portfolio",
             method:"GET"
         });
-        if (!response.ok) throw Error("Could not fetch portfolio.");
+        // if (!response.ok) throw Error("Could not fetch portfolio.");
         return response.data;
     }
 )

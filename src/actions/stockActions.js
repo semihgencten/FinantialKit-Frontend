@@ -17,13 +17,13 @@ import httpFetch from "@/utils/httpFetch";
 export const getTrendings = createAsyncThunk(
     "stocks/getTrendings",
     async () => {
-        return ["sea"];
-        // const response = await httpFetch({
-        //     url:"/api/stocks/trending",
-        //     method: "GET"
-        // });
+        // return ["sea"];
+        const response = await httpFetch({
+            url:"/stocks/trending",
+            method: "GET"
+        });
         // if (!response.ok) throw Error("Failed to load trendings.");
-        // return response.data;
+        return response.data;
     }
 )
 
@@ -43,7 +43,7 @@ export  const getTopGainers = createAsyncThunk(
     "stocks/getTopGainers",
     async () => {
         const response =await httpFetch({
-            url:"/api/stocks/top-gainers",
+            url:"/stocks/top-gainers",
             method:"GET"
         });
         return response.data;
@@ -68,7 +68,7 @@ export const getStocks = createAsyncThunk(
     "stocks/getStocks",
     async () => {
         const response =await httpFetch({
-            url:"/api/stocks/",
+            url:"/stocks/",
             method: 'GET',
         });
         return response.data;
@@ -79,10 +79,10 @@ export const getOverview = createAsyncThunk(
     "stocks/getOverview",
     async ()=>{
         const response = await httpFetch({
-            url:"/api/stocks/{symbol}/overview",
+            url:"/stocks/{symbol}/overview",
             method:"GET"
         })
-        return response
+        return response.data
     }
 )
 
@@ -91,10 +91,10 @@ export const getTechnical = createAsyncThunk(
     "stocks/getTechnical",
     async ()=>{
         const response = await httpFetch({
-            url:"/api/stocks/{symbol}/technicals",
+            url:"/stocks/{symbol}/technicals",
             method:"GET"
         })
-        return response
+        return response.data
     }
 )
 
@@ -102,10 +102,10 @@ export const getFinancials = createAsyncThunk(
     "stocks/getFinancials",
     async ()=>{
         const response = await httpFetch({
-            url:"/api/stocks/{symbol}/financials",
+            url:"/stocks/{symbol}/financials",
             method:"GET"
         })
-        return response
+        return response.data
     }
 )
 
@@ -114,10 +114,10 @@ export const getNews = createAsyncThunk(
     "stocks/getNews",
     async ()=>{
         const response = await httpFetch({
-            url:"/api/stocks/{symbol}/news",
+            url:"/stocks/{symbol}/news",
             method:"GET"
         })
-        return response
+        return response.data
     }
 )
 
@@ -125,10 +125,10 @@ export const getCharts = createAsyncThunk(
     "stocks/getCharts",
     async ()=>{
         const response = await httpFetch({
-            url:"/api/stocks/{symbol}/charts",
+            url:"/stocks/{symbol}/charts",
             method:"GET"
         })
-        return response
+        return response.data
     }
 )
 
@@ -136,9 +136,9 @@ export const getPeerAnalysis = createAsyncThunk(
     "stocks/getPeerAnalysis",
     async ()=>{
         const response = await httpFetch({
-            url:"/api/stocks/{symbol}/peerAnalysis",
+            url:"/stocks/{symbol}/peerAnalysis",
             method:"GET"
         })
-        return response
+        return response.data
     }
 )
