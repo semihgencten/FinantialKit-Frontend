@@ -17,12 +17,13 @@ import httpFetch from "@/utils/httpFetch";
 export const getTrendings = createAsyncThunk(
     "stocks/getTrendings",
     async () => {
-        const response = await httpFetch({
-            url:"http://127.0.0.1:8000/api/stocks/trending",
-            method: "GET"
-        });
-        if (!response?.ok) throw Error("Failed to load trendings.");
-        return response?.data;
+        return ["sea"];
+        // const response = await httpFetch({
+        //     url:"/api/stocks/trending",
+        //     method: "GET"
+        // });
+        // if (!response.ok) throw Error("Failed to load trendings.");
+        // return response.data;
     }
 )
 
