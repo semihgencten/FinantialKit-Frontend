@@ -85,7 +85,7 @@ const EquitiesTechnicalsPage = () => {
                     <GaugeChart2 />
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div style={{ height: 400, width: '48%' }}>
+                <div style={{ height: 450, width: '48%' }}>
                     <h3>Moving Averages</h3>
                     <DataGrid
                         rows={maRows}
@@ -96,7 +96,7 @@ const EquitiesTechnicalsPage = () => {
                             },
                         }}
                         pageSizeOptions={[5, 10]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
                 <div style={{ height: 400, width: '48%' }}>
@@ -110,7 +110,7 @@ const EquitiesTechnicalsPage = () => {
                             },
                         }}
                         pageSizeOptions={[5, 10]}
-                        checkboxSelection
+                        checkboxSelection={false}
                     />
                 </div>
             </div>
@@ -125,7 +125,7 @@ const EquitiesTechnicalsPage = () => {
                         },
                     }}
                     pageSizeOptions={[5, 10]}
-                    checkboxSelection
+                    checkboxSelection={false}
                 />
             </div>
         </div>
