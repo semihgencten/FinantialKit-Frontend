@@ -9,6 +9,13 @@ import AnalysisPage from "@/pages/AnalysisPage";
 import WatchlistPage from "@/pages/WatchlistPage";
 import PortfolioPage from "@/pages/PortfolioPage";
 import MarketsPage from "@/pages/MarketsPage";
+// import EquitiesPage from "@/pages/EquitiesPage";
+import EquitiesTechnicalsPage from "@/pages/EquitiesTechnicalsPage";
+import EquitiesFinancialsPage from "@/pages/EquitiesFinancialsPage";
+import EquitiesNewsPage from "@/pages/EquitiesNewsPage";
+import EquitiesPeerAnalysisPage from "@/pages/EquitiesPeerAnalysisPage";
+import EquitiesChartsPage from "@/pages/EquitiesChartsPage";
+import EquitiesOverviewPage from "@/pages/EquitiesOverviewPage";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -48,6 +55,34 @@ const routes = [
       {
         path: "/markets",
         element: <MarketsPage />,
+      },
+    //   {
+    //     path: "/equities",
+    //     element: <EquitiesPage />,
+    //   },
+      {
+        path: "/equities/overview",
+        element: <EquitiesOverviewPage />,
+      },
+      {
+        path: "/equities/technicals",
+        element: <EquitiesTechnicalsPage />,
+      },
+      {
+        path: "/equities/financials",
+        element: <EquitiesFinancialsPage />,
+      },
+      {
+        path: "/equities/news",
+        element: <EquitiesNewsPage />,
+      },
+      {
+        path: "/equities/peer-analysis",
+        element: <EquitiesPeerAnalysisPage />,
+      },
+      {
+        path: "/equities/charts",
+        element: <EquitiesChartsPage />,
       },
     ],
   },
