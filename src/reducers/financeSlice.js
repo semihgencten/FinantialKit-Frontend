@@ -10,6 +10,12 @@ import {
 
 const initialState = {
   list: [],
+  balancesheet: [],
+  cashflow: [],
+  histories: [],
+  incomeStatements: [],
+  indicators: [],
+  stockTechnicals: [],
   status: "idle",
   error: null,
 };
@@ -23,32 +29,32 @@ export const financeSlice = createSlice({
       .addCase(getBalancesheet.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        console.log(action.payload);
+        state.balancesheet = action.payload;
       })
       .addCase(getCashflow.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        console.log(action.payload);
+        state.cashflow = action.payload;
       })
       .addCase(getHistories.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        console.log(action.payload);
+        state.histories = action.payload;
       })
       .addCase(getIncomeStatement.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        console.log(action.payload);
+        state.incomeStatements = action.payload;
       })
       .addCase(getIndicators.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        console.log(action.payload);
+        state.indicators = action.payload;
       })
       .addCase(getStockTechnicals.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
-        console.log(action.payload);
+        state.stockTechnicals = action.payload;
       })
       .addMatcher(
         (action) => action.type.endsWith("/pending"),
