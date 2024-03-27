@@ -15,6 +15,9 @@ import EquitiesNewsPage from "@/pages/EquitiesNewsPage";
 import EquitiesPeerAnalysisPage from "@/pages/EquitiesPeerAnalysisPage";
 import EquitiesChartsPage from "@/pages/EquitiesChartsPage";
 import EquitiesOverviewPage from "@/pages/EquitiesOverviewPage";
+import DividendsSubpage from "@/pages/FinancialsPage/DividensSubpage"
+import RiskSubpage from "@/pages/FinancialsPage/RiskSubpage"
+import StatementsSubpage from "@/pages/FinancialsPage/StatemensSubpage"
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -55,6 +58,19 @@ const routes = [
     //     path: "/equities",
     //     element: <EquitiesPage />,
     //   },
+       
+      {
+        path: "/equities/financials/dividends",
+        element: <DividendsSubpage />,
+      },
+      {
+        path: "/equities/financials/risk",
+        element: <RiskSubpage />,
+      },
+      {
+        path: "/equities/financials/statements",
+        element: <StatementsSubpage />,
+      },
       {
         path: "/equities/overview",
         element: <EquitiesOverviewPage />,
