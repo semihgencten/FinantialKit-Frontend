@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "@/layouts/default";
 import HomePage from "@/pages/HomePage";
+import TestPage from "@/pages/TestPage";
 import NewsPage from "@/pages/NewsPage";
 import AnalysisPage from "@/pages/AnalysisPage";
 import WatchlistPage from "@/pages/WatchlistPage";
@@ -27,6 +28,10 @@ const routes = [
       {
         path: "/news",
         element: <NewsPage />,
+      },
+      {
+        path: "/test",
+        element: <TestPage />,
       },
       {
         path: "/analysis",
