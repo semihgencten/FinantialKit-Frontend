@@ -11,9 +11,10 @@ export const registerUser = createAsyncThunk(
     //   "password": "string",
     //   "password2": "string"
     // }
+    console.log("body: ",body);
     const response = await httpFetch({
       method: "POST",
-      url: "/users/register",
+      url: "/users/register/",
       data: body,
     });
     return response.data;

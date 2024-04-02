@@ -8,5 +8,9 @@
     "portfolio.page.title": "Portefeuille",
     "analysis.page.title": "Analyse",
     "markets.page.title": "Marchés",
-    "logo.label": "LOGO ICI"
+    "logo.label": "LOGO ICI",
+
+    "firstname": "prénom",
+    "secondname": "nom de famille",
+    "password": "mot de passe"
 }

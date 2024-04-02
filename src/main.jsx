@@ -24,7 +24,8 @@ import { Provider } from "react-redux";
 import store from "@/store";
 import { IntlProvider } from 'react-intl';
 import LocaleContext from '@/LocaleContext';
-import SignUp from "@/pages/AuthPage";
+import SignUp from "@/pages/AuthPages/SignUp";
+import SignIn from "@/pages/AuthPages/SignIn";
 
 const LocaleProvider = ({ children }) => {
   const [locale, setLocale] = useState('en');
@@ -120,6 +121,10 @@ const routes = [
       {
         path:"/sign-up",
         element: <SignUp />
+      },
+      {
+        path:"/sign-in",
+        element: <SignIn />
       }
     ],
   },

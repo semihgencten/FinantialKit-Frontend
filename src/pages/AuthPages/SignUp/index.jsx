@@ -12,19 +12,47 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useDispatch } from 'react-redux';
+import { registerUser } from '@/actions/authActions';
+import { useState } from 'react';
+import { error } from 'highcharts';
 const defaultTheme = createTheme();
 
 
+const SignUp = ()=> {
+    const dispatch = useDispatch();
+    const [user,setUser] = useState(); 
 
-export default function SignUp() {
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event)=> {
       event.preventDefault();
+
       const data = new FormData(event.currentTarget);
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-      });
+      const payload = {
+        username: data.get("username"),
+        email: data.get("email"),
+        password: data.get("password1"),
+        password2: data.get("password2"), 
+      }
+      let res = await dispatch(
+        registerUser(payload)
+      );
+      if(res.error){
+        alert("The user is already exists");
+        return
+      }
+      alert(res.payload.message);
+      await setUser(res.payload);
+      console.log("user is",res);
+    //   {
+    //     "user": {
+    //         "url": "http://127.0.0.1:8000/api/users/2/",
+    //         "username": "asdas2",
+    //         "email": "asdsadqqqqq2q@mail.com",
+    //         "groups": []
+    //     },
+    //     "token": "ef633d01507d2800130c1f48eacdd02487c8c715",
+    //     "message": "User Created Successfully."
+    // }
     };
   
     return (
@@ -72,6 +100,16 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
                     id="email"
                     label="Email Address"
                     name="email"
@@ -83,19 +121,30 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    name="password"
+                    name="password1"
                     label="Password"
                     type="password"
-                    id="password"
+                    id="password1"
                     autoComplete="new-password"
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password2"
+                    label="Rewrite Password"
+                    type="password"
+                    id="password2"
+                    autoComplete="again-password"
+                  />
+                </Grid>
+                {/* <Grid item xs={12}>
                   <FormControlLabel
                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                     label="I want to receive inspiration, marketing promotions and updates via email."
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
               <Button
                 type="submit"
@@ -118,3 +167,5 @@ export default function SignUp() {
       </ThemeProvider>
     );
   }
+
+export default SignUp;

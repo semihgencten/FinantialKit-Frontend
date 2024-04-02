@@ -8,5 +8,9 @@
     "portfolio.page.title": "Portfolio",
     "analysis.page.title": "Analysis",
     "markets.page.title": "Markets",
-    "logo.label": "LOGO HERE"
+    "logo.label": "LOGO HERE",
+    
+    "firstname": "Firstname",
+    "secondname": "secondname",
+    "password": "password"
 }
