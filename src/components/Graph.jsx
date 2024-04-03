@@ -23,7 +23,7 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
             data: data.ohlc,
             id: 'main',
             dataGrouping: {
-            units: groupingUnits
+                units: groupingUnits
             },
         }];
 
@@ -86,7 +86,7 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
 
             navigator: {
                 series: {
-                id: 'main',
+                    id: 'main',
                 }
             }
         });
@@ -116,10 +116,18 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
 
     const updatePlotOptions = () => {
         chartRef.current.series.forEach(series => {
-            if (series.name && series.name !== "NVDA") {
+            console.log(series);
+            if (series.name && series.name !== "NVDA" && series.yAxis.userOptions.id !== "mainAxis") {
                 series.update({
                     tooltip: {
                         pointFormat: '<span>{point.y}</span>', 
+                    },
+                }, false);
+            }
+            else if(series.name && series.name !== "NVDA" && series.yAxis.userOptions.id === "mainAxis"){
+                series.update({
+                    tooltip: {
+                        pointFormat: '<span>{series.userOptions.id}: {point.y}</span>', 
                     },
                 }, false);
             }
@@ -187,6 +195,7 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
         }, false); // false to delay redraw
     }
 
+    // add axis for side indicator
     const addIndicatorAxis = (chart, axisName, indicatorTechnicalName) => {
         chart.addAxis({
             id: axisName,
@@ -223,16 +232,16 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
         const mainAxis = chart.get('mainAxis');
         
         if (mainAxis) {
-        mainAxis.update({
-            height: viewMode === 'simple' ? '100%' : '60%',
-        }, false);
+            mainAxis.update({
+                height: viewMode === 'simple' ? '100%' : '60%',
+            }, false);
         }
 
-        const seriesToRemove = chart.series.filter(series => 
-        series.userOptions.id !== 'main' && !selectedIndicatorsList.includes(series.userOptions.id)
+        const sideIndicatorSeriesToRemove = chart.series.filter(series => 
+            series.userOptions.id !== 'main' && !selectedIndicatorsList.includes(series.userOptions.id)
         );
 
-        seriesToRemove.forEach(series => series.remove(false));
+        sideIndicatorSeriesToRemove.forEach(series => series.remove(false));
         
         // dynamically check and add missing indicators
         selectedIndicatorsList.forEach(indicator => {
@@ -245,7 +254,6 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
                 if (!chart.get(axisName)) {
                     addIndicatorAxis(chart, axisName, indicator.technicalName);
                 }
-
                 addIndicatorSeries(chart, axisName, indicator, data.volume);
             }
             if (indicator.technicalName === 'rsi') {
@@ -260,19 +268,42 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
                 const momdata = data.volume;
                 axisName = indicator.technicalName + "Axis";
                 if (!chart.get(axisName)) {
-                    addIndicatorAxis(chart, axisName, indicator.technicalName);
+                    addIndicatorAxis(chart, axisName, indicator.technicalName, indicator.location);
                 }
                 addIndicatorSeries(chart, axisName, indicator, momdata);
             }
             if (indicator.technicalName === 'bop') {
-                const momdata = data.volume;
+                const bopdata = data.volume;
                 axisName = indicator.technicalName + "Axis";
                 if (!chart.get(axisName)) {
-                    addIndicatorAxis(chart, axisName, indicator.technicalName);
+                    addIndicatorAxis(chart, axisName, indicator.technicalName, indicator.location);
                 }
-                addIndicatorSeries(chart, axisName, indicator, momdata);
+                addIndicatorSeries(chart, axisName, indicator, bopdata);
+            }
+            // uncomment below for code which work with correct data
+            /* if (indicator.location === "main") {
+                addIndicatorSeries(chart, axisName, indicator, data.ohlc, indicator.location);
+            } */
+            // for mockup purposes, temporarily some values close to data.ohlc will be provided for ma7, ma14 and ma30
+            if(indicator.technicalName === "ma7"){
+                let b = data.ohlc.map(index => {
+                    return [index[0], index[1] - 15];
+                });
+                
+                addIndicatorSeries(chart, "mainAxis", indicator, b);
             }
 
+            if(indicator.technicalName === "ma14"){
+                let c = data.ohlc.map(index => {
+                    return [index[0], index[1] + 15];
+                });
+                
+                addIndicatorSeries(chart, "mainAxis", indicator, c);
+            }
+            
+            if(indicator.technicalName === "ma30"){
+                addIndicatorSeries(chart, "mainAxis", indicator, data.ohlc);
+            }
         }
         });
         
@@ -285,19 +316,19 @@ export const Graph = ({ graphLightMode = "light", selectedIndicatorsList = [], v
         });
         
         const defaultMainGraphHeight = viewMode === 'simple' ? 100 : 60; // main OHLC graph is 60% default
-        const computedIndicatorHeight = 40 / selectedIndicatorsList.length; // the amount remaining from the default graph is 40% for indicators
-        
+        const computedIndicatorHeight = 40 / selectedIndicatorsList.filter(indicator => indicator.location === "side").length; // the amount remaining from the default graph is 40% for side indicators        
         // iterate over the remaining axes to update their height and top values
         chart.yAxis.forEach((axis) => {
             // ensure we're only dealing with indicator axes, not the main or navigator axis
             if (axis.options.id !== 'mainAxis' && axis.options.id !== 'navigator-y-axis') {
-            const indicator = selectedIndicatorsList.find(ind => axis.options.id === ind.technicalName + 'Axis');
+            const sideIndicators = selectedIndicatorsList.filter(indicator => indicator.location === "side");
+            const indicator = sideIndicators.find(ind => axis.options.id === ind.technicalName + 'Axis');
             if (indicator) { // If the axis is found in the selectedIndicatorsList
-                const indicatorIndex = selectedIndicatorsList.indexOf(indicator);
+                const indicatorIndex = sideIndicators.indexOf(indicator);
                 const topPositionValue = defaultMainGraphHeight + (indicatorIndex * computedIndicatorHeight);
                 const topPositionString = `${topPositionValue}%`;
                 const indicatorHeightString = `${computedIndicatorHeight}%`;
-        
+
                 // now update the axis with the new height and top values
                 axis.update({
                 top: topPositionString,
