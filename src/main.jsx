@@ -22,13 +22,13 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Provider } from "react-redux";
 import store from "@/store";
-import { IntlProvider } from 'react-intl';
-import LocaleContext from '@/LocaleContext';
+import { IntlProvider } from "react-intl";
+import LocaleContext from "@/LocaleContext";
 import SignUp from "@/pages/AuthPages/SignUp";
 import SignIn from "@/pages/AuthPages/SignIn";
 
 const LocaleProvider = ({ children }) => {
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState("en");
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
@@ -39,11 +39,11 @@ const LocaleProvider = ({ children }) => {
 
 const getMessages = (locale) => {
   switch (locale) {
-    case 'fr':
-      return import('./translations/fr.json');
-    case 'en':
+    case "fr":
+      return import("./translations/fr.json");
+    case "en":
     default:
-      return import('./translations/en.json');
+      return import("./translations/en.json");
   }
 };
 
@@ -55,80 +55,81 @@ const App = () => {
     getMessages(locale).then((msgs) => setMessages(msgs.default));
   }, [locale]);
 
-  if (!messages) return <div>Loading...</div>; 
+  if (!messages) return <div>Loading...</div>;
 
-const routes = [
-  {
-    path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "/news",
-        element: <NewsPage />,
-      },
-      {
-        path: "/test",
-        element: <TestPage />,
-      },
-      {
-        path: "/analysis",
-        element: <AnalysisPage />,
-      },
-      {
-        path: "/watchlist",
-        element: <WatchlistPage />,
-      },
-      {
-        path: "/my-portfolio",
-        element: <PortfolioPage />,
-      },
-      {
-        path: "/markets",
-        element: <MarketsPage />,
-      },
-    //   {
-    //     path: "/equities",
-    //     element: <EquitiesPage />,
-    //   },
-      {
-        path: "/equities/overview",
-        element: <EquitiesOverviewPage />,
-      },
-      {
-        path: "/equities/technicals",
-        element: <EquitiesTechnicalsPage />,
-      },
-      {
-        path: "/equities/financials",
-        element: <EquitiesFinancialsPage />,
-      },
-      {
-        path: "/equities/news",
-        element: <EquitiesNewsPage />,
-      },
-      {
-        path: "/equities/peer-analysis",
-        element: <EquitiesPeerAnalysisPage />,
-      },
-      {
-        path: "/equities/charts",
-        element: <EquitiesChartsPage />,
-      },
-      {
-        path:"/sign-up",
-        element: <SignUp />
-      },
-      {
-        path:"/sign-in",
-        element: <SignIn />
-      }
-    ],
-  },
-];
+  const routes = [
+    {
+      path: "/",
+      element: <DefaultLayout />,
+      children: [
+        {
+          index: true,
+          element: <HomePage />,
+        },
+        {
+          path: "/news",
+          element: <NewsPage />,
+        },
+        {
+          path: "/test",
+          element: <TestPage />,
+        },
+        {
+          path: "/analysis",
+          element: <AnalysisPage />,
+        },
+        {
+          path: "/watchlist",
+          element: <WatchlistPage />,
+        },
+        {
+          path: "/my-portfolio",
+          element: <PortfolioPage />,
+        },
+        {
+          path: "/markets",
+          element: <MarketsPage />,
+        },
+        //   {
+        //     path: "/equities",
+        //     element: <EquitiesPage />,
+        //   },
+        {
+          path: "/equities/overview",
+          element: <EquitiesOverviewPage />,
+        },
+        {
+          path: "/equities/technicals",
+          element: <EquitiesTechnicalsPage />,
+        },
+        {
+          path: "/equities/financials",
+          element: <EquitiesFinancialsPage />,
+        },
+        {
+          path: "/equities/news",
+          element: <EquitiesNewsPage />,
+        },
+        {
+          path: "/equities/peer-analysis",
+          element: <EquitiesPeerAnalysisPage />,
+        },
+
+        {
+          path: "/equities/charts",
+          element: <EquitiesChartsPage />,
+        },
+        {
+          path: "/sign-up",
+          element: <SignUp />,
+        },
+        {
+          path: "/sign-in",
+          element: <SignIn />,
+        },
+      ],
+    },
+  ];
 
   const router = createBrowserRouter(routes);
 
@@ -141,12 +142,10 @@ const routes = [
   );
 };
 
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <LocaleProvider>
       <App />
     </LocaleProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
