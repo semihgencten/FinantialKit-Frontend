@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 
 // custom hook for data fetching and formatting
 export const useChartData = (url) => {
-    const fetchDataAndFormat = async () => {
-        const response = await fetch(url);
+  const fetchDataAndFormat = async () => {
+    const response = await fetch(url);
 
-        // comment below for Backend API Request
-        /* const requestBody = {
+    // comment below for Backend API Request
+    /* const requestBody = {
             names: ["aapl"],
             period: "6mo"
         };
@@ -32,11 +32,11 @@ export const useChartData = (url) => {
     return { ohlc, volume };
   };
 
-    const [data, setData] = useState({ ohlc: [], volume: [] });
+  const [data, setData] = useState({ ohlc: [], volume: [] });
 
-    useEffect(() => {
-        fetchDataAndFormat().then(setData);
-    }, []);
+  useEffect(() => {
+    fetchDataAndFormat().then(setData);
+  }, []);
 
-    return data;
+  return data;
 };
