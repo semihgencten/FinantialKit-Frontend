@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from "react-intl";
 
 const HomePage = () => {
   return (

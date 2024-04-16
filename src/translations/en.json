@@ -1,12 +1,16 @@
 {
-    "greeting": "Hello, World!",
-    "buttonLabel": "Click me",
-    "profile.label": "Profile",
-    "homepage.title": "Home",
-    "news.page.title": "News",
-    "watchlist.page.title": "Watchlist",
-    "portfolio.page.title": "Portfolio",
-    "analysis.page.title": "Analysis",
-    "markets.page.title": "Markets",
-    "logo.label": "LOGO HERE"
+  "greeting": "Hello, World!",
+  "buttonLabel": "Click me",
+  "profile.label": "Profile",
+  "homepage.title": "Home",
+  "news.page.title": "News",
+  "watchlist.page.title": "Watchlist",
+  "portfolio.page.title": "Portfolio",
+  "analysis.page.title": "Analysis",
+  "markets.page.title": "Markets",
+  "logo.label": "LOGO HERE",
+
+  "firstname": "Firstname",
+  "secondname": "secondname",
+  "password": "password"
 }
