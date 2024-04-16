@@ -13,6 +13,6 @@ jobs:
       - run: git status
 
       - uses: mikeal/publish-to-github-action@master
-        env:  
+        env:
           GITHUB_TOKEN: ${{ secrets.PRETTIER_SECRET_KEY }}
           BRANCH_NAME: 18-ubeydullah
