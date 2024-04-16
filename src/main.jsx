@@ -24,8 +24,10 @@ import { Provider } from "react-redux";
 import store from "@/store";
 import { IntlProvider } from "react-intl";
 import LocaleContext from "@/LocaleContext";
-import SignUp from "@/pages/AuthPages/SignUp";
+import PasswordForgot from "@/pages/AuthPages/PasswordForgot";
+import PasswordChange from "@/pages/AuthPages/PasswordChange";
 import SignIn from "@/pages/AuthPages/SignIn";
+import SignUp from "@/pages/AuthPages/SignUp";
 
 const LocaleProvider = ({ children }) => {
   const [locale, setLocale] = useState("en");
@@ -126,6 +128,14 @@ const App = () => {
         {
           path: "/sign-in",
           element: <SignIn />,
+        },
+        {
+          path: "/forgot-password",
+          element: <PasswordForgot />
+        },
+        {
+          path: "/change-password",
+          element: <PasswordChange />
         },
       ],
     },
