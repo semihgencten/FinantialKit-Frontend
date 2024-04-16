@@ -12,7 +12,7 @@ jobs:
       - run: npm run format
       - run: git status
 
-            - uses: mikeal/publish-to-github-action@master
-              env:  
-                GITHUB_TOKEN: ${{ secrets.PRETTIER_SECRET_KEY }}
-                BRANCH_NAME: ${{ github.repository }}
+      - uses: mikeal/publish-to-github-action@master
+        env:  
+          GITHUB_TOKEN: ${{ secrets.PRETTIER_SECRET_KEY }}
+          BRANCH_NAME: ${{ github.repository }}
