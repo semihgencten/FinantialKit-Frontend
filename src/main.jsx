@@ -124,7 +124,8 @@ const App = () => {
           element: <SignUp />,
         },
         {
-          path: "/sign-in",element: <SignIn />, // Bad formatted code
+          path: "/sign-in",
+          element: <SignIn />, // Bad formatted code
         },
       ],
     },
