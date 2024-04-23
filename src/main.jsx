@@ -20,6 +20,7 @@ import StatisticSubpage from "@/pages/FinancialsPage/StatisticSubpage";
 import RiskSubpage from "@/pages/FinancialsPage/RiskSubpage";
 import StatementsSubpage from "@/pages/FinancialsPage/StatemensSubpage";
 import ProfileSubpage from "@/pages/FinancialsPage/ProfileSubpage";
+import HoldersSubpage from "@/pages/FinancialsPage/HoldersSubpage";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -80,6 +81,10 @@ const routes = [
       {
         path: "/equities/financials/statistics",
         element: <StatisticSubpage />,
+      },
+      {
+        path: "/equities/financials/holders",
+        element: <HoldersSubpage/>,
       },
       {
         path: "/equities/overview",
