@@ -18,7 +18,7 @@ const TabsLayout = ({ children }) => {
                 navigate('/equities/overview');
                 break;
             case 'two':
-                navigate('/equities/financials');
+                navigate('/equities/financials/profile');
                 break;
             case 'three':
                 navigate('/equities/technicals');
@@ -65,7 +65,7 @@ const getTabValueFromPath = (path) => {
     switch(path) {
         case '/equities/overview':
             return 'one';
-        case '/equities/financials':
+        case '/equities/financials/profile':
             return 'two';
         case '/equities/technicals':
             return 'three';
