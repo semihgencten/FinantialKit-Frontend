@@ -1,5 +1,6 @@
 import React from 'react';
-import TabsLayout from '@/pages/EquitiesPage';
+import TabsLayout1 from '@/pages/FinancialsPage/EquitiesPage';
+import FinancialsTabsLayout from '@/pages/EquitiesFinancialsPage';
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const DividendsSubpage = () => {
@@ -15,7 +16,8 @@ const DividendsSubpage = () => {
   ];
 
   return (
-    <TabsLayout>
+    <TabsLayout1>
+       <FinancialsTabsLayout>
       <Box sx={{ textAlign: "center" }}>
         <Typography variant="h2">Dividends Page</Typography>
         
@@ -39,7 +41,8 @@ const DividendsSubpage = () => {
           </Table>
         </TableContainer>
       </Box>
-    </TabsLayout>
+      </FinancialsTabsLayout>
+    </TabsLayout1>
   );
 };
 

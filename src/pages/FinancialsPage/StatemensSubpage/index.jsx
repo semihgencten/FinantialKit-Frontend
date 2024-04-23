@@ -1,5 +1,6 @@
 import React from 'react';
-import TabsLayout from '@/pages/EquitiesPage';
+import TabsLayout1 from '@/pages/FinancialsPage/EquitiesPage';
+import FinancialsTabsLayout from '@/pages/EquitiesFinancialsPage';
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Divider } from '@mui/material';
 
 const StatementsSubpage = () => {
@@ -52,41 +53,66 @@ const StatementsSubpage = () => {
   ];
 
   return (
-    <TabsLayout>
-      <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h2">Statements Page</Typography>
+    <TabsLayout1>
+      <FinancialsTabsLayout>
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h2">Statements Page</Typography>
 
-        {/* Income Statements and Balance Sheet Tables */}
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          {/* Income Statements Table */}
-          <Box>
-            <Typography variant="h4">Income Statements</Typography>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Parameter</TableCell>
-                    <TableCell>Value</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {incomeStatementData.map((row) => (
-                    <TableRow key={row.name}>
-                      <TableCell>{row.name}</TableCell>
-                      <TableCell>{row.value}</TableCell>
+          
+          <Box display="flex" justifyContent="space-between" mt={2}>
+           
+            <Box>
+              <Typography variant="h4">Income Statements</Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Parameter</TableCell>
+                      <TableCell>Value</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {incomeStatementData.map((row) => (
+                      <TableRow key={row.name}>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>{row.value}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+
+           
+            <Divider orientation="vertical" flexItem />
+
+          
+            <Box>
+              <Typography variant="h4">Balance Sheet</Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Parameter</TableCell>
+                      <TableCell>Value</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {balanceSheetData.map((row) => (
+                      <TableRow key={row.name}>
+                        <TableCell>{row.name}</TableCell>
+                        <TableCell>{row.value}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
           </Box>
 
-          {/* Divider between tables */}
-          <Divider orientation="vertical" flexItem />
-
-          {/* Balance Sheet Table */}
-          <Box>
-            <Typography variant="h4">Balance Sheet</Typography>
+          
+          <Box mt={2}>
+            <Typography variant="h4">Cash Flow</Typography>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -96,7 +122,7 @@ const StatementsSubpage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {balanceSheetData.map((row) => (
+                  {cashFlowData.map((row) => (
                     <TableRow key={row.name}>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.value}</TableCell>
@@ -107,31 +133,9 @@ const StatementsSubpage = () => {
             </TableContainer>
           </Box>
         </Box>
-
-        {/* Cash Flow Table */}
-        <Box mt={2}>
-          <Typography variant="h4">Cash Flow</Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Parameter</TableCell>
-                  <TableCell>Value</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {cashFlowData.map((row) => (
-                  <TableRow key={row.name}>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </Box>
-    </TabsLayout>
+      </FinancialsTabsLayout>
+      
+    </TabsLayout1>
   );
 };
 
