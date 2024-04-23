@@ -8,6 +8,7 @@ import NewsPage from "@/pages/NewsPage";
 import AnalysisPage from "@/pages/AnalysisPage";
 import WatchlistPage from "@/pages/WatchlistPage";
 import PortfolioPage from "@/pages/PortfolioPage";
+import PortfolioDetailPage from "@/pages/PortfolioDetailPage";
 import MarketsPage from "@/pages/MarketsPage";
 // import EquitiesPage from "@/pages/EquitiesPage";
 import EquitiesTechnicalsPage from "@/pages/EquitiesTechnicalsPage";
@@ -83,6 +84,10 @@ const routes = [
       {
         path: "/my-portfolio",
         element: <PortfolioPage />,
+      },
+      {
+        path: "/my-portfolio/detail/:portfolioId",
+        element: <PortfolioDetailPage />,
       },
       {
         path: "/markets",
