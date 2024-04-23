@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom/client";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "@/layouts/default";
 import HomePage from "@/pages/HomePage";
@@ -37,6 +38,10 @@ const LocaleProvider = ({ children }) => {
   );
 };
 
+const speedInsider = ()=> {
+    return <SpeedInsights/>
+}
+
 const getMessages = (locale) => {
   switch (locale) {
     case "fr":
@@ -54,7 +59,7 @@ const App = () => {
   useEffect(() => {
     getMessages(locale).then((msgs) => setMessages(msgs.default));
   }, [locale]);
-
+  speedInsider();
   if (!messages) return <div>Loading...</div>;
 
   const routes = [
