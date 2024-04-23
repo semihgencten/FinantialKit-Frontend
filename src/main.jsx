@@ -93,27 +93,27 @@ const routes = [
     //     element: <EquitiesPage />,
     //   },
       {
-        path: "/equities/overview",
+        path: "/equities/:symbol/overview",
         element: <EquitiesOverviewPage />,
       },
       {
-        path: "/equities/technicals",
+        path: "/equities/:symbol/technicals",
         element: <EquitiesTechnicalsPage />,
       },
       {
-        path: "/equities/financials",
+        path: "/equities/:symbol/financials",
         element: <EquitiesFinancialsPage />,
       },
       {
-        path: "/equities/news",
+        path: "/equities/:symbol/news",
         element: <EquitiesNewsPage />,
       },
       {
-        path: "/equities/peer-analysis",
+        path: "/equities/:symbol/peer-analysis",
         element: <EquitiesPeerAnalysisPage />,
       },
       {
-        path: "/equities/charts",
+        path: "/equities/:symbol/charts",
         element: <EquitiesChartsPage />,
       },
     ],

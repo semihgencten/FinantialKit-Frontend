@@ -1,6 +1,10 @@
 import { Box } from '@mui/material'
 import TabsLayout from '@/pages/EquitiesPage';
 import { DataGrid } from '@mui/x-data-grid';
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { getTechnical } from "@/actions/stockActions";
+import { useParams } from 'react-router-dom';
 
 const maColumns = [
     { field: 'name', headerName: 'Moving Average', width: 125 },
@@ -10,14 +14,6 @@ const maColumns = [
     { field: 'exponentialAction', headerName: 'Exponential Action', width: 150 }
 ];
 
-const maRows = [
-    { id: 1, name: 'MA(5)', simple: 145, simpleAction: 'Buy', exponential: 148, exponentialAction: 'Strong Buy' },
-    { id: 2, name: 'MA(10)', simple: 150, simpleAction: 'Buy', exponential: 152, exponentialAction: 'Strong Buy' },
-    { id: 3, name: 'MA(20)', simple: 155, simpleAction: 'Buy', exponential: 158, exponentialAction: 'Strong Buy' },
-    { id: 4, name: 'MA(50)', simple: 160, simpleAction: 'Buy', exponential: 165, exponentialAction: 'Strong Buy' },
-    { id: 5, name: 'MA(100)', simple: 170, simpleAction: 'Buy', exponential: 175, exponentialAction: 'Strong Buy' },
-    { id: 6, name: 'MA(200)', simple: 180, simpleAction: 'Buy', exponential: 185, exponentialAction: 'Strong Buy' }
-];
 
 const osColumns = [
     { field: 'name', headerName: 'Oscillator', width: 150 },
@@ -25,13 +21,7 @@ const osColumns = [
     { field: 'action', headerName: 'Action', width: 150 }
 ];
 
-const osRows = [
-    { id: 1, name: 'RSI', value: 70, action: 'Sell' },
-    { id: 2, name: 'Stochastic Oscillator', value: 80, action: 'Strong Buy' },
-    { id: 3, name: 'MACD', value: -0.002, action: 'Sell' },
-    { id: 4, name: 'Williams %R', value: -30, action: 'Buy' },
-    { id: 5, name: 'CCI', value: 100, action: 'Strong Buy' }
-];
+
 const pivotColumns = [
     { field: 'method', headerName: 'Method', width: 120 },
     { field: 'S1', headerName: 'S1', width: 90 },
@@ -43,13 +33,7 @@ const pivotColumns = [
     { field: 'R3', headerName: 'R3', width: 90 }
 ];
 
-const pivotRows = [
-    { id: 1, method: 'Classic', S1: 148, S2: 146, S3: 145, 'Pivot Points': 144, R1: 143, R2: 143, R3: 141 },
-    { id: 2, method: 'Fibonacci', S1: 155, S2: 152, S3: 150, 'Pivot Points': 148, R1: 146, R2: 144, R3: 141 },
-    { id: 3, method: 'Camarilla', S1: 152, S2: 150, S3: 148, 'Pivot Points': 146, R1: 144, R2: 142, R3: 140 },
-    { id: 4, method: 'Woodies', S1: 150, S2: 148, S3: 146, 'Pivot Points': 144, R1: 142, R2: 140, R3: 138 },
-    { id: 5, method: 'DeMarks', S1: 147, S2: 145, S3: 143, 'Pivot Points': 141, R1: 139, R2: 137, R3: 135 }
-];
+
 
 const GaugeChart1 = () => {
     return (
@@ -74,10 +58,46 @@ const GaugeChart2 = () => {
 
 
 const EquitiesTechnicalsPage = () => {
+    const [data, setData] = useState(null);
+    const dispatch = useDispatch();
+    const { symbol } = useParams(); // Access the symbol parameter from the route
+
+    const technicalAction = async () => {
+        const action = await dispatch(getTechnical(symbol));
+        
+        if (!action.error) {
+            const fetchedData = action.payload;
+
+            const dataWithIds = {
+                movingAverages: addIds(fetchedData.movingAverages),
+                oscillators: addIds(fetchedData.oscillators),
+                pivots: addIds(fetchedData.pivots),
+            };
+
+            setData(dataWithIds);
+        } else {
+            console.error("Error fetching technical data:", action.error);
+        }
+    };
+    const addIds = (rows) => {
+        if (Array.isArray(rows)) {
+            return rows.map((row, index) => ({
+                id: index, // Generate a unique id using the row index
+                ...row
+            }));
+        } else {
+            console.error("Invalid data format. Expected an array.");
+            return [];
+        }
+    };
+    useEffect(() => {
+        technicalAction();
+    }, [symbol]); // Run the effect when the symbol parameter changes
+
   return (
     <TabsLayout>
         <Box sx={{ textAlign: "center" }}>
-        <h2>Technicals Page</h2>;
+        <h2>Technicals Page {symbol}</h2>;
         </Box>
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -88,7 +108,7 @@ const EquitiesTechnicalsPage = () => {
                 <div style={{ height: 450, width: '48%' }}>
                     <h3>Moving Averages</h3>
                     <DataGrid
-                        rows={maRows}
+                        rows={data?.movingAverages || []}
                         columns={maColumns}
                         initialState={{
                             pagination: {
@@ -102,7 +122,7 @@ const EquitiesTechnicalsPage = () => {
                 <div style={{ height: 400, width: '48%' }}>
                     <h3>Oscillators</h3>
                     <DataGrid
-                        rows={osRows}
+                        rows={data?.oscillators || []}
                         columns={osColumns}
                         initialState={{
                             pagination: {
@@ -117,7 +137,7 @@ const EquitiesTechnicalsPage = () => {
             <div style={{ height: 400, width: '60%', marginTop: '100px' }}>
                 <h3>Pivots</h3>
                 <DataGrid
-                    rows={pivotRows}
+                    rows={data?.pivots || []}
                     columns={pivotColumns}
                     initialState={{
                         pagination: {

@@ -6,6 +6,8 @@ import { CountryDropdown } from '@/pages/MarketsPage/sections';
 import { IndexDropdown } from './sections';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const columns = [
     { field: 'symbol', headerName: 'Symbol', width: 120 },
@@ -31,6 +33,7 @@ const rows = [
 ];
 
 const MarketsPage = () => {
+
   return (
     <div>
         <Box sx={{ textAlign: "center" }}>
