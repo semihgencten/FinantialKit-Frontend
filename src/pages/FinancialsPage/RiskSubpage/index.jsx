@@ -1,8 +1,7 @@
 import React from 'react';
-
 import TabsLayout1 from '@/pages/FinancialsPage/EquitiesPage';
 import FinancialsTabsLayout from '@/pages/EquitiesFinancialsPage';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Paper, Grid, Divider } from '@mui/material';
 
 const RiskSubpage = () => {
   // Example Risk Ratings data
@@ -16,28 +15,34 @@ const RiskSubpage = () => {
   return (
     <TabsLayout1>
       <FinancialsTabsLayout>
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h2">Risk Page</Typography>
-          
-          
-          <Box display="flex" flexDirection="row" justifyContent="space-between">
-            <Box sx={{ padding: '50px 10px' }}>
-              <Typography>Total ESG Risk Score: {riskRatings.totalESGRiskScore}</Typography>
-            
-            </Box>
-            <Box sx={{ padding: '50px 10px' }}>
-              
-              <Typography>Environment Risk Score: {riskRatings.environmentRiskScore}</Typography>
-            </Box>
-            <Box sx={{ padding: '50px 10px' }}>
-              <Typography>Social Risk Score: {riskRatings.socialRiskScore}</Typography>
-              
-            </Box>
-            <Box sx={{ padding: '50px 10px' }}>
-              
-              <Typography>Governance Risk Score: {riskRatings.governanceRiskScore}</Typography>
-            </Box>
-          </Box>
+        <Box sx={{ textAlign: "center", pt: 4 }}>
+          {/*<Typography variant="h2">Risk Page</Typography>*/}
+          <Paper variant="outlined" elevation={3} sx={{ mt: 4, p: 3 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography variant="h5" sx={{ mb: 2 }}>ESG Risk Ratings</Typography>
+                <Divider sx={{ mb: 2 }} />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={{ mr: 4 }}>
+                    <Typography variant="body1"><strong>Total ESG Risk Score:</strong></Typography>
+                    <Typography variant="body1">{riskRatings.totalESGRiskScore}</Typography>
+                  </Box>
+                  <Box sx={{ mr: 4 }}>
+                    <Typography variant="body1"><strong>Environment Risk Score:</strong></Typography>
+                    <Typography variant="body1">{riskRatings.environmentRiskScore}</Typography>
+                  </Box>
+                  <Box sx={{ mr: 4 }}>
+                    <Typography variant="body1"><strong>Social Risk Score:</strong></Typography>
+                    <Typography variant="body1">{riskRatings.socialRiskScore}</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body1"><strong>Governance Risk Score:</strong></Typography>
+                    <Typography variant="body1">{riskRatings.governanceRiskScore}</Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
         </Box>
       </FinancialsTabsLayout>
     </TabsLayout1>
