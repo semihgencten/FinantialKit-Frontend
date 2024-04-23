@@ -15,9 +15,11 @@ import EquitiesNewsPage from "@/pages/EquitiesNewsPage";
 import EquitiesPeerAnalysisPage from "@/pages/EquitiesPeerAnalysisPage";
 import EquitiesChartsPage from "@/pages/EquitiesChartsPage";
 import EquitiesOverviewPage from "@/pages/EquitiesOverviewPage";
-import DividendsSubpage from "@/pages/FinancialsPage/DividensSubpage"
-import RiskSubpage from "@/pages/FinancialsPage/RiskSubpage"
-import StatementsSubpage from "@/pages/FinancialsPage/StatemensSubpage"
+import DividendsSubpage from "@/pages/FinancialsPage/DividensSubpage";
+import StatisticSubpage from "@/pages/FinancialsPage/StatisticSubpage";
+import RiskSubpage from "@/pages/FinancialsPage/RiskSubpage";
+import StatementsSubpage from "@/pages/FinancialsPage/StatemensSubpage";
+import ProfileSubpage from "@/pages/FinancialsPage/ProfileSubpage";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -64,12 +66,20 @@ const routes = [
         element: <DividendsSubpage />,
       },
       {
+        path: "/equities/financials/profile",
+        element: <ProfileSubpage />,
+      },
+      {
         path: "/equities/financials/risk",
         element: <RiskSubpage />,
       },
       {
         path: "/equities/financials/statements",
         element: <StatementsSubpage />,
+      },
+      {
+        path: "/equities/financials/statistics",
+        element: <StatisticSubpage />,
       },
       {
         path: "/equities/overview",
