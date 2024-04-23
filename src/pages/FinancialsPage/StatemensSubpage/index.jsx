@@ -1,7 +1,7 @@
 import React from 'react';
 import TabsLayout1 from '@/pages/FinancialsPage/EquitiesPage';
 import FinancialsTabsLayout from '@/pages/EquitiesFinancialsPage';
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Divider } from '@mui/material';
+import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Divider } from '@mui/material';
 
 const StatementsSubpage = () => {
   // Example data for Income Statements
@@ -56,19 +56,17 @@ const StatementsSubpage = () => {
     <TabsLayout1>
       <FinancialsTabsLayout>
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h2">Statements Page</Typography>
-
           
-          <Box display="flex" justifyContent="space-between" mt={2}>
+          <Box display="flex" justifyContent="space-between" mt={4} mx={8}>
            
             <Box>
-              <Typography variant="h4">Income Statements</Typography>
-              <TableContainer component={Paper}>
+              <Typography variant="h4" sx={{ mb: 2 }}>Income Statements</Typography>
+              <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
                 <Table>
-                  <TableHead>
+                  <TableHead sx={{ backgroundColor: '#f3f3f3' }}>
                     <TableRow>
-                      <TableCell>Parameter</TableCell>
-                      <TableCell>Value</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold', color: '#333333' }}>Parameter</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold', color: '#333333' }}>Value</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -88,13 +86,13 @@ const StatementsSubpage = () => {
 
           
             <Box>
-              <Typography variant="h4">Balance Sheet</Typography>
-              <TableContainer component={Paper}>
+              <Typography variant="h4" sx={{ mb: 2 }}>Balance Sheet</Typography>
+              <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
                 <Table>
-                  <TableHead>
+                  <TableHead sx={{ backgroundColor: '#f3f3f3' }}>
                     <TableRow>
-                      <TableCell>Parameter</TableCell>
-                      <TableCell>Value</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold', color: '#333333' }}>Parameter</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold', color: '#333333' }}>Value</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -111,14 +109,14 @@ const StatementsSubpage = () => {
           </Box>
 
           
-          <Box mt={2}>
-            <Typography variant="h4">Cash Flow</Typography>
-            <TableContainer component={Paper}>
+          <Box mt={4}>
+            <Typography variant="h4" sx={{ mb: 2 }}>Cash Flow</Typography>
+            <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
               <Table>
-                <TableHead>
+                <TableHead sx={{ backgroundColor: '#f3f3f3' }}>
                   <TableRow>
-                    <TableCell>Parameter</TableCell>
-                    <TableCell>Value</TableCell>
+                    <TableCell sx={{ fontWeight: 'bold', color: '#333333' }}>Parameter</TableCell>
+                    <TableCell sx={{ fontWeight: 'bold', color: '#333333' }}>Value</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

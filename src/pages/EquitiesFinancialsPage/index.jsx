@@ -44,6 +44,9 @@ const FinancialsTabsLayout = ({ children }) => {
             case 'five':
                 navigate('/equities/financials/statistics');
                 break;
+            case 'six':
+                navigate('/equities/financials/holders');
+                break;
             default:
 
                 break;
@@ -63,6 +66,7 @@ const FinancialsTabsLayout = ({ children }) => {
                 <Tab value="three" label="Statements" />
                 <Tab value="four" label="Risk" />
                 <Tab value="five" label="Statistic" />
+                <Tab value="six" label="Holders" />
             </Tabs>
             {children}
         </div>
@@ -80,6 +84,8 @@ const getTabValueFromPath = (path) => {
             return 'four';
         case '/equities/financials/statistics':
             return 'five';
+        case '/equities/financials/holders':
+            return 'six';
         default:
             return 'one';
     }

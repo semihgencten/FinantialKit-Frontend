@@ -1,7 +1,7 @@
 import React from 'react';
 import TabsLayout1 from '@/pages/FinancialsPage/EquitiesPage';
 import FinancialsTabsLayout from '@/pages/EquitiesFinancialsPage';
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Divider } from '@mui/material';
 
 const DividendsSubpage = () => {
   // Example dividend data
@@ -17,30 +17,31 @@ const DividendsSubpage = () => {
 
   return (
     <TabsLayout1>
-       <FinancialsTabsLayout>
-      <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h2">Dividends Page</Typography>
+      <FinancialsTabsLayout>
+        <Box sx={{ textAlign: "center", pt: 4 }}>
+          <Typography variant="h3" sx={{ mb: 2 }}>Dividends</Typography>
+          <Divider sx={{ my: 2 }} />
         
-        {/* Displaying dividend information in a table */}
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Parameter</TableCell>
-                <TableCell>Value</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {dividendData.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">{row.name}</TableCell>
-                  <TableCell>{row.value}</TableCell>
+          {/* Displaying dividend information in a styled table */}
+          <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
+            <Table sx={{ minWidth: 400 }}>
+              <TableHead sx={{ backgroundColor: '#f3f3f3' }}>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1.1rem', color: '#333' }}>Parameter</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1.1rem', color: '#333' }}>Value</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+              </TableHead>
+              <TableBody>
+                {dividendData.map((row) => (
+                  <TableRow key={row.name}>
+                    <TableCell component="th" scope="row" sx={{ fontSize: '1rem', color: '#555' }}>{row.name}</TableCell>
+                    <TableCell sx={{ fontSize: '1rem', color: '#555' }}>{row.value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </FinancialsTabsLayout>
     </TabsLayout1>
   );
