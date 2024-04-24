@@ -59,7 +59,7 @@ const StatementsSubpage = () => {
           
           <Box display="flex" justifyContent="space-between" mt={4} mx={8}>
            
-            <Box>
+            <Box sx={{width: '40%'}}>
               <Typography variant="h4" sx={{ mb: 2 }}>Income Statements</Typography>
               <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
                 <Table>
@@ -85,9 +85,9 @@ const StatementsSubpage = () => {
             <Divider orientation="vertical" flexItem />
 
           
-            <Box>
-              <Typography variant="h4" sx={{ mb: 2 }}>Balance Sheet</Typography>
-              <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
+            <Box sx={{width: '40%'}}>
+              <Typography variant="h4" sx={{ mb: 2}}>Balance Sheet</Typography>
+              <TableContainer component={Paper} sx={{ borderRadius: '10px'  }}>
                 <Table>
                   <TableHead sx={{ backgroundColor: '#f3f3f3' }}>
                     <TableRow>
