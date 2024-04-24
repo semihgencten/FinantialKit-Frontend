@@ -1,7 +1,7 @@
 import React from "react";
 
 const LocaleContext = React.createContext({
-  locale: 'en',
+  locale: "en",
   setLocale: () => {},
 });
 

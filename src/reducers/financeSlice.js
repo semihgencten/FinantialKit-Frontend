@@ -60,14 +60,14 @@ export const financeSlice = createSlice({
         (action) => action.type.endsWith("/pending"),
         (state) => {
           state.status = "loading";
-        }
+        },
       )
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, action) => {
           state.status = "failed";
           state.error = action.error.message;
-        }
+        },
       );
   },
 });

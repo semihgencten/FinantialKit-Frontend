@@ -7,55 +7,67 @@ import { getTechnical } from "@/actions/stockActions";
 import { useParams } from 'react-router-dom';
 
 const maColumns = [
-    { field: 'name', headerName: 'Moving Average', width: 125 },
-    { field: 'simple', headerName: 'Simple', width: 110 },
-    { field: 'simpleAction', headerName: 'Simple Action', width: 125 },
-    { field: 'exponential', headerName: 'Exponential', width: 110 },
-    { field: 'exponentialAction', headerName: 'Exponential Action', width: 150 }
+  { field: "name", headerName: "Moving Average", width: 125 },
+  { field: "simple", headerName: "Simple", width: 110 },
+  { field: "simpleAction", headerName: "Simple Action", width: 125 },
+  { field: "exponential", headerName: "Exponential", width: 110 },
+  { field: "exponentialAction", headerName: "Exponential Action", width: 150 },
 ];
 
 
 const osColumns = [
-    { field: 'name', headerName: 'Oscillator', width: 150 },
-    { field: 'value', headerName: 'Value', width: 120 },
-    { field: 'action', headerName: 'Action', width: 150 }
+  { field: "name", headerName: "Oscillator", width: 150 },
+  { field: "value", headerName: "Value", width: 120 },
+  { field: "action", headerName: "Action", width: 150 },
 ];
 
 
 const pivotColumns = [
-    { field: 'method', headerName: 'Method', width: 120 },
-    { field: 'S1', headerName: 'S1', width: 90 },
-    { field: 'S2', headerName: 'S2', width: 90 },
-    { field: 'S3', headerName: 'S3', width: 90 },
-    { field: 'Pivot Points', headerName: 'Pivot Points', width: 130 },
-    { field: 'R1', headerName: 'R1', width: 90 },
-    { field: 'R2', headerName: 'R2', width: 90 },
-    { field: 'R3', headerName: 'R3', width: 90 }
+  { field: "method", headerName: "Method", width: 120 },
+  { field: "S1", headerName: "S1", width: 90 },
+  { field: "S2", headerName: "S2", width: 90 },
+  { field: "S3", headerName: "S3", width: 90 },
+  { field: "Pivot Points", headerName: "Pivot Points", width: 130 },
+  { field: "R1", headerName: "R1", width: 90 },
+  { field: "R2", headerName: "R2", width: 90 },
+  { field: "R3", headerName: "R3", width: 90 },
 ];
 
 
 
 const GaugeChart1 = () => {
-    return (
-        <div style={{ height: 200, width: '100%', marginBottom: '20px', border: '1px solid #ccc' }}>
-            {/* Placeholder for Gauge Chart 1 */}
-            <h3 style={{ textAlign: 'center' }}>Gauge Chart 1</h3>
-            <p style={{ textAlign: 'center' }}>Placeholder for Gauge Chart 1</p>
-        </div>
-    );
+  return (
+    <div
+      style={{
+        height: 200,
+        width: "100%",
+        marginBottom: "20px",
+        border: "1px solid #ccc",
+      }}
+    >
+      {/* Placeholder for Gauge Chart 1 */}
+      <h3 style={{ textAlign: "center" }}>Gauge Chart 1</h3>
+      <p style={{ textAlign: "center" }}>Placeholder for Gauge Chart 1</p>
+    </div>
+  );
 };
 
 const GaugeChart2 = () => {
-    return (
-        <div style={{ height: 200, width: '100%', marginBottom: '20px', border: '1px solid #ccc' }}>
-            {/* Placeholder for Gauge Chart 2 */}
-            <h3 style={{ textAlign: 'center' }}>Gauge Chart 2</h3>
-            <p style={{ textAlign: 'center' }}>Placeholder for Gauge Chart 2</p>
-        </div>
-    );
+  return (
+    <div
+      style={{
+        height: 200,
+        width: "100%",
+        marginBottom: "20px",
+        border: "1px solid #ccc",
+      }}
+    >
+      {/* Placeholder for Gauge Chart 2 */}
+      <h3 style={{ textAlign: "center" }}>Gauge Chart 2</h3>
+      <p style={{ textAlign: "center" }}>Placeholder for Gauge Chart 2</p>
+    </div>
+  );
 };
-
-
 
 const EquitiesTechnicalsPage = () => {
     const [data, setData] = useState(null);

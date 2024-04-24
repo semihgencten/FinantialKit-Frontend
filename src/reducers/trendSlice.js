@@ -13,9 +13,9 @@ export const trendSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTrendings.fulfilled, (state) => {
-        state.status = "succeeded"
-        state.error = null
-        state.trends = ["trendCompany1", "trendCompany2"]
+      state.status = "succeeded";
+      state.error = null;
+      state.trends = ["trendCompany1", "trendCompany2"];
     });
   },
 });

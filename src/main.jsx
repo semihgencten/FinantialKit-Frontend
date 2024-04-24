@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom/client";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "@/layouts/default";
 import HomePage from "@/pages/HomePage";
@@ -22,11 +23,13 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Provider } from "react-redux";
 import store from "@/store";
-import { IntlProvider } from 'react-intl';
-import LocaleContext from '@/LocaleContext';
+import { IntlProvider } from "react-intl";
+import LocaleContext from "@/LocaleContext";
+import SignUp from "@/pages/AuthPages/SignUp";
+import SignIn from "@/pages/AuthPages/SignIn";
 
 const LocaleProvider = ({ children }) => {
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState("en");
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
@@ -35,13 +38,17 @@ const LocaleProvider = ({ children }) => {
   );
 };
 
+const speedInsider = () => {
+  return <SpeedInsights />;
+};
+
 const getMessages = (locale) => {
   switch (locale) {
-    case 'fr':
-      return import('./translations/fr.json');
-    case 'en':
+    case "fr":
+      return import("./translations/fr.json");
+    case "en":
     default:
-      return import('./translations/en.json');
+      return import("./translations/en.json");
   }
 };
 
@@ -52,73 +59,82 @@ const App = () => {
   useEffect(() => {
     getMessages(locale).then((msgs) => setMessages(msgs.default));
   }, [locale]);
+  speedInsider();
+  if (!messages) return <div>Loading...</div>;
 
-  if (!messages) return <div>Loading...</div>; 
+  const routes = [
+    {
+      path: "/",
+      element: <DefaultLayout />,
+      children: [
+        {
+          index: true,
+          element: <HomePage />,
+        },
+        {
+          path: "/news",
+          element: <NewsPage />,
+        },
+        {
+          path: "/test",
+          element: <TestPage />,
+        },
+        {
+          path: "/analysis",
+          element: <AnalysisPage />,
+        },
+        {
+          path: "/watchlist",
+          element: <WatchlistPage />,
+        },
+        {
+          path: "/my-portfolio",
+          element: <PortfolioPage />,
+        },
+        {
+          path: "/markets",
+          element: <MarketsPage />,
+        },
+        //   {
+        //     path: "/equities",
+        //     element: <EquitiesPage />,
+        //   },
+        {
+          path: "/equities/:symbol/overview",
+          element: <EquitiesOverviewPage />,
+        },
+        {
+          path: "/equities/:symbol/technicals",
+          element: <EquitiesTechnicalsPage />,
+        },
+        {
+          path: "/equities/:symbol/financials",
+          element: <EquitiesFinancialsPage />,
+        },
+        {
+          path: "/equities/:symbol/news",
+          element: <EquitiesNewsPage />,
+        },
+        {
+          path: "/equities/:symbol/peer-analysis",
+          element: <EquitiesPeerAnalysisPage />,
+        },
 
-const routes = [
-  {
-    path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "/news",
-        element: <NewsPage />,
-      },
-      {
-        path: "/test",
-        element: <TestPage />,
-      },
-      {
-        path: "/analysis",
-        element: <AnalysisPage />,
-      },
-      {
-        path: "/watchlist",
-        element: <WatchlistPage />,
-      },
-      {
-        path: "/my-portfolio",
-        element: <PortfolioPage />,
-      },
-      {
-        path: "/markets",
-        element: <MarketsPage />,
-      },
-    //   {
-    //     path: "/equities",
-    //     element: <EquitiesPage />,
-    //   },
-      {
-        path: "/equities/:symbol/overview",
-        element: <EquitiesOverviewPage />,
-      },
-      {
-        path: "/equities/:symbol/technicals",
-        element: <EquitiesTechnicalsPage />,
-      },
-      {
-        path: "/equities/:symbol/financials",
-        element: <EquitiesFinancialsPage />,
-      },
-      {
-        path: "/equities/:symbol/news",
-        element: <EquitiesNewsPage />,
-      },
-      {
-        path: "/equities/:symbol/peer-analysis",
-        element: <EquitiesPeerAnalysisPage />,
-      },
-      {
-        path: "/equities/:symbol/charts",
-        element: <EquitiesChartsPage />,
-      },
-    ],
-  },
-];
+        {
+          path: "/equities/:symbol/charts",
+          element: <EquitiesChartsPage />,
+        },
+        {
+          path: "/sign-up",
+          element: <SignUp />,
+        },
+        {
+          path: "/sign-in",
+          element: <SignIn />, // Bad formatted code
+        },
+      ],
+    },
+  ];
 
   const router = createBrowserRouter(routes);
 
@@ -131,12 +147,10 @@ const routes = [
   );
 };
 
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <LocaleProvider>
       <App />
     </LocaleProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

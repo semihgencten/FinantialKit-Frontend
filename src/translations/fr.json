@@ -1,12 +1,16 @@
 {
-    "greeting": "Bonjour, Monde !",
-    "buttonLabel": "Cliquez moi",
-    "profile.label": "Profil",
-    "homepage.title": "Page d'accueil",
-    "news.page.title": "Actualités",
-    "watchlist.page.title": "Liste de surveillance",
-    "portfolio.page.title": "Portefeuille",
-    "analysis.page.title": "Analyse",
-    "markets.page.title": "Marchés",
-    "logo.label": "LOGO ICI"
+  "greeting": "Bonjour, Monde !",
+  "buttonLabel": "Cliquez moi",
+  "profile.label": "Profil",
+  "homepage.title": "Page d'accueil",
+  "news.page.title": "Actualités",
+  "watchlist.page.title": "Liste de surveillance",
+  "portfolio.page.title": "Portefeuille",
+  "analysis.page.title": "Analyse",
+  "markets.page.title": "Marchés",
+  "logo.label": "LOGO ICI",
+
+  "firstname": "prénom",
+  "secondname": "nom de famille",
+  "password": "mot de passe"
 }
