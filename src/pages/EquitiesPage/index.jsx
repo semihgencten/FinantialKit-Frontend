@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import { Box } from '@mui/material';
-import PropTypes from 'prop-types'; // Import PropTypes
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { Box } from "@mui/material";
+import PropTypes from "prop-types"; // Import PropTypes
 
 const TabsLayout = ({ children }) => {
-    const navigate = useNavigate(); // Use useNavigate hook
-    const [value, setValue] = useState(getTabValueFromPath(location.pathname));
+  const navigate = useNavigate(); // Use useNavigate hook
+  const [value, setValue] = useState(getTabValueFromPath(location.pathname));
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -37,29 +36,28 @@ const TabsLayout = ({ children }) => {
         }
     };
 
-    return (
-        <div>
-            <Box sx={{ textAlign: "left" }}>
-                <h2>Nvidia Corporation</h2>
-            </Box>
-            
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="wrapped label tabs example"
-                sx={{ transition: '0.3s' }} // Add CSS transition
+  return (
+    <div>
+      <Box sx={{ textAlign: "left" }}>
+        <h2>Nvidia Corporation</h2>
+      </Box>
 
-            >
-                <Tab value="one" label="Overview" />
-                <Tab value="two" label="Financials" />
-                <Tab value="three" label="Technicals" />
-                <Tab value="four" label="News" />
-                <Tab value="five" label="Charts" />
-                <Tab value="six" label="Peer Analysis" />
-            </Tabs>
-            {children}
-        </div>
-    );
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="wrapped label tabs example"
+        sx={{ transition: "0.3s" }} // Add CSS transition
+      >
+        <Tab value="one" label="Overview" />
+        <Tab value="two" label="Financials" />
+        <Tab value="three" label="Technicals" />
+        <Tab value="four" label="News" />
+        <Tab value="five" label="Charts" />
+        <Tab value="six" label="Peer Analysis" />
+      </Tabs>
+      {children}
+    </div>
+  );
 };
 const getTabValueFromPath = (path) => {
     switch(path) {
@@ -80,6 +78,6 @@ const getTabValueFromPath = (path) => {
     }
 };
 TabsLayout.propTypes = {
-    children: PropTypes.node // Validate children prop as a React node
+  children: PropTypes.node, // Validate children prop as a React node
 };
 export default TabsLayout;
