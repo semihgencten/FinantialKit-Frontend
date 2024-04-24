@@ -96,10 +96,57 @@ export const Graph = ({
 
         plotOptions: plotOptions,
 
-        navigator: {
-          series: {
-            id: "main",
-          },
+        tooltip: {
+            shape: 'square',
+            headerShape: 'callout',
+            borderWidth: 0,
+            shadow: false,
+            positioner: function (width, height, point) {
+                const chart = this.chart;
+                let position;
+    
+                if (point.isHeader) {
+                    position = {
+                        x: Math.max(
+                            chart.plotLeft,
+                            Math.min(
+                                point.plotX + chart.plotLeft - width / 2,
+                                chart.chartWidth - width - chart.marginRight
+                            )
+                        ),
+                        y: point.plotY
+                    };
+                    } 
+                    else {
+                        position = {
+                            x: point.series.chart.plotLeft,
+                            y: point.series.yAxis.top - chart.plotTop
+                        };
+                    }
+                    return position;
+            },
+            formatter: function() {
+                let s = '';
+        
+                if (this.points) {
+                    console.log(this.points);
+                    this.points.forEach(function(point) {
+                        if (point.point.open !== undefined) {
+                            s += `<b>${Highcharts.dateFormat('%d %b %Y', point.point.x)}</b><br/>` +
+                                 `<b>${point.series.name}</b><br/>` +
+                                 `<b>Open: ${point.point.open}</b><br/>` +
+                                 `<b>High: ${point.point.high}</b><br/>` +
+                                 `<b>Low: ${point.point.low}</b><br/>` +
+                                 `<b>Close: ${point.point.close}</b><br/>`;
+                        } else {
+                            s += `<b>${point.series.name}: ${point.y}</b><br/>`;
+                        }
+                    });
+                } else {
+                    s = Highcharts.dateFormat('%d %b %Y', this.x);
+                }
+                return s;
+            }
         },
       });
     }
@@ -140,7 +187,7 @@ export const Graph = ({
         series.update(
           {
             tooltip: {
-              pointFormat: "<span>{point.y}</span>",
+              pointFormat: "<span>{series.name}: {point.y}</span>",
             },
           },
           false,
@@ -168,66 +215,66 @@ export const Graph = ({
     chartRef.current.update(
       {
         chart: {
-          backgroundColor: graphLightMode === "light" ? "#FFFFFF" : "#000000",
+            backgroundColor: graphLightMode === "light" ? "#FFFFFF" : "#000000",
         },
         plotOptions: {
-          candlestick: {
-            color: graphLightMode === "light" ? "#ef5350" : "#F44336",
-            upColor: graphLightMode === "light" ? "#26a69a" : "#4CAF50",
-            lineColor: graphLightMode === "light" ? "#ef5350" : "#F44336",
-            upLineColor: graphLightMode === "light" ? "#26a69a" : "#4CAF50",
-          },
-          column: {
-            color: graphLightMode === "light" ? "#89CFF0" : "#89CFF0",
-            negativeColor: graphLightMode === "light" ? "#ef5350" : "#F44336",
-            borderColor: graphLightMode === "light" ? "transparent" : "#000000",
-          },
+            candlestick: {
+                color: graphLightMode === "light" ? "#ef5350" : "#F44336",
+                upColor: graphLightMode === "light" ? "#26a69a" : "#4CAF50",
+                lineColor: graphLightMode === "light" ? "#ef5350" : "#F44336",
+                upLineColor: graphLightMode === "light" ? "#26a69a" : "#4CAF50",
+            },
+            column: {
+                color: graphLightMode === "light" ? "#89CFF0" : "#89CFF0",
+                negativeColor: graphLightMode === "light" ? "#ef5350" : "#F44336",
+                borderColor: graphLightMode === "light" ? "transparent" : "#000000",
+            },
         },
         tooltip: {
-          style: {
-            color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
-            fontSize: "12px",
-          },
-          backgroundColor:
-            graphLightMode === "light"
-              ? "rgba(255, 255, 255, 0.65)"
-              : "rgba(0, 0, 0, 0.5)",
-          borderColor: graphLightMode === "light" ? "#FFFFFF" : "#CCCCCC",
-          borderRadius: 5,
-          borderWidth: 1,
+            style: {
+                color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+                fontSize: "12px",
+            },
+            backgroundColor:
+                graphLightMode === "light"
+                ? "rgba(255, 255, 255, 0.65)"
+                : "rgba(0, 0, 0, 0.5)",
+            borderColor: graphLightMode === "light" ? "#FFFFFF" : "#CCCCCC",
+            borderRadius: 5,
+            borderWidth: 1,
         },
         navigator: {
-          maskFill:
-            graphLightMode === "light"
-              ? "rgba(102, 122, 255, 0.3)"
-              : "rgba(255, 255, 255, 0.3)",
+            maskFill:
+                graphLightMode === "light"
+                ? "rgba(102, 122, 255, 0.3)"
+                : "rgba(255, 255, 255, 0.3)",
         },
         title: {
-          style: {
-            color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
-          },
+            style: {
+                color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+            },
         },
         xAxis: {
-          labels: {
-            style: {
-              color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+            labels: {
+                style: {
+                color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+                },
             },
-          },
         },
         yAxis: {
-          title: {
-            style: {
-              color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+            title: {
+                style: {
+                color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+                },
             },
-          },
-          labels: {
-            style: {
-              color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+            labels: {
+                style: {
+                color: graphLightMode === "light" ? "#000000" : "#FFFFFF",
+                },
             },
-          },
         },
-      },
-      false,
+        },
+        false,
     ); // false to delay redraw
   };
 
@@ -266,6 +313,8 @@ export const Graph = ({
       },
       false,
     ); // prevent immediate redraw
+
+
   };
 
   const updateGraphIndicators = () => {
@@ -421,6 +470,9 @@ export const Graph = ({
 
   useEffect(() => {
     initializeGraph();
+    if(chartRef.current){
+        updateGraphForLightOrDarkMode();
+    }
   }, [data.ohlc, data.volume]);
 
   useEffect(() => {
