@@ -13,7 +13,7 @@ const columns = [
     field: "companyName",
     headerName: "Name",
     width: 250,
-    renderCell: (params) => <Link to="/equities/overview">{params.value}</Link>,
+    renderCell: (params) => <Link to="/equities/NVDA/overview">{params.value}</Link>,
   },
   { field: "lastprice", headerName: "Last", width: 150 },
   { field: "changeAmount", headerName: "Change", width: 150 },
