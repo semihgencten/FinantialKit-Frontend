@@ -13,8 +13,8 @@ const EquitiesFinancialsPage = () => {
 
 export default EquitiesFinancialsPage;
 */
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types'; // Import PropTypes
@@ -24,27 +24,33 @@ import { Box } from '@mui/material';
 const FinancialsTabsLayout = ({ children }) => {
     const navigate = useNavigate(); 
     const [value, setValue] = useState(getTabValueFromPath(location.pathname));
+    const { symbol: routeSymbol } = useParams(); // Get symbol from route params
+
+    useEffect(() => {
+        localStorage.setItem('currentSymbol', routeSymbol || '');
+    }, [routeSymbol]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        const currentSymbol = localStorage.getItem('currentSymbol') || routeSymbol || '';
         switch(newValue) {
             case 'one':
-                navigate('/equities/financials/profile');
+                navigate(`/equities/${currentSymbol}/financials/profile`);
                 break;
             case 'two':
-                navigate('/equities/financials/dividends');
+                navigate(`/equities/${currentSymbol}/financials/dividends`);
                 break;
             case 'three':
-                navigate('/equities/financials/statements');
+                navigate(`/equities/${currentSymbol}/financials/statements`);
                 break;
             case 'four':
-                navigate('/equities/financials/risk');
+                navigate(`/equities/${currentSymbol}/financials/risk`);
                 break;
             case 'five':
-                navigate('/equities/financials/statistics');
+                navigate(`/equities/${currentSymbol}/financials/statistics`);
                 break;
             case 'six':
-                navigate('/equities/financials/holders');
+                navigate(`/equities/${currentSymbol}/financials/holders`);
                 break;
             default:
 
@@ -72,22 +78,22 @@ const FinancialsTabsLayout = ({ children }) => {
     );
 };
 const getTabValueFromPath = (path) => {
-    switch(path) {
-        case '/equities/financials/profile':
-            return 'one';
-        case '/equities/financials/dividends':
-            return 'two';
-        case '/equities/financials/statements':
-            return 'three';
-        case '/equities/financials/risk':
-            return 'four';
-        case '/equities/financials/statistics':
-            return 'five';
-        case '/equities/financials/holders':
-            return 'six';
-        default:
-            return 'one';
+    if (path.includes('profile')) {
+        return 'one';
+    } else if (path.includes('dividends')) {
+        return 'two';
+    } else if (path.includes('statements')) {
+        return 'three';
+    } else if (path.includes('risk')) {
+        return 'four';
+    } else if (path.includes('statistics')) {
+        return 'five';
+    } else if (path.includes('holders')) {
+        return 'six';
+    } else {
+        return 'one';
     }
+    
 };
 FinancialsTabsLayout.propTypes = {
     children: PropTypes.node // Validate children prop as a React node

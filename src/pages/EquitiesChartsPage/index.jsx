@@ -6,6 +6,8 @@ import {
   Autocomplete,
   TextField,
   Grid,
+  Dialog,
+  Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody
 } from "@mui/material";
 import { LightModeOutlined, DarkModeOutlined } from "@mui/icons-material";
 import TabsLayout from "@/pages/EquitiesPage";

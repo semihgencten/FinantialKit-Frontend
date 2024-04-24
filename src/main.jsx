@@ -107,52 +107,52 @@ const App = () => {
         //   },
          
       {
-        path: "/equities/financials/dividends",
+        path: "/equities/:symbol/financials/dividends",
         element: <DividendsSubpage />,
       },
       {
-        path: "/equities/financials/profile",
+        path: "/equities/:symbol/financials/profile",
         element: <ProfileSubpage />,
       },
       {
-        path: "/equities/financials/risk",
+        path: "/equities/:symbol/financials/risk",
         element: <RiskSubpage />,
       },
       {
-        path: "/equities/financials/statements",
+        path: "/equities/:symbol/financials/statements",
         element: <StatementsSubpage />,
       },
       {
-        path: "/equities/financials/statistics",
+        path: "/equities/:symbol/financials/statistics",
         element: <StatisticSubpage />,
       },
       {
-        path: "/equities/financials/holders",
+        path: "/equities/:symbol/financials/holders",
         element: <HoldersSubpage/>,
       },
       {
-          path: "/equities/overview",
+          path: "/equities/:symbol/overview",
           element: <EquitiesOverviewPage />,
         },
         {
-          path: "/equities/technicals",
+          path: "/equities/:symbol/technicals",
           element: <EquitiesTechnicalsPage />,
         },
+        // {
+        //   path: "/equities/:symbol/financials",
+        //   element: <EquitiesFinancialsPage />,
+        // },
         {
-          path: "/equities/financials",
-          element: <EquitiesFinancialsPage />,
-        },
-        {
-          path: "/equities/news",
+          path: "/equities/:symbol/news",
           element: <EquitiesNewsPage />,
         },
         {
-          path: "/equities/peer-analysis",
+          path: "/equities/:symbol/peer-analysis",
           element: <EquitiesPeerAnalysisPage />,
         },
 
         {
-          path: "/equities/charts",
+          path: "/equities/:symbol/charts",
           element: <EquitiesChartsPage />,
         },
         {

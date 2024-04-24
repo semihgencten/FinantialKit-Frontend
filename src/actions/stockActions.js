@@ -81,16 +81,15 @@ export const getOverview = createAsyncThunk("stocks/getOverview", async () => {
 });
 
 export const getTechnical = createAsyncThunk(
-  "stocks/getTechnical",
-  async () => {
-    const response = await httpFetch({
-      url: "/stocks/{symbol}/technicals",
-      method: "GET",
-    });
-    return response.data;
-  },
+    "stocks/getTechnical",
+    async (symbol) => {
+        const response = await httpFetch({
+            url: `/stocks/${symbol}/technicals/`,
+            method: "POST",  
+        });
+        return response.data;
+    }
 );
-
 export const getFinancials = createAsyncThunk(
   "stocks/getFinancials",
   async () => {
