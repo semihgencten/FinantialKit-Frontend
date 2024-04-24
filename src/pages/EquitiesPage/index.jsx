@@ -9,32 +9,32 @@ const TabsLayout = ({ children }) => {
   const navigate = useNavigate(); // Use useNavigate hook
   const [value, setValue] = useState(getTabValueFromPath(location.pathname));
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    // Programmatically navigate based on tab selection
-    switch (newValue) {
-      case "one":
-        navigate("/equities/overview");
-        break;
-      case "two":
-        navigate("/equities/financials");
-        break;
-      case "three":
-        navigate("/equities/technicals");
-        break;
-      case "four":
-        navigate("/equities/news");
-        break;
-      case "five":
-        navigate("/equities/charts");
-        break;
-      case "six":
-        navigate("/equities/peer-analysis");
-        break;
-      default:
-        break;
-    }
-  };
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        // Programmatically navigate based on tab selection
+        switch(newValue) {
+            case 'one':
+                navigate('/equities/overview');
+                break;
+            case 'two':
+                navigate('/equities/financials/profile');
+                break;
+            case 'three':
+                navigate('/equities/technicals');
+                break;
+            case 'four':
+                navigate('/equities/news');
+                break;
+            case 'five':
+                navigate('/equities/charts');
+                break;
+            case 'six':
+                navigate('/equities/peer-analysis');
+                break;
+            default:
+                break;
+        }
+    };
 
   return (
     <div>
@@ -60,22 +60,22 @@ const TabsLayout = ({ children }) => {
   );
 };
 const getTabValueFromPath = (path) => {
-  switch (path) {
-    case "/equities/overview":
-      return "one";
-    case "/equities/financials":
-      return "two";
-    case "/equities/technicals":
-      return "three";
-    case "/equities/news":
-      return "four";
-    case "/equities/charts":
-      return "five";
-    case "/equities/peer-analysis":
-      return "six";
-    default:
-      return "one";
-  }
+    switch(path) {
+        case '/equities/overview':
+            return 'one';
+        case '/equities/financials/profile':
+            return 'two';
+        case '/equities/technicals':
+            return 'three';
+        case '/equities/news':
+            return 'four';
+        case '/equities/charts':
+            return 'five';
+        case '/equities/peer-analysis':
+            return 'six';
+        default:
+            return 'one';
+    }
 };
 TabsLayout.propTypes = {
   children: PropTypes.node, // Validate children prop as a React node
