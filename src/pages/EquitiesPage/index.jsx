@@ -27,7 +27,7 @@ const TabsLayout = ({ children }) => {
                 navigate(`/equities/${currentSymbol}/overview`);
                 break;
             case 'two':
-                navigate(`/equities/${currentSymbol}/financials`);
+                navigate(`/equities/${currentSymbol}/financials/profile`);
                 break;
             case 'three':
                 navigate(`/equities/${currentSymbol}/technicals`);

@@ -17,6 +17,12 @@ import EquitiesNewsPage from "@/pages/EquitiesNewsPage";
 import EquitiesPeerAnalysisPage from "@/pages/EquitiesPeerAnalysisPage";
 import EquitiesChartsPage from "@/pages/EquitiesChartsPage";
 import EquitiesOverviewPage from "@/pages/EquitiesOverviewPage";
+import DividendsSubpage from "@/pages/FinancialsPage/DividensSubpage";
+import StatisticSubpage from "@/pages/FinancialsPage/StatisticSubpage";
+import RiskSubpage from "@/pages/FinancialsPage/RiskSubpage";
+import StatementsSubpage from "@/pages/FinancialsPage/StatemensSubpage";
+import ProfileSubpage from "@/pages/FinancialsPage/ProfileSubpage";
+import HoldersSubpage from "@/pages/FinancialsPage/HoldersSubpage";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -99,7 +105,32 @@ const App = () => {
         //     path: "/equities",
         //     element: <EquitiesPage />,
         //   },
-        {
+         
+      {
+        path: "/equities/:symbol/financials/dividends",
+        element: <DividendsSubpage />,
+      },
+      {
+        path: "/equities/:symbol/financials/profile",
+        element: <ProfileSubpage />,
+      },
+      {
+        path: "/equities/:symbol/financials/risk",
+        element: <RiskSubpage />,
+      },
+      {
+        path: "/equities/:symbol/financials/statements",
+        element: <StatementsSubpage />,
+      },
+      {
+        path: "/equities/:symbol/financials/statistics",
+        element: <StatisticSubpage />,
+      },
+      {
+        path: "/equities/:symbol/financials/holders",
+        element: <HoldersSubpage/>,
+      },
+      {
           path: "/equities/:symbol/overview",
           element: <EquitiesOverviewPage />,
         },
@@ -107,10 +138,10 @@ const App = () => {
           path: "/equities/:symbol/technicals",
           element: <EquitiesTechnicalsPage />,
         },
-        {
-          path: "/equities/:symbol/financials",
-          element: <EquitiesFinancialsPage />,
-        },
+        // {
+        //   path: "/equities/:symbol/financials",
+        //   element: <EquitiesFinancialsPage />,
+        // },
         {
           path: "/equities/:symbol/news",
           element: <EquitiesNewsPage />,
