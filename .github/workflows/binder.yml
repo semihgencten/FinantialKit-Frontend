@@ -1,0 +1,12 @@
+on:
+    push:
+        branches: master
+
+jobs: 
+    bind:
+        name: Bind
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - run: docker build -t test_binder . && docker run -e "GITHUB_TOKEN=${{secrets.BINDER_KEY}}"  --name binder-test-container test_binder
+            
