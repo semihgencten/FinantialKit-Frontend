@@ -9,6 +9,7 @@ import NewsPage from "@/pages/NewsPage";
 import AnalysisPage from "@/pages/AnalysisPage";
 import WatchlistPage from "@/pages/WatchlistPage";
 import PortfolioPage from "@/pages/PortfolioPage";
+import PortfolioDetailPage from "@/pages/PortfolioDetailPage";
 import MarketsPage from "@/pages/MarketsPage";
 // import EquitiesPage from "@/pages/EquitiesPage";
 import EquitiesTechnicalsPage from "@/pages/EquitiesTechnicalsPage";
@@ -50,9 +51,13 @@ const speedInsider = () => {
 
 const getMessages = (locale) => {
   switch (locale) {
-    case "fr":
-      return import("./translations/fr.json");
-    case "en":
+    case 'fr':
+      return import('./translations/fr.json');
+    case 'tr':
+      return import('./translations/tr.json');
+    case 'esp':
+      return import('./translations/esp.json');
+    case 'en':
     default:
       return import("./translations/en.json");
   }
@@ -127,6 +132,14 @@ const App = () => {
         element: <StatisticSubpage />,
       },
       {
+        path: "/my-portfolio/detail/:portfolioId",
+        element: <PortfolioDetailPage />,
+      },
+      {
+        path: "/markets",
+        element: <MarketsPage />,
+      },
+       {
         path: "/equities/:symbol/financials/holders",
         element: <HoldersSubpage/>,
       },
