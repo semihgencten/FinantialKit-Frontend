@@ -17,5 +17,9 @@
   "create.new.portfolio.button": "Crear nueva cartera",
   "daily.return.label": "Rendimiento diario",
   "risk.label": "Riesgo",
-  "assets.label": "Activos"
+  "assets.label": "Activos",
+  "firstname": "nombre",
+  "secondname": "apellido",
+  "password": "contraseña"
 }
+
