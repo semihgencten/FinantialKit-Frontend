@@ -1,49 +1,65 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
-  Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, Button, Menu, MenuItem, Checkbox, Box, Modal, TextField, Select,
-  FormControl, InputLabel, FormHelperText
-} from '@mui/material';
-import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
-import SettingsIcon from '@mui/icons-material/Settings';
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Menu,
+  MenuItem,
+  Checkbox,
+  Box,
+  Modal,
+  TextField,
+  Select,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
+import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   borderRadius: 10,
   boxShadow: 24,
-  p: 4
+  p: 4,
 };
 
 const PortfolioDetailPage = () => {
   const { portfolioId } = useParams();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedColumns, setSelectedColumns] = useState([
-    'lastPrice',
-    'change',
-    'changePercent',
-    'currency',
-    'marketTime',
-    'volume',
-    'shares',
-    'avgVol3m',
-    'dayRange',
-    'weekRange',
-    'marketCap'
+    "lastPrice",
+    "change",
+    "changePercent",
+    "currency",
+    "marketTime",
+    "volume",
+    "shares",
+    "avgVol3m",
+    "dayRange",
+    "weekRange",
+    "marketCap",
   ]);
 
   const [openModal, setOpenModal] = useState(false);
   const [transaction, setTransaction] = useState({
-    type: '',
-    date: '',
-    amount: '',
-    price: '',
-    commission: ''
+    type: "",
+    date: "",
+    amount: "",
+    price: "",
+    commission: "",
   });
 
   const handleOpen = () => setOpenModal(true);
@@ -52,7 +68,7 @@ const PortfolioDetailPage = () => {
   const handleChange = (event) => {
     setTransaction({
       ...transaction,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -64,41 +80,100 @@ const PortfolioDetailPage = () => {
 
   // Constant array to maintain the original order of columns
   const allColumns = [
-    'lastPrice',
-    'change',
-    'changePercent',
-    'currency',
-    'marketTime',
-    'volume',
-    'shares',
-    'avgVol3m',
-    'dayRange',
-    'weekRange',
-    'marketCap'
+    "lastPrice",
+    "change",
+    "changePercent",
+    "currency",
+    "marketTime",
+    "volume",
+    "shares",
+    "avgVol3m",
+    "dayRange",
+    "weekRange",
+    "marketCap",
   ];
-  
+
   // Dummy data for portfolio assets
   const portfolioData = {
-    '1': {
-      name: 'Tech Stocks',
+    1: {
+      name: "Tech Stocks",
       assets: [
-        { id: 1, ticker: 'AAPL', lastPrice: '175.25', change: '+2.75', changePercent: '1.59%', currency: 'USD', marketTime: '2023-04-15 16:00:00', volume: '98,765,432', shares: '16,789,000', avgVol3m: '50,678,910', dayRange: '172.00 - 176.80', weekRange: '130.00 - 180.00', marketCap: '2.4T' },
-        { id: 2, ticker: 'MSFT', lastPrice: '300.40', change: '+1.80', changePercent: '0.60%', currency: 'USD', marketTime: '2023-04-15 16:00:00', volume: '12,345,678', shares: '7,609,800', avgVol3m: '19,876,543', dayRange: '295.00 - 302.50', weekRange: '250.00 - 310.00', marketCap: '1.8T' },
-      ]
+        {
+          id: 1,
+          ticker: "AAPL",
+          lastPrice: "175.25",
+          change: "+2.75",
+          changePercent: "1.59%",
+          currency: "USD",
+          marketTime: "2023-04-15 16:00:00",
+          volume: "98,765,432",
+          shares: "16,789,000",
+          avgVol3m: "50,678,910",
+          dayRange: "172.00 - 176.80",
+          weekRange: "130.00 - 180.00",
+          marketCap: "2.4T",
+        },
+        {
+          id: 2,
+          ticker: "MSFT",
+          lastPrice: "300.40",
+          change: "+1.80",
+          changePercent: "0.60%",
+          currency: "USD",
+          marketTime: "2023-04-15 16:00:00",
+          volume: "12,345,678",
+          shares: "7,609,800",
+          avgVol3m: "19,876,543",
+          dayRange: "295.00 - 302.50",
+          weekRange: "250.00 - 310.00",
+          marketCap: "1.8T",
+        },
+      ],
     },
-    '2': {
-      name: 'Global Bonds',
+    2: {
+      name: "Global Bonds",
       assets: [
-        { id: 3, ticker: 'BND', lastPrice: '82.55', change: '-0.15', changePercent: '-0.18%', currency: 'USD', marketTime: '2023-04-15 16:00:00', volume: '500,000', shares: '1,200,000', avgVol3m: '450,000', dayRange: '81.50 - 83.00', weekRange: '80.00 - 85.00', marketCap: '550M' },
-        { id: 4, ticker: 'IEF', lastPrice: '110.25', change: '+0.20', changePercent: '0.18%', currency: 'USD', marketTime: '2023-04-15 16:00:00', volume: '600,000', shares: '800,000', avgVol3m: '300,000', dayRange: '109.00 - 111.00', weekRange: '100.00 - 115.00', marketCap: '200M' },
-      ]
-    }
+        {
+          id: 3,
+          ticker: "BND",
+          lastPrice: "82.55",
+          change: "-0.15",
+          changePercent: "-0.18%",
+          currency: "USD",
+          marketTime: "2023-04-15 16:00:00",
+          volume: "500,000",
+          shares: "1,200,000",
+          avgVol3m: "450,000",
+          dayRange: "81.50 - 83.00",
+          weekRange: "80.00 - 85.00",
+          marketCap: "550M",
+        },
+        {
+          id: 4,
+          ticker: "IEF",
+          lastPrice: "110.25",
+          change: "+0.20",
+          changePercent: "0.18%",
+          currency: "USD",
+          marketTime: "2023-04-15 16:00:00",
+          volume: "600,000",
+          shares: "800,000",
+          avgVol3m: "300,000",
+          dayRange: "109.00 - 111.00",
+          weekRange: "100.00 - 115.00",
+          marketCap: "200M",
+        },
+      ],
+    },
   };
-  const portfolio = portfolioData[portfolioId] || { name: "Unknown Portfolio", assets: [] };
+  const portfolio = portfolioData[portfolioId] || {
+    name: "Unknown Portfolio",
+    assets: [],
+  };
 
   const handleColumnSelect = (column) => {
     if (selectedColumns.includes(column)) {
-      setSelectedColumns(selectedColumns.filter(col => col !== column));
+      setSelectedColumns(selectedColumns.filter((col) => col !== column));
     } else {
       setSelectedColumns([...selectedColumns, column]);
     }
@@ -106,7 +181,7 @@ const PortfolioDetailPage = () => {
   };
 
   return (
-    <Paper sx={{ p: 2, margin: 'auto', flexGrow: 1 }}>
+    <Paper sx={{ p: 2, margin: "auto", flexGrow: 1 }}>
       <Typography variant="h4" component="h1" gutterBottom>
         Portfolio Details: {portfolio.name}
       </Typography>
@@ -115,9 +190,13 @@ const PortfolioDetailPage = () => {
           <TableHead>
             <TableRow>
               <TableCell>Ticker</TableCell>
-              {allColumns.filter(column => selectedColumns.includes(column)).map(column => (
-                <TableCell key={column} align="right">{column}</TableCell>
-              ))}
+              {allColumns
+                .filter((column) => selectedColumns.includes(column))
+                .map((column) => (
+                  <TableCell key={column} align="right">
+                    {column}
+                  </TableCell>
+                ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -126,11 +205,13 @@ const PortfolioDetailPage = () => {
                 <TableCell component="th" scope="row">
                   {asset.ticker}
                 </TableCell>
-                {allColumns.filter(column => selectedColumns.includes(column)).map(column => (
-                  <TableCell key={column} align="right">
-                    {asset[column]}
-                  </TableCell>
-                ))}
+                {allColumns
+                  .filter((column) => selectedColumns.includes(column))
+                  .map((column) => (
+                    <TableCell key={column} align="right">
+                      {asset[column]}
+                    </TableCell>
+                  ))}
               </TableRow>
             ))}
           </TableBody>
@@ -140,7 +221,7 @@ const PortfolioDetailPage = () => {
         startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />}
         variant="contained"
         size="small"
-        sx={{ bgcolor: 'black', color: 'white', margin: '12px' }}
+        sx={{ bgcolor: "black", color: "white", margin: "12px" }}
         onClick={handleOpen}
       >
         Add Asset
@@ -170,7 +251,7 @@ const PortfolioDetailPage = () => {
                 onChange={handleChange}
                 label="Type"
                 inputProps={{
-                  name: 'type'
+                  name: "type",
                 }}
               >
                 <option aria-label="None" value="" />
@@ -217,13 +298,15 @@ const PortfolioDetailPage = () => {
               onChange={handleChange}
               sx={{ mb: 2 }}
             />
-            <Button type="submit" variant="contained">Add</Button>
+            <Button type="submit" variant="contained">
+              Add
+            </Button>
           </Box>
         </Box>
       </Modal>
       <Button
         onClick={(event) => setAnchorEl(event.currentTarget)}
-        startIcon={<SettingsIcon />} 
+        startIcon={<SettingsIcon />}
         variant="outlined"
         size="small"
         sx={{ ml: 2 }}

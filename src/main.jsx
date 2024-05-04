@@ -51,13 +51,13 @@ const speedInsider = () => {
 
 const getMessages = (locale) => {
   switch (locale) {
-    case 'fr':
-      return import('./translations/fr.json');
-    case 'tr':
-      return import('./translations/tr.json');
-    case 'esp':
-      return import('./translations/esp.json');
-    case 'en':
+    case "fr":
+      return import("./translations/fr.json");
+    case "tr":
+      return import("./translations/tr.json");
+    case "esp":
+      return import("./translations/esp.json");
+    case "en":
     default:
       return import("./translations/en.json");
   }
@@ -110,40 +110,40 @@ const App = () => {
         //     path: "/equities",
         //     element: <EquitiesPage />,
         //   },
-         
-      {
-        path: "/equities/:symbol/financials/dividends",
-        element: <DividendsSubpage />,
-      },
-      {
-        path: "/equities/:symbol/financials/profile",
-        element: <ProfileSubpage />,
-      },
-      {
-        path: "/equities/:symbol/financials/risk",
-        element: <RiskSubpage />,
-      },
-      {
-        path: "/equities/:symbol/financials/statements",
-        element: <StatementsSubpage />,
-      },
-      {
-        path: "/equities/:symbol/financials/statistics",
-        element: <StatisticSubpage />,
-      },
-      {
-        path: "/my-portfolio/detail/:portfolioId",
-        element: <PortfolioDetailPage />,
-      },
-      {
-        path: "/markets",
-        element: <MarketsPage />,
-      },
-       {
-        path: "/equities/:symbol/financials/holders",
-        element: <HoldersSubpage/>,
-      },
-      {
+
+        {
+          path: "/equities/:symbol/financials/dividends",
+          element: <DividendsSubpage />,
+        },
+        {
+          path: "/equities/:symbol/financials/profile",
+          element: <ProfileSubpage />,
+        },
+        {
+          path: "/equities/:symbol/financials/risk",
+          element: <RiskSubpage />,
+        },
+        {
+          path: "/equities/:symbol/financials/statements",
+          element: <StatementsSubpage />,
+        },
+        {
+          path: "/equities/:symbol/financials/statistics",
+          element: <StatisticSubpage />,
+        },
+        {
+          path: "/my-portfolio/detail/:portfolioId",
+          element: <PortfolioDetailPage />,
+        },
+        {
+          path: "/markets",
+          element: <MarketsPage />,
+        },
+        {
+          path: "/equities/:symbol/financials/holders",
+          element: <HoldersSubpage />,
+        },
+        {
           path: "/equities/:symbol/overview",
           element: <EquitiesOverviewPage />,
         },

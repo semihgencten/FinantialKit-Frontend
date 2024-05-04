@@ -1,20 +1,19 @@
-import React from 'react';
-import TabsLayout from '@/pages/EquitiesPage';
-import FinancialsTabsLayout from '@/pages/EquitiesFinancialsPage';
-import { Box, Typography, Grid, Paper, Divider } from '@mui/material';
-
+import React from "react";
+import TabsLayout from "@/pages/EquitiesPage";
+import FinancialsTabsLayout from "@/pages/EquitiesFinancialsPage";
+import { Box, Typography, Grid, Paper, Divider } from "@mui/material";
 
 const ProfileSubpage = () => {
   const stockProfile = {
-    about: 'Example Inc. is a leading technology company specializing in...',
+    about: "Example Inc. is a leading technology company specializing in...",
     keyExecutives: [
-      { name: 'John Doe', title: 'CEO' },
-      { name: 'Jane Smith', title: 'CFO' },
+      { name: "John Doe", title: "CEO" },
+      { name: "Jane Smith", title: "CFO" },
       // Add more key executives as needed
     ],
-    sector: 'Technology',
-    industry: 'Software',
-    numberOfEmployees: '10,000',
+    sector: "Technology",
+    industry: "Software",
+    numberOfEmployees: "10,000",
     // Add more profile information as needed
   };
 
@@ -22,7 +21,9 @@ const ProfileSubpage = () => {
     <TabsLayout>
       <FinancialsTabsLayout>
         <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h3" sx={{ mb: 2 }}>Company Profile</Typography>
+          <Typography variant="h3" sx={{ mb: 2 }}>
+            Company Profile
+          </Typography>
           <Grid container spacing={3} justifyContent="center">
             <Grid item xs={12}>
               <Paper elevation={3} sx={{ p: 2 }}>
@@ -39,7 +40,9 @@ const ProfileSubpage = () => {
                   <div key={index}>
                     <Typography>Name: {executive.name}</Typography>
                     <Typography>Title: {executive.title}</Typography>
-                    {index !== stockProfile.keyExecutives.length - 1 && <Divider sx={{ my: 1 }} />}
+                    {index !== stockProfile.keyExecutives.length - 1 && (
+                      <Divider sx={{ my: 1 }} />
+                    )}
                   </div>
                 ))}
               </Paper>
@@ -50,7 +53,9 @@ const ProfileSubpage = () => {
                 <Divider sx={{ my: 2 }} />
                 <Typography>Sector: {stockProfile.sector}</Typography>
                 <Typography>Industry: {stockProfile.industry}</Typography>
-                <Typography>Number of Employees: {stockProfile.numberOfEmployees}</Typography>
+                <Typography>
+                  Number of Employees: {stockProfile.numberOfEmployees}
+                </Typography>
               </Paper>
             </Grid>
           </Grid>

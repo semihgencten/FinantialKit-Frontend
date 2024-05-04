@@ -2,113 +2,113 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import httpFetch from "@/utils/httpFetch";
 
 export const fetchPortfolios = createAsyncThunk(
-  'portfolios/fetchPortfolios',
+  "portfolios/fetchPortfolios",
   async (_, { getState }) => {
     const accessToken = getState().auth.accessToken;
     try {
-      const response = await httpFetch('/portfolios/', {
-        method: 'GET',
+      const response = await httpFetch("/portfolios/", {
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       return response.json();
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 export const fetchPortfolioDetail = createAsyncThunk(
-    'portfolios/fetchPortfolioDetail',
-    async (portfolioId, { getState }) => {
-      const accessToken = getState().auth.accessToken;
-      try {
-        const response = await httpFetch(`/portfolios/${portfolioId}/detail`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-        return response.json();
-      } catch (error) {
-        throw error;
-      }
-    }
-  );
-  
-export const createPortfolio = createAsyncThunk(
-  'portfolios/createPortfolio',
-  async (portfolioData, { getState }) => {
+  "portfolios/fetchPortfolioDetail",
+  async (portfolioId, { getState }) => {
     const accessToken = getState().auth.accessToken;
     try {
-      const response = await httpFetch('/portfolios/create', {
-        method: 'POST',
+      const response = await httpFetch(`/portfolios/${portfolioId}/detail`, {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(portfolioData)
       });
       return response.json();
     } catch (error) {
       throw error;
     }
-  }
+  },
+);
+
+export const createPortfolio = createAsyncThunk(
+  "portfolios/createPortfolio",
+  async (portfolioData, { getState }) => {
+    const accessToken = getState().auth.accessToken;
+    try {
+      const response = await httpFetch("/portfolios/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(portfolioData),
+      });
+      return response.json();
+    } catch (error) {
+      throw error;
+    }
+  },
 );
 
 export const deletePortfolio = createAsyncThunk(
-  'portfolios/deletePortfolio',
+  "portfolios/deletePortfolio",
   async (portfolioId, { getState }) => {
     const accessToken = getState().auth.accessToken;
     try {
       await httpFetch(`/portfolios/${portfolioId}/delete`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       return portfolioId; // Return the deleted portfolio ID
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 export const createPortfolioItem = createAsyncThunk(
-  'portfolios/createPortfolioItem',
+  "portfolios/createPortfolioItem",
   async (portfolioItemData, { getState }) => {
     const accessToken = getState().auth.accessToken;
     try {
-      const response = await httpFetch('/portfolios/items/create', {
-        method: 'POST',
+      const response = await httpFetch("/portfolios/items/create", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(portfolioItemData)
+        body: JSON.stringify(portfolioItemData),
       });
       return response.json();
     } catch (error) {
       throw error;
     }
-  }
+  },
 );
 
 export const deletePortfolioItem = createAsyncThunk(
-  'portfolios/deletePortfolioItem',
+  "portfolios/deletePortfolioItem",
   async (portfolioItemId, { getState }) => {
     const accessToken = getState().auth.accessToken;
     try {
       await httpFetch(`/portfolios/items/${portfolioItemId}/delete`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
-      return portfolioItemId; 
+      return portfolioItemId;
     } catch (error) {
       throw error;
     }
-  }
+  },
 );

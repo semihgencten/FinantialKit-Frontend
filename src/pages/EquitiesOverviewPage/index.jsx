@@ -53,7 +53,7 @@ const EquitiesOverviewPage = () => {
               </Box>
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{ textAlign: '-webkit-center'}}>
+          <Grid item xs={12} style={{ textAlign: "-webkit-center" }}>
             <Graph style={{ width: "100%" }} />
           </Grid>
         </Grid>

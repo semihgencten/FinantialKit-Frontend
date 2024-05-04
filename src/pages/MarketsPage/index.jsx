@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 // import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Link } from 'react-router-dom';
-import { CountryDropdown } from '@/pages/MarketsPage/sections';
-import { IndexDropdown } from './sections';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { DataGrid } from "@mui/x-data-grid";
+import { Link } from "react-router-dom";
+import { CountryDropdown } from "@/pages/MarketsPage/sections";
+import { IndexDropdown } from "./sections";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 const columns = [
   { field: "symbol", headerName: "Symbol", width: 120 },
@@ -13,7 +13,9 @@ const columns = [
     field: "companyName",
     headerName: "Name",
     width: 250,
-    renderCell: (params) => <Link to="/equities/NVDA/overview">{params.value}</Link>,
+    renderCell: (params) => (
+      <Link to="/equities/NVDA/overview">{params.value}</Link>
+    ),
   },
   { field: "lastprice", headerName: "Last", width: 150 },
   { field: "changeAmount", headerName: "Change", width: 150 },
@@ -115,7 +117,6 @@ const rows = [
 ];
 
 const MarketsPage = () => {
-
   return (
     <div>
       <Box sx={{ textAlign: "center" }}>
