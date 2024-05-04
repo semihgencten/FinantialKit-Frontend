@@ -195,7 +195,7 @@ const EquitiesChartsPage = () => {
                 </Dialog>
                 
                 {/* Graph component */}
-                <Grid container justifyContent="center" alignItems="center">
+                <Grid container justifyContent="center" alignItems="center" sx={{ textAlign: '-webkit-center' }}>
                     <Graph graphLightMode={graphLightMode} selectedIndicatorsList={[...selectedIndicatorsList]} viewMode={viewMode} />
                 </Grid>
             </Box>

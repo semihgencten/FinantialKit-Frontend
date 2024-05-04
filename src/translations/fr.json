@@ -17,5 +17,8 @@
     "create.new.portfolio.button": "Créer un nouveau portefeuille",
     "daily.return.label": "Rendement quotidien",
     "risk.label": "Risque",
-    "assets.label": "Actifs"
+    "assets.label": "Actifs",
+    "firstname": "prénom",
+    "secondname": "nom de famille",
+    "password": "mot de passe"
 }

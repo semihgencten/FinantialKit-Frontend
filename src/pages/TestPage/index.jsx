@@ -13,7 +13,7 @@ const TestPage = () => {
         period: "1mo",
         interval: "1d",
         range: "annual",
-      })
+      }),
     );
     if (!action.error) setData(action.payload);
   };

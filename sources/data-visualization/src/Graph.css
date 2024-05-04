@@ -6,15 +6,15 @@
   place-content: center;
 }
 
-.buttons{
+.buttons {
   display: flex;
   flex-direction: row;
   gap: 4px;
 }
 
 .graph-container {
-    height: 400px;
-    width: 600px; 
+  height: 400px;
+  width: 600px;
 }
 
 .indicator-container {

@@ -19,7 +19,7 @@ export const getBalancesheet = createAsyncThunk(
       data: body,
     });
     return response.data;
-  }
+  },
 );
 
 export const getCashflow = createAsyncThunk(
@@ -40,7 +40,7 @@ export const getCashflow = createAsyncThunk(
       data: body,
     });
     return response.data;
-  }
+  },
 );
 
 export const getHistories = createAsyncThunk(
@@ -60,7 +60,7 @@ export const getHistories = createAsyncThunk(
       data: body,
     });
     return response.data;
-  }
+  },
 );
 
 export const getIncomeStatement = createAsyncThunk(
@@ -81,7 +81,7 @@ export const getIncomeStatement = createAsyncThunk(
       data: body,
     });
     return response.data;
-  }
+  },
 );
 
 export const getIndicators = createAsyncThunk(
@@ -102,7 +102,7 @@ export const getIndicators = createAsyncThunk(
       data: body,
     });
     return response.data;
-  }
+  },
 );
 
 export const getStockTechnicals = createAsyncThunk(
@@ -118,5 +118,5 @@ export const getStockTechnicals = createAsyncThunk(
       data: body,
     });
     return response.data;
-  }
+  },
 );
