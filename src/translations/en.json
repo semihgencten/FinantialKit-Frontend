@@ -8,5 +8,14 @@
     "portfolio.page.title": "Portfolio",
     "analysis.page.title": "Analysis",
     "markets.page.title": "Markets",
-    "logo.label": "LOGO HERE"
+    "logo.label": "LOGO HERE",
+    "create.portfolio.title": "Create New Portfolio",
+    "portfolio.name.label": "Portfolio Name",
+    "portfolio.description.label": "Portfolio Description",
+    "create.button": "Create Portfolio",
+    "your.portfolios.title": "Your Portfolios",
+    "create.new.portfolio.button": "Create New Portfolio",
+    "daily.return.label": "Daily Return",
+    "risk.label": "Risk",
+    "assets.label": "Assets"
 }

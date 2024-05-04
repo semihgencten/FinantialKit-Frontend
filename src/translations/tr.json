@@ -1,0 +1,21 @@
+{
+    "greeting": "Merhaba, Dünya!",
+    "buttonLabel": "Tıkla",
+    "profile.label": "Profil",
+    "homepage.title": "Ana Sayfa",
+    "news.page.title": "Haberler",
+    "watchlist.page.title": "İzleme Listesi",
+    "portfolio.page.title": "Portföy",
+    "analysis.page.title": "Analiz",
+    "markets.page.title": "Piyasalar",
+    "logo.label": "LOGO BURADA",
+    "create.portfolio.title": "Yeni Portföy Oluştur",
+    "portfolio.name.label": "Portföy Adı",
+    "portfolio.description.label": "Portföy Tanımı",
+    "create.button": "Portföy Oluştur",
+    "your.portfolios.title": "Portföyleriniz",
+    "create.new.portfolio.button": "Yeni Portföy Oluştur",
+    "daily.return.label": "Günlük Getiri",
+    "risk.label": "Risk",
+    "assets.label": "Varlıklar"
+}

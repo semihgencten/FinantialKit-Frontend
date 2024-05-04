@@ -1,12 +1,21 @@
 {
-    "greeting": "Bonjour, Monde !",
+    "greeting": "Bonjour, le monde!",
     "buttonLabel": "Cliquez moi",
     "profile.label": "Profil",
-    "homepage.title": "Page d'accueil",
-    "news.page.title": "Actualités",
+    "homepage.title": "Accueil",
+    "news.page.title": "Nouvelles",
     "watchlist.page.title": "Liste de surveillance",
     "portfolio.page.title": "Portefeuille",
     "analysis.page.title": "Analyse",
     "markets.page.title": "Marchés",
-    "logo.label": "LOGO ICI"
+    "logo.label": "LOGO ICI",
+    "create.portfolio.title": "Créer un nouveau portefeuille",
+    "portfolio.name.label": "Nom du portefeuille",
+    "portfolio.description.label": "Description du portefeuille",
+    "create.button": "Créer le portefeuille",
+    "your.portfolios.title": "Vos portefeuilles",
+    "create.new.portfolio.button": "Créer un nouveau portefeuille",
+    "daily.return.label": "Rendement quotidien",
+    "risk.label": "Risque",
+    "assets.label": "Actifs"
 }

@@ -40,6 +40,10 @@ const getMessages = (locale) => {
   switch (locale) {
     case 'fr':
       return import('./translations/fr.json');
+    case 'tr':
+      return import('./translations/tr.json');
+    case 'esp':
+      return import('./translations/esp.json');
     case 'en':
     default:
       return import('./translations/en.json');

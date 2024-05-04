@@ -30,8 +30,9 @@ const DefaultLayout = () => {
         inputProps={{ 'aria-label': 'Without label' }}
       >
         <MenuItem value="en">English</MenuItem>
-        <MenuItem value="fr">French</MenuItem>
-        <MenuItem value="arb">Arabic</MenuItem>
+        <MenuItem value="tr">Türkçe</MenuItem>
+        <MenuItem value="esp">Español</MenuItem>
+        <MenuItem value="fr">Français</MenuItem>
       </Select>
       <Grid container sx={{ p: "20px" }} bgcolor="lightgrey">
         <Grid item xs={3}>

@@ -1,0 +1,21 @@
+{
+    "greeting": "¡Hola, mundo!",
+    "buttonLabel": "Haz clic aquí",
+    "profile.label": "Perfil",
+    "homepage.title": "Inicio",
+    "news.page.title": "Noticias",
+    "watchlist.page.title": "Lista de seguimiento",
+    "portfolio.page.title": "Cartera",
+    "analysis.page.title": "Análisis",
+    "markets.page.title": "Mercados",
+    "logo.label": "LOGO AQUÍ",
+    "create.portfolio.title": "Crear nueva cartera",
+    "portfolio.name.label": "Nombre de la cartera",
+    "portfolio.description.label": "Descripción de la cartera",
+    "create.button": "Crear cartera",
+    "your.portfolios.title": "Tus carteras",
+    "create.new.portfolio.button": "Crear nueva cartera",
+    "daily.return.label": "Rendimiento diario",
+    "risk.label": "Riesgo",
+    "assets.label": "Activos"
+}
