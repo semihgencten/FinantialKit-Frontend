@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser } from "@/actions/authActions";
-
+import { registerUser,loginUser } from "@/actions/authActions";
+import Cookies from "universal-cookie";
 const initialState = {
   user: null,
   status: "idle",
@@ -19,6 +19,14 @@ export const financeSlice = createSlice({
         state.error = null;
         state.user = action.payload;
       })
+      .addCase(loginUser.fulfilled, (state,action)=>{
+        state.status = "succeeded";
+        state.error = null;
+        state.user = action.payload;
+        let cookies = new Cookies(null,{path: '/'});
+        cookies.set("token",state.user?.token);
+        // console.log(cookies.get('token'));
+      } )
       .addMatcher(
         (action) => action.type.endsWith("/pending"),
         (state) => {

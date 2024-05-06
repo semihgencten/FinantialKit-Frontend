@@ -20,3 +20,17 @@ export const registerUser = createAsyncThunk(
     return response.data;
   },
 );
+
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (body) => {
+    console.log(body);
+    const response = await httpFetch({
+      method: "POST",
+      url: "/users/login/",
+      data:body
+    });
+    return response.data;
+
+  }
+)
