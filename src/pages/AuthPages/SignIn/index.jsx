@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -12,17 +13,32 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { loginUser } from "@/actions/authActions";
+import { useNavigate } from "react-router-dom";
+// import { redirect,navigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
+
 const SignIn = () => {
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const action = await dispatch(
+      loginUser({
+        username: data.get("username"),
+        password: data.get("password")
+      })
+    );
+    navigate("/");
+    // console.log({
+    //   email: data.get("username"),
+    //   password: data.get("password"),
+    // });
   };
 
   return (
@@ -55,10 +71,10 @@ const SignIn = () => {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address or Username"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField

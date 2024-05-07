@@ -24,7 +24,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (body) => {
-    console.log(body);
+    // console.log(body);
     const response = await httpFetch({
       method: "POST",
       url: "/users/login/",
@@ -33,4 +33,10 @@ export const loginUser = createAsyncThunk(
     return response.data;
 
   }
+)
+
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async ()=>{} // This could be changed but for now it is handled from user slice module
+
 )

@@ -14,11 +14,14 @@ import {
   Menu,
   IconButton,
   Avatar,
+  Container
 } from "@mui/material";
 import LocaleContext from "@/LocaleContext";
 import { FormattedMessage } from "react-intl";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import { useSelector,useDispatch } from "react-redux";
+import { logoutUser } from "@/actions/authActions";
 
 const styles = {
   navButton: {
@@ -44,6 +47,7 @@ const NavButton = ({ route, titleId }) => {
 };
 
 const DefaultLayout = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { locale, setLocale } = useContext(LocaleContext);
@@ -59,6 +63,12 @@ const DefaultLayout = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const {user,status,error,isAuthenticated} = useSelector((state)=> state.user); 
+
+  const logout = async () => {
+    dispatch(logoutUser());
   };
 
   return (
@@ -122,23 +132,27 @@ const DefaultLayout = () => {
           >
             <MenuItem
               onClick={() => {
-                navigate("/my-profile");
+
+                isAuthenticated?navigate("/my-profile"): navigate("/sign-in") ;
                 handleMenuClose();
               }}
             >
-              My Profile
+              {isAuthenticated? "My Profile":"Login" } 
             </MenuItem>
             <MenuItem
+              style={{ display: isAuthenticated?"block": "none" }}
               onClick={() => {
                 navigate("/settings");
                 handleMenuClose();
               }}
             >
               Settings
-            </MenuItem>
-            <MenuItem
+            </MenuItem> 
+            <MenuItem 
+              style={{ display: isAuthenticated?"block": "none" }}
               onClick={() => {
-                navigate("/sign-out");
+                logout();
+                navigate("/");
                 handleMenuClose();
               }}
             >
@@ -171,6 +185,32 @@ const DefaultLayout = () => {
       <Box sx={{ width: "90%", mx: "auto", mt: 2 }}>
         <Outlet />
       </Box>
+      <Box
+      sx={{
+        marginTop:"25px",
+        width: "100%",
+        height: "auto",
+        backgroundColor: "#E9E7E7",
+        paddingTop: "3rem",
+        paddingBottom: "3rem",
+      }}
+    >
+      <Container maxWidth="lg">
+        <Grid container direction="column" alignItems="center">
+          <Grid item xs={12}>
+            <Typography color="black" variant="h5">
+              Financial Kit
+            </Typography>
+              </Grid>
+              <Grid item xs={12}>
+            <Typography color="textSecondary" variant="subtitle1">
+              {`${new Date().getFullYear()}`}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+
     </Box>
   );
 };
