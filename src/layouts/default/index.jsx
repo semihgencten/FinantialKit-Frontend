@@ -69,28 +69,29 @@ const DefaultLayout = () => {
           <img
             src="src/assets/images/logo.png"
             alt="Logo"
-            style={{ width: "35%", height: "80px" }}
+            style={{ maxWidth: "100%", height: "80px" }}
           />
         </Grid>
-        <Grid item xs={6}>
-          <OutlinedInput
-            sx={{ width: "90%", height: "40px" }}
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            }
-          />
-        </Grid>
-        <Grid
-          item
-          xs={3}
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
+        
+          <Grid item xs={6} sx={{ textAlign: "center" }}>
+    <OutlinedInput
+      sx={{ width: "90%", height: "40px" }}
+      startAdornment={
+        <InputAdornment position="start">
+          <SearchIcon />
+        </InputAdornment>
+      }
+    />
+  </Grid>
+  <Grid
+    item
+    xs={3}
+    sx={{
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+    }}
+  >
           <Select
             value={locale}
             onChange={handleLanguageChange}
