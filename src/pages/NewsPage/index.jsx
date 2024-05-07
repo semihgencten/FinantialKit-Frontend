@@ -79,7 +79,7 @@ const NewsPage = () => {
       >
         <List component="nav" sx={{ alignSelf: "start", width: "20%" }}>
           <Typography variant="h5" sx={{ mb: 1 }}>
-            Compaines
+            Companies
           </Typography>
           {companies.map((company, index) => (
             <ListItem
@@ -93,7 +93,7 @@ const NewsPage = () => {
         </List>
         <Box sx={{ textAlign: "left", ml: 4, width: "80%" }}>
           <Grid container spacing={2}>
-            {news.map((article, index) => (
+            {news && news.map((article, index) => (
               <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                 <NewsCard article={article} />
               </Grid>
