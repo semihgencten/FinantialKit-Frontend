@@ -8,7 +8,6 @@ import {
   Grid,
   Typography,
   TextField,
-  Button,
 } from "@mui/material";
 import NewsCard from "./NewsCard";
 
@@ -109,11 +108,12 @@ const NewsPage = () => {
         </List>
         <Box sx={{ textAlign: "left", ml: 4, width: "80%" }}>
           <Grid container spacing={2}>
-            {news.map((article, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <NewsCard article={article} />
-              </Grid>
-            ))}
+            {news.length > 0 &&
+              news.map((article, index) => (
+                <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+                  <NewsCard article={article} />
+                </Grid>
+              ))}
           </Grid>
           <Box
             sx={{
