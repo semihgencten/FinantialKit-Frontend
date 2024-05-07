@@ -19,6 +19,7 @@ import LocaleContext from "@/LocaleContext";
 import { FormattedMessage } from "react-intl";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import Footer from "./components/Footer";
 
 const styles = {
   navButton: {
@@ -72,26 +73,26 @@ const DefaultLayout = () => {
             style={{ maxWidth: "100%", height: "80px" }}
           />
         </Grid>
-        
-          <Grid item xs={6} sx={{ textAlign: "center" }}>
-    <OutlinedInput
-      sx={{ width: "90%", height: "40px" }}
-      startAdornment={
-        <InputAdornment position="start">
-          <SearchIcon />
-        </InputAdornment>
-      }
-    />
-  </Grid>
-  <Grid
-    item
-    xs={3}
-    sx={{
-      display: "flex",
-      justifyContent: "flex-end",
-      alignItems: "center",
-    }}
-  >
+
+        <Grid item xs={6} sx={{ textAlign: "center" }}>
+          <OutlinedInput
+            sx={{ width: "90%", height: "40px" }}
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+          />
+        </Grid>
+        <Grid
+          item
+          xs={3}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
           <Select
             value={locale}
             onChange={handleLanguageChange}
@@ -172,6 +173,10 @@ const DefaultLayout = () => {
       <Box sx={{ width: "90%", mx: "auto", mt: 2 }}>
         <Outlet />
       </Box>
+      {/* Footer Component */}
+      <div style={{ height: "20px" }}></div>
+      <Footer />
+
     </Box>
   );
 };
