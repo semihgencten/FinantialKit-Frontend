@@ -27,54 +27,53 @@ const DividendsTable = () => {
   ];
 
   return (
-        <div>
-            <Typography sx={{ backgroundColor: "#F9F7F7" }} variant="h4" gutterBottom>
-          Dividends
-        </Typography>
-          <TableContainer component={Paper} sx={{ borderRadius: "10px" }}>
-                    
-            <Table sx={{ minWidth: 400 }}>
-              <TableHead sx={{ backgroundColor: "#F9F7F7" }}>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      fontWeight: "bold",
-                      fontSize: "1.1rem",
-                      color: "#333",
-                    }}
-                  >
-                    Parameter
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: "bold",
-                      fontSize: "1.1rem",
-                      color: "#333",
-                    }}
-                  >
-                    Value
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {dividendData.map((row) => (
-                  <TableRow key={row.name}>
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      sx={{ fontSize: "1rem", color: "#555" }}
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell sx={{ fontSize: "1rem", color: "#555" }}>
-                      {row.value}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          </div>
+    <div>
+      <Typography sx={{ backgroundColor: "#F9F7F7" }} variant="h4" gutterBottom>
+        Dividends
+      </Typography>
+      <TableContainer component={Paper} sx={{ borderRadius: "10px" }}>
+        <Table sx={{ minWidth: 400 }}>
+          <TableHead sx={{ backgroundColor: "#F9F7F7" }}>
+            <TableRow>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                  color: "#333",
+                }}
+              >
+                Parameter
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                  color: "#333",
+                }}
+              >
+                Value
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {dividendData.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ fontSize: "1rem", color: "#555" }}
+                >
+                  {row.name}
+                </TableCell>
+                <TableCell sx={{ fontSize: "1rem", color: "#555" }}>
+                  {row.value}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 };
 

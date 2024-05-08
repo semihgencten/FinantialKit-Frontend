@@ -314,25 +314,32 @@ const HomePage = () => {
   const navigate = useNavigate();
   return (
     <div>
-        <Box
+      <Box
         sx={{
-            backgroundColor: "#f5f5f5",
-            padding: "60px 20px",
-            textAlign: "center",
-            color: "#555",
+          backgroundColor: "#f5f5f5",
+          padding: "60px 20px",
+          textAlign: "center",
+          color: "#555",
         }}
         style={{
-            
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: "100%",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: "100%",
         }}
+      >
+        <Typography
+          variant="h3"
+          gutterBottom
+          style={{ fontWeight: "bold", color: "#000" }}
         >
-        <Typography variant="h3" gutterBottom style={{ fontWeight: "bold", color: "#000" }}>
-        Welcome to Stock Market Insights
+          Welcome to Stock Market Insights
         </Typography>
-        <Typography variant="subtitle1" gutterBottom style={{ fontWeight: "bold", color: "#000" }}>
-        Stay updated with the latest market trends and analysis.
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          style={{ fontWeight: "bold", color: "#000" }}
+        >
+          Stay updated with the latest market trends and analysis.
         </Typography>
         <Button
           variant="contained"
@@ -351,12 +358,7 @@ const HomePage = () => {
           Indices
         </Typography>
         <div style={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={indicesRows}
-            columns={columns}
-            pageSize={10}
-            
-          />
+          <DataGrid rows={indicesRows} columns={columns} pageSize={10} />
         </div>
       </Box>
       <Grid container spacing={4}>
@@ -370,7 +372,6 @@ const HomePage = () => {
                 rows={trendingStocksRows}
                 columns={columns}
                 pageSize={10}
-               
               />
             </div>
           </Box>
@@ -382,12 +383,7 @@ const HomePage = () => {
               Top Gainers
             </Typography>
             <div style={{ height: 600, width: "100%" }}>
-              <DataGrid
-                rows={topGainersRows}
-                columns={columns}
-                pageSize={10}
-                
-              />
+              <DataGrid rows={topGainersRows} columns={columns} pageSize={10} />
             </div>
           </Box>
         </Grid>
