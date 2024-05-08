@@ -96,9 +96,56 @@ export const Graph = ({
 
         plotOptions: plotOptions,
 
-        navigator: {
-          series: {
-            id: "main",
+        tooltip: {
+          shape: "square",
+          headerShape: "callout",
+          borderWidth: 0,
+          shadow: false,
+          positioner: function (width, height, point) {
+            const chart = this.chart;
+            let position;
+
+            if (point.isHeader) {
+              position = {
+                x: Math.max(
+                  chart.plotLeft,
+                  Math.min(
+                    point.plotX + chart.plotLeft - width / 2,
+                    chart.chartWidth - width - chart.marginRight,
+                  ),
+                ),
+                y: point.plotY,
+              };
+            } else {
+              position = {
+                x: point.series.chart.plotLeft,
+                y: point.series.yAxis.top - chart.plotTop,
+              };
+            }
+            return position;
+          },
+          formatter: function () {
+            let s = "";
+
+            if (this.points) {
+              console.log(this.points);
+              this.points.forEach(function (point) {
+                if (point.point.open !== undefined) {
+                  s +=
+                    `<b>${Highcharts.dateFormat("%d %b %Y", point.point.x)}</b><br/>` +
+                    `<b>${point.series.name}</b><br/>` +
+                    `<b>Open: ${point.point.open}</b><br/>` +
+                    `<b>High: ${point.point.high}</b><br/>` +
+                    `<b>Low: ${point.point.low}</b><br/>` +
+                    `<b>Close: ${point.point.close}</b><br/>`;
+                } else {
+                  s += `<b>${point.series.name}: ${point.y}</b><br/>`;
+                }
+              });
+            } else {
+              s = Highcharts.dateFormat("%d %b %Y", this.x);
+            }
+            return s;
           },
         },
       });
@@ -140,7 +187,7 @@ export const Graph = ({
         series.update(
           {
             tooltip: {
-              pointFormat: "<span>{point.y}</span>",
+              pointFormat: "<span>{series.name}: {point.y}</span>",
             },
           },
           false,
@@ -421,6 +468,9 @@ export const Graph = ({
 
   useEffect(() => {
     initializeGraph();
+    if (chartRef.current) {
+      updateGraphForLightOrDarkMode();
+    }
   }, [data.ohlc, data.volume]);
 
   useEffect(() => {

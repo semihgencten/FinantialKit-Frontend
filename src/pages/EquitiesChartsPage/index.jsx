@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
-  Chip,
-  Autocomplete,
-  TextField,
+  Dialog,
   Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
-import { LightModeOutlined, DarkModeOutlined } from "@mui/icons-material";
 import TabsLayout from "@/pages/EquitiesPage";
 import { Graph } from "@/components/Graph";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const EquitiesChartsPage = () => {
   const [graphLightMode, setGraphLightMode] = useState("light");
@@ -329,7 +334,12 @@ const EquitiesChartsPage = () => {
         </Dialog>
 
         {/* Graph component */}
-        <Grid container justifyContent="center" alignItems="center">
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          sx={{ textAlign: "-webkit-center" }}
+        >
           <Graph
             graphLightMode={graphLightMode}
             selectedIndicatorsList={[...selectedIndicatorsList]}
