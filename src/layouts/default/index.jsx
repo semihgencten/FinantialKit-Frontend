@@ -176,7 +176,6 @@ const DefaultLayout = () => {
       {/* Footer Component */}
       <div style={{ height: "20px" }}></div>
       <Footer />
-
     </Box>
   );
 };
