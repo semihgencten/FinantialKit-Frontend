@@ -220,11 +220,11 @@ const App = () => {
         },
         {
           path: "/forgot-password",
-          element: <PasswordForgot />
+          element: <PasswordForgot />,
         },
         {
           path: "/change-password",
-          element: <PasswordChange />
+          element: <PasswordChange />,
         },
       ],
     },
