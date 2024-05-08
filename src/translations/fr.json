@@ -20,5 +20,9 @@
   "assets.label": "Actifs",
   "firstname": "prénom",
   "secondname": "nom de famille",
-  "password": "mot de passe"
+  "password": "mot de passe",
+  "watchlist": "Liste de Surveillance",
+  "watchlist.selectCountry": "Sélectionnez un pays",
+  "watchlist.selectIndex": "Sélectionnez un indice",
+  "watchlist.filerResults": "Filtrer les résultats"
 }

@@ -19,6 +19,7 @@ import LocaleContext from "@/LocaleContext";
 import { FormattedMessage } from "react-intl";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import Footer from "./components/Footer";
 
 const styles = {
   navButton: {
@@ -69,10 +70,11 @@ const DefaultLayout = () => {
           <img
             src="src/assets/images/logo.png"
             alt="Logo"
-            style={{ width: "35%", height: "80px" }}
+            style={{ maxWidth: "100%", height: "80px" }}
           />
         </Grid>
-        <Grid item xs={6}>
+
+        <Grid item xs={6} sx={{ textAlign: "center" }}>
           <OutlinedInput
             sx={{ width: "90%", height: "40px" }}
             startAdornment={
@@ -171,6 +173,10 @@ const DefaultLayout = () => {
       <Box sx={{ width: "90%", mx: "auto", mt: 2 }}>
         <Outlet />
       </Box>
+      {/* Footer Component */}
+      <div style={{ height: "20px" }}></div>
+      <Footer />
+
     </Box>
   );
 };
