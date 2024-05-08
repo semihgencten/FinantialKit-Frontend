@@ -105,7 +105,7 @@ const EquitiesTechnicalsPage = () => {
   return (
     <TabsLayout>
       <Box sx={{ textAlign: "center" }}>
-        <h2>Technicals Page {symbol}</h2>;
+        <h2>Technicals Page {symbol}</h2>
       </Box>
       <div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

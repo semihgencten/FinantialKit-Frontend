@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { Opacity } from "@mui/icons-material";
 
 const columns = [
   { field: "symbol", headerName: "Symbol", width: 120 },
@@ -313,22 +314,25 @@ const HomePage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <Box
+        <Box
         sx={{
-          backgroundColor: "#f5f5f5",
-          padding: "60px 20px",
-          textAlign: "center",
-          backgroundImage: `url('path/to/banner-image.jpg')`, // Replace with your banner image path
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          color: "#555",
+            backgroundColor: "#f5f5f5",
+            padding: "60px 20px",
+            textAlign: "center",
+            color: "#555",
         }}
-      >
-        <Typography variant="h3" gutterBottom>
-          Welcome to Stock Market Insights
+        style={{
+            
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: "100%",
+        }}
+        >
+        <Typography variant="h3" gutterBottom style={{ fontWeight: "bold", color: "#000" }}>
+        Welcome to Stock Market Insights
         </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Stay updated with the latest market trends and analysis.
+        <Typography variant="subtitle1" gutterBottom style={{ fontWeight: "bold", color: "#000" }}>
+        Stay updated with the latest market trends and analysis.
         </Typography>
         <Button
           variant="contained"
@@ -351,7 +355,7 @@ const HomePage = () => {
             rows={indicesRows}
             columns={columns}
             pageSize={10}
-            checkboxSelection
+            
           />
         </div>
       </Box>
@@ -366,7 +370,7 @@ const HomePage = () => {
                 rows={trendingStocksRows}
                 columns={columns}
                 pageSize={10}
-                checkboxSelection
+               
               />
             </div>
           </Box>
@@ -382,7 +386,7 @@ const HomePage = () => {
                 rows={topGainersRows}
                 columns={columns}
                 pageSize={10}
-                checkboxSelection
+                
               />
             </div>
           </Box>

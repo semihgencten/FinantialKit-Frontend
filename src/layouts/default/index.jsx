@@ -67,7 +67,7 @@ const DefaultLayout = () => {
       <Grid container sx={{ p: "25px" }} bgcolor="#F9F7F7" alignItems="center">
         <Grid item xs={3}>
           <img
-            src="src/assets/images/logo.png"
+            src="/src/assets/images/logo.png"
             alt="Logo"
             style={{ width: "35%", height: "80px" }}
           />
