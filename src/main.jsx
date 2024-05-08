@@ -36,7 +36,6 @@ import PasswordForgot from "@/pages/AuthPages/PasswordForgot";
 import PasswordChange from "@/pages/AuthPages/PasswordChange";
 import SignIn from "@/pages/AuthPages/SignIn";
 import SignUp from "@/pages/AuthPages/SignUp";
-import SignIn from "@/pages/AuthPages/SignIn";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 
