@@ -1,1 +1,1 @@
-export { default as BriefTable } from "./BriefTable";
+export { default as BriefTable } from "./LeftBriefTable";

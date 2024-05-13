@@ -20,5 +20,9 @@
   "assets.label": "Activos",
   "firstname": "nombre",
   "secondname": "apellido",
-  "password": "contraseña"
+  "password": "contraseña",
+  "watchlist": "Lista de Seguimiento",
+  "watchlist.selectCountry": "Seleccionar país",
+  "watchlist.selectIndex": "Seleccionar índice",
+  "watchlist.filerResults": "Filtrar resultados"
 }

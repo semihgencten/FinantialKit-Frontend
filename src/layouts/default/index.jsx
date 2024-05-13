@@ -22,6 +22,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSelector,useDispatch } from "react-redux";
 import { logoutUser } from "@/actions/authActions";
+import Footer from "./components/Footer";
 
 const styles = {
   navButton: {
@@ -77,12 +78,13 @@ const DefaultLayout = () => {
       <Grid container sx={{ p: "25px" }} bgcolor="#F9F7F7" alignItems="center">
         <Grid item xs={3}>
           <img
-            src="src/assets/images/logo.png"
+            src="/src/assets/images/logo.png"
             alt="Logo"
-            style={{ width: "35%", height: "80px" }}
+            style={{ maxWidth: "100%", height: "80px" }}
           />
         </Grid>
-        <Grid item xs={6}>
+
+        <Grid item xs={6} sx={{ textAlign: "center" }}>
           <OutlinedInput
             sx={{ width: "90%", height: "40px" }}
             startAdornment={
@@ -185,32 +187,9 @@ const DefaultLayout = () => {
       <Box sx={{ width: "90%", mx: "auto", mt: 2 }}>
         <Outlet />
       </Box>
-      <Box
-      sx={{
-        marginTop:"25px",
-        width: "100%",
-        height: "auto",
-        backgroundColor: "#E9E7E7",
-        paddingTop: "3rem",
-        paddingBottom: "3rem",
-      }}
-    >
-      <Container maxWidth="lg">
-        <Grid container direction="column" alignItems="center">
-          <Grid item xs={12}>
-            <Typography color="black" variant="h5">
-              Financial Kit
-            </Typography>
-              </Grid>
-              <Grid item xs={12}>
-            <Typography color="textSecondary" variant="subtitle1">
-              {`${new Date().getFullYear()}`}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-
+      {/* Footer Component */}
+      <div style={{ height: "20px" }}></div>
+      <Footer />
     </Box>
   );
 };

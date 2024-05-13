@@ -20,5 +20,9 @@
   "assets.label": "Assets",
   "firstname": "Firstname",
   "secondname": "secondname",
-  "password": "password"
+  "password": "password",
+  "watchlist": "Watchlist",
+  "watchlist.selectCountry": "Select Country",
+  "watchlist.selectIndex": "Select Index",
+  "watchlist.filerResults": "Filter Results"
 }

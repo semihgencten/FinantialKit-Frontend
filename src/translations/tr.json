@@ -17,5 +17,9 @@
   "create.new.portfolio.button": "Yeni Portföy Oluştur",
   "daily.return.label": "Günlük Getiri",
   "risk.label": "Risk",
-  "assets.label": "Varlıklar"
+  "assets.label": "Varlıklar",
+  "watchlist": "İzleme Listesi",
+  "watchlist.selectCountry": "Ülke Seçiniz",
+  "watchlist.selectIndex": "Endeks Seçiniz",
+  "watchlist.filerResults": "Sonuçları Filtrele"
 }

@@ -7,6 +7,7 @@ import {
   Pagination,
   Grid,
   Typography,
+  TextField,
 } from "@mui/material";
 import NewsCard from "./NewsCard";
 
@@ -15,6 +16,7 @@ const NewsPage = () => {
   const [news, setNews] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const companies = [
     { id: 1, companyName: "Nvidia" },
     { id: 2, companyName: "Apple Inc." },
@@ -58,6 +60,13 @@ const NewsPage = () => {
     setPage(value);
   };
 
+  const handleSearch = () => {
+    const filteredCompanies = companies.filter((company) =>
+      company.companyName.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+    return filteredCompanies;
+  };
+
   return (
     <Box
       sx={{
@@ -79,9 +88,15 @@ const NewsPage = () => {
       >
         <List component="nav" sx={{ alignSelf: "start", width: "20%" }}>
           <Typography variant="h5" sx={{ mb: 1 }}>
-            Compaines
+            Companies
           </Typography>
-          {companies.map((company, index) => (
+          <TextField
+            label="Search"
+            variant="outlined"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          {handleSearch().map((company, index) => (
             <ListItem
               key={index}
               button
@@ -93,11 +108,12 @@ const NewsPage = () => {
         </List>
         <Box sx={{ textAlign: "left", ml: 4, width: "80%" }}>
           <Grid container spacing={2}>
-            {news.map((article, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                <NewsCard article={article} />
-              </Grid>
-            ))}
+            {news.length > 0 &&
+              news.map((article, index) => (
+                <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+                  <NewsCard article={article} />
+                </Grid>
+              ))}
           </Grid>
           <Box
             sx={{

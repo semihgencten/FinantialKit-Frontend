@@ -32,8 +32,12 @@ import { Provider } from "react-redux";
 import store from "@/store";
 import { IntlProvider } from "react-intl";
 import LocaleContext from "@/LocaleContext";
-import SignUp from "@/pages/AuthPages/SignUp";
+import PasswordForgot from "@/pages/AuthPages/PasswordForgot";
+import PasswordChange from "@/pages/AuthPages/PasswordChange";
 import SignIn from "@/pages/AuthPages/SignIn";
+import SignUp from "@/pages/AuthPages/SignUp";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.bundle";
 
 const LocaleProvider = ({ children }) => {
   const [locale, setLocale] = useState("en");
@@ -71,8 +75,46 @@ const App = () => {
     getMessages(locale).then((msgs) => setMessages(msgs.default));
   }, [locale]);
   speedInsider();
-  if (!messages) return <div>Loading...</div>;
-
+  if (!messages)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center w-100 h-100"
+        style={{
+          backgroundColor: "white",
+          position: "fixed",
+          top: "0",
+          left: "0",
+          right: "0",
+          bottom: "0",
+          zIndex: "9999",
+        }}
+      >
+        {/* awesome loading page */}
+        <div className="d-flex flex-row align-items-center animate__animated animate__fadeIn">
+          <img
+            src="src/assets/images/logo.png"
+            alt="Logo"
+            className="slide-in-left"
+            style={{
+              marginRight: "20px",
+              maxWidth: "100%",
+              height: "80px",
+            }}
+          />
+          {/* spinner */}
+          <div className="slide-in-right">
+            <div
+              className="spinner-border  "
+              role="status"
+              style={{
+                width: "3rem",
+                height: "3rem",
+              }}
+            ></div>
+          </div>
+        </div>
+      </div>
+    );
   const routes = [
     {
       path: "/",
@@ -175,6 +217,14 @@ const App = () => {
         {
           path: "/sign-in",
           element: <SignIn />, // Bad formatted code
+        },
+        {
+          path: "/forgot-password",
+          element: <PasswordForgot />,
+        },
+        {
+          path: "/change-password",
+          element: <PasswordChange />,
         },
       ],
     },
