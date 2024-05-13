@@ -14,13 +14,13 @@ import {
   Menu,
   IconButton,
   Avatar,
-  Container
+  Container,
 } from "@mui/material";
 import LocaleContext from "@/LocaleContext";
 import { FormattedMessage } from "react-intl";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "@/actions/authActions";
 import Footer from "./components/Footer";
 
@@ -66,7 +66,9 @@ const DefaultLayout = () => {
     setAnchorEl(null);
   };
 
-  const {user,status,error,isAuthenticated} = useSelector((state)=> state.user); 
+  const { user, status, error, isAuthenticated } = useSelector(
+    (state) => state.user,
+  );
 
   const logout = async () => {
     dispatch(logoutUser());
@@ -134,24 +136,25 @@ const DefaultLayout = () => {
           >
             <MenuItem
               onClick={() => {
-
-                isAuthenticated?navigate("/my-profile"): navigate("/sign-in") ;
+                isAuthenticated
+                  ? navigate("/my-profile")
+                  : navigate("/sign-in");
                 handleMenuClose();
               }}
             >
-              {isAuthenticated? "My Profile":"Login" } 
+              {isAuthenticated ? "My Profile" : "Login"}
             </MenuItem>
             <MenuItem
-              style={{ display: isAuthenticated?"block": "none" }}
+              style={{ display: isAuthenticated ? "block" : "none" }}
               onClick={() => {
                 navigate("/settings");
                 handleMenuClose();
               }}
             >
               Settings
-            </MenuItem> 
-            <MenuItem 
-              style={{ display: isAuthenticated?"block": "none" }}
+            </MenuItem>
+            <MenuItem
+              style={{ display: isAuthenticated ? "block" : "none" }}
               onClick={() => {
                 logout();
                 navigate("/");

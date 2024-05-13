@@ -19,20 +19,18 @@ import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const action = await dispatch(
       loginUser({
         username: data.get("username"),
-        password: data.get("password")
-      })
+        password: data.get("password"),
+      }),
     );
     navigate("/");
     // console.log({

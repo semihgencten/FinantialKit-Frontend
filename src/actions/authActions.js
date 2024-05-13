@@ -21,24 +21,19 @@ export const registerUser = createAsyncThunk(
   },
 );
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (body) => {
-    // console.log(body);
-    console.log("user cagriliyor");
-    const response = await httpFetch({
-      method: "POST",
-      url: "/users/login/",
-      data:body
-    });
-    console.log("response: " + response);
-    return response.data;
-
-  }
-)
+export const loginUser = createAsyncThunk("auth/loginUser", async (body) => {
+  // console.log(body);
+  console.log("user cagriliyor");
+  const response = await httpFetch({
+    method: "POST",
+    url: "/users/login/",
+    data: body,
+  });
+  console.log("response: " + response);
+  return response.data;
+});
 
 export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
-  async ()=>{} // This could be changed but for now it is handled from user slice module
-
-)
+  async () => {}, // This could be changed but for now it is handled from user slice module
+);

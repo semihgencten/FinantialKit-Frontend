@@ -9,4 +9,3 @@ export const getIndices = createAsyncThunk("user/getIndices", async () => {
   // if (!response.ok) throw Error("Could not fetch watchlist.");
   return response.data;
 });
-
