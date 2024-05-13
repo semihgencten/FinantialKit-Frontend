@@ -2,33 +2,27 @@ import { useDispatch } from "react-redux";
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { getCashflow } from "@/actions/financeActions";
-import { loginUser,registerUser } from "@/actions/authActions";
+import { getPortfolio,getAllPortfolios,createPortfolio } from "@/actions/portfolioActions";
 
 const TestPage = () => {
   const [data, setData] = useState();
   const dispatch = useDispatch();
-  const testReg = async () => {
-    const action = await dispatch(
-      registerUser({
-    //   "username": "cool-username",
-    //   "email": "user@example.com",
-    //   "password": "string",
-    //   "password2": "string"
-          "username":"selamlar",
-          "email":"selam@mail.com",
-          "password" : "0,123456selam",
-          "password2": "0,123456selam"
-      })
-    )
+
+  const add_new_portfoli = (body)=>{
+    console.log(body);
+    dispatch(createPortfolio(
+      {
+        "name": "portfolio1",
+        "cost_basis": 0,
+        "market_value": 0,
+        "day_change": 0
+      }));
   }
+
   const testAction = async () => {
     console.log("action çalıştırılıyor");
     const action = await dispatch(
-      loginUser({
-        username:"selamlar",
-        password:"0,123456selam"
-      })
+      getAllPortfolios()
     );
     if (!action.error){
         setData(action.payload)
@@ -42,7 +36,7 @@ const TestPage = () => {
       <Typography variant="h3">
         TestPage
         <Button onClick={testAction}>Test Click</Button>
-        <Button onClick={testReg}>register</Button>
+        <Button onClick={add_new_portfoli}>add a sample to portfolios</Button>
       </Typography>
       <Typography variant="h5">
         {data ? JSON.stringify(data) : "No data"}

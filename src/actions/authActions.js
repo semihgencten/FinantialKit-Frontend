@@ -25,11 +25,13 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (body) => {
     // console.log(body);
+    console.log("user cagriliyor");
     const response = await httpFetch({
       method: "POST",
       url: "/users/login/",
       data:body
     });
+    console.log("response: " + response);
     return response.data;
 
   }

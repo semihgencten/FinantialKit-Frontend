@@ -10,12 +10,3 @@ export const getIndices = createAsyncThunk("user/getIndices", async () => {
   return response.data;
 });
 
-export const getPortfolio = createAsyncThunk("user/getPortfolio", async () => {
-  // return ["mrb"]
-  const response = await httpFetch({
-    url: "/user/portfolio",
-    method: "GET",
-  });
-  // if (!response.ok) throw Error("Could not fetch portfolio.");
-  return response.data;
-});
