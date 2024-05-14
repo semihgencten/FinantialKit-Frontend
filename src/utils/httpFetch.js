@@ -10,8 +10,7 @@ export default function (config) {
   if (!config.headers) config.headers = {};
 
   let auth_token = cookies.get("token");
-  if(auth_token)
-  config.headers.Authorization = ` Token ${auth_token}`;
+  if (auth_token) config.headers.Authorization = ` Token ${auth_token}`;
   // console.log(config);
   let result = handler(config);
   // console.log(result);
