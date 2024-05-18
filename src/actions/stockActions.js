@@ -72,9 +72,9 @@ export const getStocks = createAsyncThunk("stocks/getStocks", async () => {
   return response.data;
 });
 
-export const getOverview = createAsyncThunk("stocks/getOverview", async () => {
+export const getOverview = createAsyncThunk("stocks/getOverview", async (symbol) => {
   const response = await httpFetch({
-    url: "/stocks/{symbol}/overview",
+    url: `/stocks/${symbol}/overview`,
     method: "GET",
   });
   return response.data;
@@ -92,38 +92,49 @@ export const getTechnical = createAsyncThunk(
 );
 export const getFinancials = createAsyncThunk(
   "stocks/getFinancials",
-  async () => {
+  async (symbol) => {
     const response = await httpFetch({
-      url: "/stocks/{symbol}/financials",
+      url: `/stocks/${symbol}/financials`,
       method: "GET",
     });
     return response.data;
   },
 );
 
-export const getNews = createAsyncThunk("stocks/getNews", async () => {
+export const getNews = createAsyncThunk("stocks/getNews", async (symbol) => {
   const response = await httpFetch({
-    url: "/stocks/{symbol}/news",
+    url: `/stocks/${symbol}/news`,
     method: "GET",
   });
   return response.data;
 });
 
-export const getCharts = createAsyncThunk("stocks/getCharts", async () => {
+export const getCharts = createAsyncThunk("stocks/getCharts", async (symbol) => {
   const response = await httpFetch({
-    url: "/stocks/{symbol}/charts",
+    url: `/stocks/${symbol}/charts`,
     method: "GET",
   });
   return response.data;
 });
 
-export const getPeerAnalysis = createAsyncThunk(
-  "stocks/getPeerAnalysis",
-  async () => {
-    const response = await httpFetch({
-      url: "/stocks/{symbol}/peerAnalysis",
-      method: "GET",
+export const getStockPeerAnalyse = createAsyncThunk("stocks/getStockPeerAnalyse",
+  async (symbol,peerSymbol) => {
+    const response = httpFetch({
+      url: `/stocks/${symbol}/peerAnlaysis/${peerSymbol}`,
+      method: "GET"
+    });
+    return response.data
+  });
+
+
+export const getStockHistory = createAsyncThunk(
+  "stocks/getStockHistory",
+  async (symbol,startDate,endDate,timeFrame) => {
+    const response = httpFetch({
+      url: `/stocks/${symbol}/priceHistory/${startDate}/${endDate}/${timeFrame}`,
+      method:"GET"
     });
     return response.data;
-  },
-);
+});
+
+

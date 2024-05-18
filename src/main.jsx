@@ -38,6 +38,7 @@ import SignIn from "@/pages/AuthPages/SignIn";
 import SignUp from "@/pages/AuthPages/SignUp";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
+import ProfilePage from "@/pages/ProfilePage";
 
 const LocaleProvider = ({ children }) => {
   const [locale, setLocale] = useState("en");
@@ -226,6 +227,10 @@ const App = () => {
           path: "/change-password",
           element: <PasswordChange />,
         },
+        {
+          path: "/myprofile",
+          element: <ProfilePage />
+        }
       ],
     },
   ];

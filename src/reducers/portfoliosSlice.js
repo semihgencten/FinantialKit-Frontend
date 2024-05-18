@@ -18,9 +18,18 @@ export const portfolioSlice = createSlice({
         status.status = "succeeded";
         status.portfolios = actions.payload;
       })
-      .addCase(getPortfolio.pending, (status) => {
-        status.error = null;
-        status.status = "loading";
-      });
+      .addMatcher(
+        (action) => action.type.endsWith("/pending"),
+        (state) => {
+          state.status = "loading";
+        },
+      )
+      .addMatcher(
+        (action) => action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.status = "failed";
+          state.error = action.error.message;
+        },
+      );
   },
 });

@@ -21,6 +21,7 @@ export const financeSlice = createSlice({
         state.error = null;
         state.user = action.payload;
         state.isAuthenticated = true;
+        cookies.set("token", state.user?.token); // TODO: need to take expiration of the token
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = "succeeded";

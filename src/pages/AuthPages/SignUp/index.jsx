@@ -16,11 +16,13 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "@/actions/authActions";
 import { useState } from "react";
 import { error } from "highcharts";
+import { useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState();
+  const navigate = useNavigate();
+  // const [user, setUser] = useState();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,9 +39,10 @@ const SignUp = () => {
       alert("The user is already exists");
       return;
     }
-    alert(res.payload.message);
-    await setUser(res.payload);
-    console.log("user is", res);
+    navigate("/");
+    // alert(res.payload.message);
+    // await setUser(res.payload);
+    // console.log("user is", res);
     //   {
     //     "user": {
     //         "url": "http://127.0.0.1:8000/api/users/2/",
@@ -158,7 +161,7 @@ const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/sign-in" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
