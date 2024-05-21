@@ -72,13 +72,16 @@ export const getStocks = createAsyncThunk("stocks/getStocks", async () => {
   return response.data;
 });
 
-export const getOverview = createAsyncThunk("stocks/getOverview", async (symbol) => {
-  const response = await httpFetch({
-    url: `/stocks/${symbol}/overview`,
-    method: "GET",
-  });
-  return response.data;
-});
+export const getOverview = createAsyncThunk(
+  "stocks/getOverview",
+  async (symbol) => {
+    const response = await httpFetch({
+      url: `/stocks/${symbol}/overview`,
+      method: "GET",
+    });
+    return response.data;
+  },
+);
 
 export const getTechnical = createAsyncThunk(
   "stocks/getTechnical",
@@ -109,32 +112,35 @@ export const getNews = createAsyncThunk("stocks/getNews", async (symbol) => {
   return response.data;
 });
 
-export const getCharts = createAsyncThunk("stocks/getCharts", async (symbol) => {
-  const response = await httpFetch({
-    url: `/stocks/${symbol}/charts`,
-    method: "GET",
-  });
-  return response.data;
-});
+export const getCharts = createAsyncThunk(
+  "stocks/getCharts",
+  async (symbol) => {
+    const response = await httpFetch({
+      url: `/stocks/${symbol}/charts`,
+      method: "GET",
+    });
+    return response.data;
+  },
+);
 
-export const getStockPeerAnalyse = createAsyncThunk("stocks/getStockPeerAnalyse",
-  async (symbol,peerSymbol) => {
+export const getStockPeerAnalyse = createAsyncThunk(
+  "stocks/getStockPeerAnalyse",
+  async (symbol, peerSymbol) => {
     const response = httpFetch({
       url: `/stocks/${symbol}/peerAnlaysis/${peerSymbol}`,
-      method: "GET"
+      method: "GET",
     });
-    return response.data
-  });
-
+    return response.data;
+  },
+);
 
 export const getStockHistory = createAsyncThunk(
   "stocks/getStockHistory",
-  async (symbol,startDate,endDate,timeFrame) => {
+  async (symbol, startDate, endDate, timeFrame) => {
     const response = httpFetch({
       url: `/stocks/${symbol}/priceHistory/${startDate}/${endDate}/${timeFrame}`,
-      method:"GET"
+      method: "GET",
     });
     return response.data;
-});
-
-
+  },
+);

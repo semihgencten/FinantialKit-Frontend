@@ -9,7 +9,7 @@ export const getAllPortfolios = createAsyncThunk(
       method: "GET",
     });
     return response.data;
-  }
+  },
 );
 
 export const getPortfolio = createAsyncThunk(
@@ -20,7 +20,7 @@ export const getPortfolio = createAsyncThunk(
       method: "GET",
     });
     return { portfolioId: id, data: response.data.portfolio_items };
-  }
+  },
 );
 
 export const createPortfolio = createAsyncThunk(
@@ -33,7 +33,7 @@ export const createPortfolio = createAsyncThunk(
     });
 
     return response.data;
-  }
+  },
 );
 
 export const deletePortfolio = createAsyncThunk(
@@ -45,7 +45,7 @@ export const deletePortfolio = createAsyncThunk(
     });
 
     return id;
-  }
+  },
 );
 
 export const createPortfolioItem = createAsyncThunk(
@@ -57,7 +57,7 @@ export const createPortfolioItem = createAsyncThunk(
       data: body,
     });
     return { portfolioId: body.portfolio_id, data: response.data };
-  }
+  },
 );
 
 export const getPortfolioItemTransaction = createAsyncThunk(
@@ -69,7 +69,7 @@ export const getPortfolioItemTransaction = createAsyncThunk(
     });
 
     return { itemId: id, data: response.data };
-  }
+  },
 );
 
 export const deletePortfolioItem = createAsyncThunk(
@@ -80,7 +80,7 @@ export const deletePortfolioItem = createAsyncThunk(
       method: "DELETE",
     });
     return { portfolioId: response.data.portfolio, data: response.data };
-  }
+  },
 );
 
 export const putTransaction = createAsyncThunk(
@@ -92,7 +92,7 @@ export const putTransaction = createAsyncThunk(
       data: body,
     });
     return { itemId: response.data.portfolio_item, data: response.data };
-  }
+  },
 );
 
 export const patchTransaction = createAsyncThunk(
@@ -104,7 +104,7 @@ export const patchTransaction = createAsyncThunk(
       data: body,
     });
     return { itemId: response.data.portfolio_item, data: response.data };
-  }
+  },
 );
 
 export const crateTransaction = createAsyncThunk(
@@ -116,5 +116,5 @@ export const crateTransaction = createAsyncThunk(
       data: body,
     });
     return { itemId: response.data.portfolio_item, data: response.data };
-  }
+  },
 );

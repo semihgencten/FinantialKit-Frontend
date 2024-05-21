@@ -229,8 +229,8 @@ const App = () => {
         },
         {
           path: "/myprofile",
-          element: <ProfilePage />
-        }
+          element: <ProfilePage />,
+        },
       ],
     },
   ];

@@ -1,14 +1,82 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Highcharts from "highcharts/highstock";
 import { Box } from "@mui/material";
 import { useChartData } from "@/hooks/useChartData";
 import "./Graph.css";
+import axios from "axios";
 
 export const Graph = ({
   graphLightMode = "light",
   selectedIndicatorsList = [],
   viewMode = "simple",
+  indicators,
+  stockName = "NVDA",
 }) => {
+  const [stockGraphData, setStockGraphData] = useState([]);
+  const [stockVolumeData, setStockVolumeData] = useState([]);
+
+  const fetchStockData = async (startDate, endDate) => {
+    try {
+      const url = `http://13.50.126.209:8000/api/stocks/${stockName}/priceHistory/${startDate}/${endDate}/1d`;
+      const response = await axios.get(url);
+      const stockData = response.data.priceHistory;
+      const chartData = stockData.map((data) => {
+        const timestamp = new Date(data.Date).getTime();
+        return [timestamp, data.Open, data.High, data.Low, data.Close];
+      });
+
+      const volumeData = stockData.map((data) => {
+        const timestamp = new Date(data.Date).getTime();
+        return [timestamp, data.Volume];
+      });
+
+      console.log(chartData, volumeData);
+      setStockGraphData(chartData);
+      setStockVolumeData(volumeData);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
+  const fetchIndicator = async () => {
+    const postBody = {
+      symbol: "AAPL",
+      start_date: "2024-05-14",
+      end_date: "2024-05-20",
+      indicator: "MA",
+      period: 14,
+      price_type: "close",
+    };
+    const response = await axios.post(
+      "http://13.50.126.209:8000/api/indicators/",
+      postBody,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  };
+
+  const getFormattedDate = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+  };
+
+  useEffect(() => {
+    const today = new Date();
+    const lastYearToday = new Date(today);
+    lastYearToday.setFullYear(today.getFullYear() - 50);
+
+    const formattedToday = getFormattedDate(today);
+    const formattedLastYearToday = getFormattedDate(lastYearToday);
+
+    fetchStockData(formattedLastYearToday, formattedToday);
+    fetchIndicator();
+  }, [stockName]);
+
   const chartRef = useRef(null);
   const data = useChartData(
     "https://demo-live-data.highcharts.com/aapl-ohlcv.json",
@@ -23,13 +91,13 @@ export const Graph = ({
   ];
 
   const initializeGraph = () => {
-    if (data.ohlc.length > 0 && !chartRef.current) {
+    if (stockGraphData.length > 0 && !chartRef.current) {
       // always by default, the main graph with ohlc data will be rendered
       const series = [
         {
           type: "candlestick",
           name: "NVDA",
-          data: data.ohlc,
+          data: stockGraphData,
           id: "main",
           dataGrouping: {
             units: groupingUnits,
@@ -343,12 +411,14 @@ export const Graph = ({
       let axisName;
       if (!chart.get(indicator)) {
         // series doesn't exist, so add it based on the type of indicator
-        if (indicator.technicalName === "vol") {
+        if (indicator.technicalName === "ad") {
           axisName = indicator.technicalName + "Axis";
           if (!chart.get(axisName)) {
             addIndicatorAxis(chart, axisName, indicator.technicalName);
           }
-          addIndicatorSeries(chart, axisName, indicator, data.volume);
+          console.log(stockVolumeData);
+          console.log(data.volume);
+          addIndicatorSeries(chart, axisName, indicator, stockVolumeData);
         }
         if (indicator.technicalName === "rsi") {
           const rsidata = data.volume;
@@ -386,8 +456,8 @@ export const Graph = ({
         }
         // uncomment below for code which work with correct data
         /* if (indicator.location === "main") {
-                addIndicatorSeries(chart, axisName, indicator, data.ohlc, indicator.location);
-            } */
+                    addIndicatorSeries(chart, axisName, indicator, data.ohlc, indicator.location);
+                } */
         // for mockup purposes, temporarily some values close to data.ohlc will be provided for ma7, ma14 and ma30
         if (indicator.technicalName === "ma7") {
           let b = data.ohlc.map((index) => {
@@ -471,7 +541,7 @@ export const Graph = ({
     if (chartRef.current) {
       updateGraphForLightOrDarkMode();
     }
-  }, [data.ohlc, data.volume]);
+  }, [stockGraphData, stockVolumeData]);
 
   useEffect(() => {
     if (chartRef.current) {
@@ -487,7 +557,7 @@ export const Graph = ({
       updateAxisColors();
       updatePlotOptions();
     }
-  }, [selectedIndicatorsList, data, viewMode]);
+  }, [selectedIndicatorsList, stockGraphData, viewMode]);
 
   return <Box id="stockGraph"></Box>;
 };
