@@ -116,3 +116,5 @@ export const portfolioSlice = createSlice({
       );
   },
 });
+
+export default portfolioSlice.reducer;
