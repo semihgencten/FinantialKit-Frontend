@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPortfolio } from "@/actions/indiceActions";
+import { getAllPortfolios,getPortfolio,createPortfolio,deletePortfolio } from "@/actions/portfolioActions";
 
 const initialPortfolio = {
   portfolios: [],
@@ -13,11 +13,16 @@ export const portfolioSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getPortfolio.fulfilled, (status, actions) => {
-        status.error = null;
-        status.status = "succeeded";
-        status.portfolios = actions.payload;
+      .addCase(getPortfolio.fulfilled, (state, actions) => {
+        state.error = null;
+        state.status = "succeeded";
+        state.portfolios = actions.payload;
       })
+      .addCase(getAllPortfolios.fulfilled, (state,actions)=>{
+        state.error = null;
+        state.status = "succeeded";
+        state.portfolios = actions.payload;
+      } )
       .addMatcher(
         (action) => action.type.endsWith("/pending"),
         (state) => {
