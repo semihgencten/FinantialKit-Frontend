@@ -203,13 +203,14 @@ const EquitiesChartsPage = () => {
                     flexDirection: "column",
                     textAlign: "center",
                     gap: "8px",
+                    height: "92vh"
                 }}
             >
                 <h2>Charts Page</h2>
                 <Button
                     variant="outlined"
                     onClick={() => setShowIndicatorsDialog(true)}
-                    sx={{ maxWidth: "320px" }}
+                    sx={{ maxWidth: "320px", ml: "180px" }}
                 >
                     Add/Remove Indicators
                 </Button>

@@ -15,19 +15,31 @@ export const Graph = ({ graphLightMode = "light",
     const [stockGraphData, setStockGraphData] = useState([]);
     const [stockVolumeData, setStockVolumeData] = useState([]);
 
-    const fetchStockData = async() => {
+    const fetchStockData = async(startDate, endDate) => {
         try {
-            const url = `http://13.50.126.209:8000/api/stocks/${stockName}/charts`;
+            const url = `http://13.50.126.209:8000/api/stocks/${stockName}/priceHistory/${startDate}/${endDate}/1d`;
             const response = await axios.get(url);
-            const stockData = response.data;
+            const stockData = response.data.priceHistory;
+            const chartData = stockData.map(data => {
+                const timestamp = new Date(data.Date).getTime();
+                return [
+                    timestamp,
+                    data.Open,
+                    data.High,
+                    data.Low,
+                    data.Close
+                ];
+            });
     
-            const convertToTimestamps = (dates) => {
-                return dates.map(date => new Date(date).getTime()); 
-            }
-    
-            const timestamps = convertToTimestamps(stockData.dates);
-            const chartData = timestamps.map((timestamp, index) => [timestamp, stockData.prices[index]]);
-            const volumeData = timestamps.map((timestamp, index) => [timestamp, stockData.volume[index]]);
+            const volumeData = stockData.map(data => {
+                const timestamp = new Date(data.Date).getTime();
+                return [
+                    timestamp,
+                    data.Volume
+                ];
+            });
+            
+            console.log(chartData, volumeData);
             setStockGraphData(chartData);
             setStockVolumeData(volumeData);
         } 
@@ -51,16 +63,26 @@ export const Graph = ({ graphLightMode = "light",
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response.data);
+    }
+
+    const getFormattedDate = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     }
 
     useEffect(() => {
-        fetchStockData();
-        fetchIndicator();
-    }, []);
+        
+        const today = new Date();
+        const lastYearToday = new Date(today);
+        lastYearToday.setFullYear(today.getFullYear() - 50);
+        
+        const formattedToday = getFormattedDate(today);
+        const formattedLastYearToday = getFormattedDate(lastYearToday);
 
-    useEffect(() => {
-        fetchStockData();
+        fetchStockData(formattedLastYearToday, formattedToday);
+        fetchIndicator();
     }, [stockName]);
                         
     const chartRef = useRef(null);
@@ -77,13 +99,13 @@ export const Graph = ({ graphLightMode = "light",
     ];
 
     const initializeGraph = () => {
-        if (data.ohlc.length > 0 && !chartRef.current) {
+        if (stockGraphData.length > 0 && !chartRef.current) {
         // always by default, the main graph with ohlc data will be rendered
         const series = [
             {
             type: "candlestick",
             name: "NVDA",
-            data: data.ohlc,
+            data: stockGraphData,
             id: "main",
             dataGrouping: {
                 units: groupingUnits,
@@ -527,7 +549,7 @@ export const Graph = ({ graphLightMode = "light",
         if (chartRef.current) {
             updateGraphForLightOrDarkMode();
         }
-    }, [data.ohlc, data.volume]);
+    }, [stockGraphData, stockVolumeData]);
 
     useEffect(() => {
         if (chartRef.current) {
@@ -543,7 +565,7 @@ export const Graph = ({ graphLightMode = "light",
             updateAxisColors();
             updatePlotOptions();
         }
-    }, [selectedIndicatorsList, data, viewMode]);
+    }, [selectedIndicatorsList, stockGraphData, viewMode]);
 
     return <Box id="stockGraph"></Box>;
 };
