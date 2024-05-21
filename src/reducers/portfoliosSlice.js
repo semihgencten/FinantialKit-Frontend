@@ -45,7 +45,7 @@ export const portfolioSlice = createSlice({
         state.status = "succeeded";
         state.error = "";
         state.portfolios = state.portfolios.filter(
-          (p) => p.id !== action.payload
+          (p) => p.id !== action.payload,
         );
       })
       .addCase(getPortfolioItemTransaction.fullfilled, (state, action) => {
@@ -59,7 +59,7 @@ export const portfolioSlice = createSlice({
         state.error = "";
         if (state.portfolioItems[action.payload.portfolioId])
           state.portfolioItems[action.payload.portfolioId].push(
-            action.payload.data
+            action.payload.data,
           );
         else
           state.portfolioItems[action.payload.portfolioId] = [
@@ -78,7 +78,7 @@ export const portfolioSlice = createSlice({
         state.error = "";
         state.portfolioTransactions[action.payload.itemId] =
           state.portfolioTransactions[action.payload.itemId].map((t) =>
-            t.id === action.payload.data.id ? action.payload.data : t
+            t.id === action.payload.data.id ? action.payload.data : t,
           );
       })
       .addCase(patchTransaction.fullfilled, (state, action) => {
@@ -86,7 +86,7 @@ export const portfolioSlice = createSlice({
         state.error = "";
         state.portfolioTransactions[action.payload.itemId] =
           state.portfolioTransactions[action.payload.itemId].map((t) =>
-            t.id === action.payload.data.id ? action.payload.data : t
+            t.id === action.payload.data.id ? action.payload.data : t,
           );
       })
       .addCase(crateTransaction.fullfilled, (state, action) => {
@@ -94,7 +94,7 @@ export const portfolioSlice = createSlice({
         state.error = "";
         if (state.portfolioTransactions[action.payload.itemId])
           state.portfolioTransactions[action.payload.itemId].push(
-            action.payload.data
+            action.payload.data,
           );
         else
           state.portfolioTransactions[action.payload.itemId] = [
@@ -105,14 +105,14 @@ export const portfolioSlice = createSlice({
         (action) => action.type.endsWith("/pending"),
         (state) => {
           state.status = "loading";
-        }
+        },
       )
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, action) => {
           state.status = "failed";
           state.error = action.error.message;
-        }
+        },
       );
   },
 });
