@@ -34,7 +34,7 @@ export const portfolioSlice = createSlice({
       .addCase(getPortfolio.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        state.portfolioItems[action.payload.id] = action.payload.data;
+        state.portfolioItems[action.payload.portfolioId] = action.payload.data;
       })
       .addCase(createPortfolio.fullfilled, (state, action) => {
         state.status = "succeeded";
@@ -51,52 +51,54 @@ export const portfolioSlice = createSlice({
       .addCase(getPortfolioItemTransaction.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        state.portfolioTransactions[action.payload.id] = action.payload.data;
+        state.portfolioTransactions[action.payload.itemId] =
+          action.payload.data;
       })
       .addCase(createPortfolioItem.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        if (state.portfolioItems[action.payload.id])
-          state.portfolioItems[action.payload.id].push(action.payload.data);
-        else state.portfolioItems[action.payload.id] = [action.payload.data];
+        if (state.portfolioItems[action.payload.portfolioId])
+          state.portfolioItems[action.payload.portfolioId].push(
+            action.payload.data
+          );
+        else
+          state.portfolioItems[action.payload.portfolioId] = [
+            action.payload.data,
+          ];
       })
       .addCase(deletePortfolioItem.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        state.portfolioItems = state.portfolioItems[
+        state.portfolioItems[action.payload.portfolioId] = state.portfolioItems[
           action.payload.portfolioId
-        ].filter((item) => item.id !== action.payload.itemId);
+        ].filter((item) => item.id !== action.payload.data.id);
       })
       .addCase(putTransaction.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        state.portfolioTransactions[action.payload.portfolioId] =
-          state.portfolioTransactions[action.payload.portfolioId].filter((t) =>
-            t.id === action.payload.transaction.id
-              ? action.payload.transaction
-              : t
+        state.portfolioTransactions[action.payload.itemId] =
+          state.portfolioTransactions[action.payload.itemId].map((t) =>
+            t.id === action.payload.data.id ? action.payload.data : t
           );
       })
       .addCase(patchTransaction.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        state.portfolioTransactions[action.payload.portfolioId] =
-          state.portfolioTransactions[action.payload.portfolioId].map((t) =>
-            t.id === action.payload.transaction.id
-              ? { ...t, ...action.payload.transaction }
-              : t
+        state.portfolioTransactions[action.payload.itemId] =
+          state.portfolioTransactions[action.payload.itemId].map((t) =>
+            t.id === action.payload.data.id ? action.payload.data : t
           );
       })
       .addCase(crateTransaction.fullfilled, (state, action) => {
         state.status = "succeeded";
         state.error = "";
-        if (state.portfolioTransactions[action.payload.portfolioId])
-          state.portfolioTransactions[action.payload.portfolioId].push(
-            action.payload.transaction
+        if (state.portfolioTransactions[action.payload.itemId])
+          state.portfolioTransactions[action.payload.itemId].push(
+            action.payload.data
           );
         else
-          state.portfolioTransactions[action.payload.portfolioId] = [
-            action.payload.transaction,
+          state.portfolioTransactions[action.payload.itemId] = [
+            action.payload.data,
           ];
       })
       .addMatcher(
