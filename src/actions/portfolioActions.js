@@ -54,19 +54,18 @@ export const createPortfolio = createAsyncThunk(
 );
 
 export const deletePortfolio = createAsyncThunk(
-  "user/deletePortfolio",
+  "user/portfolios/deletePortfolio",
   async (id) => {
-    const response = await httpFetch({
+    await httpFetch({
       url: `/portfolios/${id}/delete`,
       method: "DELETE",
     });
-    return response.data;
+    return id;
   },
 );
 
-
 export const getPortfolioItemTransaction = createAsyncThunk(
-  "/user/portfolios/getItemTransaction",
+  "user/portfolios/getItemTransaction",
   async (id) =>{
     const response = httpFetch({
       url:`/portfolios/items/${id}/transactions`,
@@ -76,7 +75,7 @@ export const getPortfolioItemTransaction = createAsyncThunk(
 });
 
 export const createPortfolioItem = createAsyncThunk(
-  "/user/portfolios/createItem",
+  "user/portfolios/createItem",
   async (body)=> {
     const response = httpFetch({
       url:"/portfolios/items/create",
@@ -88,7 +87,7 @@ export const createPortfolioItem = createAsyncThunk(
 )
 
 export const deletePortfolioItem = createAsyncThunk(
-  "/user/portfolios/deletePortfolioItem",
+  "user/portfolios/deletePortfolioItem",
   async (id)=>{
     const response = httpFetch({
       url:`/portfolios/items/${id}/delete`,
@@ -99,7 +98,7 @@ export const deletePortfolioItem = createAsyncThunk(
 )
 
 export const putTransaction = createAsyncThunk(
-  "/user/portfolios/putTransaction",
+  "user/portfolios/putTransaction",
   async (id,body) => {
       const response = httpFetch({
         url:`/portfolios/items/transactions/${id}/update`,
@@ -111,7 +110,7 @@ export const putTransaction = createAsyncThunk(
 )
 
 export const patchTransaction = createAsyncThunk(
-  "/user/portfolios/patchTransaction",
+  "user/portfolios/patchTransaction",
   async (id,body) => {
     const response = httpFetch({
       url:`/portfolios/items/transactions/${id}/update`,
@@ -133,7 +132,7 @@ export const patchTransaction = createAsyncThunk(
 //   "notes": "string"
 // }
 export const crateTransaction = createAsyncThunk(
-  "/user/portfolios/createTransaction",
+  "user/portfolios/createTransaction",
   async (body) => {
     const response = httpFetch({
       url:`/portfolios/items/transactions/create`,
