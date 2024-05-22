@@ -10,8 +10,8 @@ const initialState = {
 
 let cookies = new Cookies(null, { path: "/" });
 
-export const financeSlice = createSlice({
-  name: "finance",
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -53,4 +53,4 @@ export const financeSlice = createSlice({
   },
 });
 
-export default financeSlice.reducer;
+export default userSlice.reducer;

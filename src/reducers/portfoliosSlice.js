@@ -26,37 +26,37 @@ export const portfolioSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllPortfolios.fullfilled, (state, action) => {
+      .addCase(getAllPortfolios.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolios = action.payload;
       })
-      .addCase(getPortfolio.fullfilled, (state, action) => {
+      .addCase(getPortfolio.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolioItems[action.payload.portfolioId] = action.payload.data;
       })
-      .addCase(createPortfolio.fullfilled, (state, action) => {
+      .addCase(createPortfolio.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolios.push(action.payload);
       })
-      .addCase(deletePortfolio.fullfilled, (state, action) => {
+      .addCase(deletePortfolio.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolios = state.portfolios.filter(
           (p) => p.id !== action.payload
         );
       })
-      .addCase(getPortfolioItemTransaction.fullfilled, (state, action) => {
+      .addCase(getPortfolioItemTransaction.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolioTransactions[action.payload.itemId] =
           action.payload.data;
       })
-      .addCase(createPortfolioItem.fullfilled, (state, action) => {
+      .addCase(createPortfolioItem.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         if (state.portfolioItems[action.payload.portfolioId])
           state.portfolioItems[action.payload.portfolioId].push(
             action.payload.data
@@ -66,32 +66,32 @@ export const portfolioSlice = createSlice({
             action.payload.data,
           ];
       })
-      .addCase(deletePortfolioItem.fullfilled, (state, action) => {
+      .addCase(deletePortfolioItem.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolioItems[action.payload.portfolioId] = state.portfolioItems[
           action.payload.portfolioId
         ].filter((item) => item.id !== action.payload.data.id);
       })
-      .addCase(putTransaction.fullfilled, (state, action) => {
+      .addCase(putTransaction.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolioTransactions[action.payload.itemId] =
           state.portfolioTransactions[action.payload.itemId].map((t) =>
             t.id === action.payload.data.id ? action.payload.data : t
           );
       })
-      .addCase(patchTransaction.fullfilled, (state, action) => {
+      .addCase(patchTransaction.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         state.portfolioTransactions[action.payload.itemId] =
           state.portfolioTransactions[action.payload.itemId].map((t) =>
             t.id === action.payload.data.id ? action.payload.data : t
           );
       })
-      .addCase(crateTransaction.fullfilled, (state, action) => {
+      .addCase(crateTransaction.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = "";
+        state.error = null;
         if (state.portfolioTransactions[action.payload.itemId])
           state.portfolioTransactions[action.payload.itemId].push(
             action.payload.data
@@ -116,3 +116,5 @@ export const portfolioSlice = createSlice({
       );
   },
 });
+
+export default portfolioSlice.reducer;

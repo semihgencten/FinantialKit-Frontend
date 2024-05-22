@@ -14,7 +14,7 @@ const initialState = {
   cashflow: [],
   histories: [],
   incomeStatements: [],
-  indicators: [],
+  indicators: {},
   stockTechnicals: [],
   status: "idle",
   error: null,

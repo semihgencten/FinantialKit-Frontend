@@ -23,6 +23,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "@/actions/authActions";
 import Footer from "./components/Footer";
+import Cookies from "universal-cookie";
 
 const styles = {
   navButton: {
@@ -66,9 +67,18 @@ const DefaultLayout = () => {
     setAnchorEl(null);
   };
 
-  const { user, status, error, isAuthenticated } = useSelector(
-    (state) => state.user,
-  );
+  let isAuthenticated = false;
+
+  let cookies = new Cookies;
+  const try_connect = () =>{
+    isAuthenticated = cookies.get("token") ? true:false; 
+  }
+
+  try_connect();
+
+  // const { user, status, error, isAuthenticated } = useSelector(
+  //   (state) => state.user,
+  // );
 
   const logout = async () => {
     dispatch(logoutUser());
