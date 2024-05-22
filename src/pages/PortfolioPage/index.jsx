@@ -28,7 +28,7 @@ import {
   createPortfolio,
   deletePortfolio,
 } from "@/actions/portfolioActions";
-import errorImage from '@/assets/images/portfolio_not_found.png';
+import errorImage from "@/assets/images/portfolio_not_found.png";
 
 const PortfolioPage = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,9 @@ const PortfolioPage = () => {
   const portfolios = useSelector((state) => state.portfolio.portfolios);
   const portfolioStatus = useSelector((state) => state.portfolio.status);
   const portfolioError = useSelector((state) => state.portfolio.error);
-  const isAuthenticated = useSelector((state) => state.portfolio.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state) => state.portfolio.isAuthenticated,
+  );
 
   const [newPortfolioName, setNewPortfolioName] = useState("");
   const [newPortfolioDescription, setNewPortfolioDescription] = useState("");
@@ -80,16 +82,21 @@ const PortfolioPage = () => {
   if (!isAuthenticated) {
     return (
       <Box sx={{ textAlign: "center", marginTop: 4, padding: 2 }}>
-        <div className="container" style={{ position: 'relative', maxWidth: '500px', margin: 'auto' }}>
+        <div
+          className="container"
+          style={{ position: "relative", maxWidth: "500px", margin: "auto" }}
+        >
           <img
             src={errorImage}
             alt="Unauthorized"
             className="img-fluid"
             style={{
-              width: '100%',
-              height: 'auto',
-              maskImage: 'linear-gradient(to bottom, transparent, black, black, transparent)',
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent, black, black, transparent)'
+              width: "100%",
+              height: "auto",
+              maskImage:
+                "linear-gradient(to bottom, transparent, black, black, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent, black, black, transparent)",
             }}
           />
         </div>
@@ -109,12 +116,9 @@ const PortfolioPage = () => {
           variant="contained"
           color="primary"
           sx={{ marginTop: 2 }}
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
         >
-          <FormattedMessage
-            id="login.button"
-            defaultMessage="Login Now"
-          />
+          <FormattedMessage id="login.button" defaultMessage="Login Now" />
         </Button>
       </Box>
     );
