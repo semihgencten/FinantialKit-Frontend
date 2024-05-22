@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   TextField,
@@ -22,30 +23,32 @@ import {
 import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
 import { useNavigate } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import {
+  getAllPortfolios,
+  createPortfolio,
+  deletePortfolio,
+} from "@/actions/portfolioActions";
+import errorImage from '@/assets/images/portfolio_not_found.png';
 
 const PortfolioPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [portfolios, setPortfolios] = useState([
-    {
-      name: "Tech Stocks",
-      description: "A portfolio consisting of various technology stocks.",
-      assets: ["AAPL", "MSFT", "GOOGL"],
-      dailyReturn: "-0.01%",
-      risk: "15.61",
-    },
-    {
-      name: "Global Bonds",
-      description: "A diversified portfolio of global bond funds.",
-      assets: ["BND", "IEF", "AGG"],
-      dailyReturn: "0.05%",
-      risk: "8.92",
-    },
-  ]);
+
+  const portfolios = useSelector((state) => state.portfolio.portfolios);
+  const portfolioStatus = useSelector((state) => state.portfolio.status);
+  const portfolioError = useSelector((state) => state.portfolio.error);
+  const isAuthenticated = useSelector((state) => state.portfolio.isAuthenticated);
 
   const [newPortfolioName, setNewPortfolioName] = useState("");
   const [newPortfolioDescription, setNewPortfolioDescription] = useState("");
   const [isCreatePortfolioModalOpen, setIsCreatePortfolioModalOpen] =
     useState(false);
+
+  useEffect(() => {
+    if (portfolioStatus === "idle") {
+      dispatch(getAllPortfolios());
+    }
+  }, [portfolioStatus, dispatch]);
 
   const openCreatePortfolioModal = () => {
     setIsCreatePortfolioModalOpen(true);
@@ -60,11 +63,8 @@ const PortfolioPage = () => {
       const newPortfolio = {
         name: newPortfolioName,
         description: newPortfolioDescription,
-        assets: [],
-        dailyReturn: null,
-        risk: null,
       };
-      setPortfolios([...portfolios, newPortfolio]);
+      dispatch(createPortfolio(newPortfolio));
       setNewPortfolioName("");
       setNewPortfolioDescription("");
       closeCreatePortfolioModal();
@@ -73,11 +73,52 @@ const PortfolioPage = () => {
     }
   };
 
-  const handleRemovePortfolio = (index) => {
-    const updatedPortfolios = [...portfolios];
-    updatedPortfolios.splice(index, 1);
-    setPortfolios(updatedPortfolios);
+  const handleRemovePortfolio = (id) => {
+    dispatch(deletePortfolio(id));
   };
+
+  if (!isAuthenticated) {
+    return (
+      <Box sx={{ textAlign: "center", marginTop: 4, padding: 2 }}>
+        <div className="container" style={{ position: 'relative', maxWidth: '500px', margin: 'auto' }}>
+          <img
+            src={errorImage}
+            alt="Unauthorized"
+            className="img-fluid"
+            style={{
+              width: '100%',
+              height: 'auto',
+              maskImage: 'linear-gradient(to bottom, transparent, black, black, transparent)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent, black, black, transparent)'
+            }}
+          />
+        </div>
+        <Typography variant="h5" sx={{ marginTop: 2 }}>
+          <FormattedMessage
+            id="login.message"
+            defaultMessage="Login to see your portfolios"
+          />
+        </Typography>
+        <Typography variant="body1" sx={{ marginTop: 1 }}>
+          <FormattedMessage
+            id="login.explanation"
+            defaultMessage="By logging in, you will be able to create and manage your portfolios, track your investments and performance. Don't miss out on the full features of our platform!"
+          />
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: 2 }}
+          onClick={() => navigate('/login')}
+        >
+          <FormattedMessage
+            id="login.button"
+            defaultMessage="Login Now"
+          />
+        </Button>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ textAlign: "center" }}>
@@ -173,7 +214,7 @@ const PortfolioPage = () => {
         <List>
           {portfolios.map((portfolio, index) => (
             <Paper
-              key={index}
+              key={portfolio.id}
               elevation={3}
               sx={{
                 my: 2,
@@ -187,7 +228,7 @@ const PortfolioPage = () => {
               <ListItem
                 key={index}
                 button
-                onClick={() => navigate(`/my-portfolio/detail/${index + 1}`)}
+                onClick={() => navigate(`/my-portfolio/detail/${portfolio.id}`)}
               >
                 <Grid
                   container
@@ -223,7 +264,7 @@ const PortfolioPage = () => {
                       <IconButton
                         edge="end"
                         aria-label="delete"
-                        onClick={() => handleRemovePortfolio(index)}
+                        onClick={() => handleRemovePortfolio(portfolio.id)}
                       >
                         <DeleteIcon />
                       </IconButton>

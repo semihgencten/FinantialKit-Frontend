@@ -18,18 +18,26 @@ const initialPortfolio = {
   portfolioTransactions: {},
   status: "idle",
   error: null,
+  isAuthenticated: true,
 };
 
 export const portfolioSlice = createSlice({
   name: "portfolio",
   initialState: initialPortfolio,
-  reducers: {},
+  reducers: {
+    setIsAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllPortfolios.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.error = "";
-        state.portfolios = action.payload;
+      .addCase(getAllPortfolios.rejected, (state, action) => {
+        if (action.error.message.includes("401")) {
+          state.isAuthenticated = false;
+        } else {
+          state.error = action.error.message;
+        }
+        state.status = "failed";
       })
       .addCase(getPortfolio.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -116,5 +124,7 @@ export const portfolioSlice = createSlice({
       );
   },
 });
+
+export const { setIsAuthenticated } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;
