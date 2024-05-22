@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import {
 import TabsLayout from "@/pages/EquitiesPage";
 import { Graph } from "@/components/Graph";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import axios from "axios";
 
 const EquitiesChartsPage = () => {
   const [graphLightMode, setGraphLightMode] = useState("light");
@@ -25,90 +26,112 @@ const EquitiesChartsPage = () => {
   const [showIndicatorsDialog, setShowIndicatorsDialog] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [indicators, setIndicators] = useState([
-    { technicalName: "vol", displayName: "Volume", location: "side" },
-    {
-      technicalName: "rsi",
-      displayName: "Stochastic Indicator",
-      location: "side",
-    },
-    { technicalName: "mom", displayName: "Momentum", location: "side" },
-    { technicalName: "bop", displayName: "Balance of Power", location: "side" },
-    {
-      technicalName: "ma",
-      displayName: "Moving Average",
-      location: "main",
-      options: [
-        { val: "ma7", sel: false },
-        { val: "ma14", sel: false },
-        { val: "ma30", sel: false },
-        { val: "ma60", sel: false },
-        { val: "ma120", sel: false },
-      ],
-    },
-    { technicalName: "xyz", displayName: "XYZ", location: "side" },
-    {
-      technicalName: "boll",
-      displayName: "Bollinger Bands",
-      location: "main",
-      options: [
-        { val: 1, sel: false },
-        { val: "boll5", sel: false },
-        { val: "boll7", sel: false },
-        { val: "boll10", sel: false },
-        { val: "boll12", sel: false },
-      ],
-    },
-  ]);
+  const [indicators, setIndicators] = useState([]);
+
+  const locationMap = {
+    "Cycle Indicators": "main",
+    "Math Operators": "main",
+    "Math Transform": "main",
+    "Momentum Indicators": "main",
+    "Overlap Studies": "main",
+    "Pattern Recognition": "main",
+    "Price Transform": "main",
+    "Statistic Functions": "main",
+    "Volatility Indicators": "main",
+    "Volume Indicators": "main",
+    // must be provided if some of them will be on main
+  };
+
+  const fetchAndFormatIndicators = async () => {
+    try {
+      const response = await axios.get(
+        "http://13.50.126.209:8000/api/indicators/",
+      );
+      const indicatorsList = response.data;
+      console.log(indicatorsList);
+      const formattedIndicators = [];
+
+      if (indicatorsList) {
+        for (const category in indicatorsList) {
+          const location = locationMap[category] || "side";
+          const technicalIndicators = indicatorsList[category];
+
+          if (Array.isArray(technicalIndicators)) {
+            const options = technicalIndicators.map((technicalName) => ({
+              val: technicalName.toLowerCase(),
+              sel: false,
+            }));
+
+            formattedIndicators.push({
+              technicalName: category.toLowerCase(),
+              displayName: category,
+              location,
+              options,
+            });
+          } else {
+            console.error(
+              `Expected an array for category "${category}", but got:`,
+              technicalIndicators,
+            );
+          }
+        }
+        console.log(formattedIndicators);
+        setIndicators(formattedIndicators);
+      } else {
+        console.error("No data received from the API");
+      }
+    } catch (error) {
+      console.error("Error fetching or processing data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAndFormatIndicators();
+  }, []);
 
   const handleIndicatorClick = (indicator) => {
-    if (indicator.location === "side") {
-      // Check if the indicator already exists in the selectedIndicatorsListTemporary
+    if (indicator.location === "main") {
       const existingIndicator = selectedIndicatorsListTemporary.find(
         (item) => item.technicalName === indicator.technicalName,
       );
+
       if (!existingIndicator) {
-        // If not, add the indicator to the selectedIndicatorsListTemporary
         setSelectedIndicatorsListTemporary([
           ...selectedIndicatorsListTemporary,
           indicator,
         ]);
       } else {
-        // If exists, remove it from the temporary list
         const updatedIndicatorsList = selectedIndicatorsListTemporary.filter(
           (item) => item.technicalName !== indicator.technicalName,
         );
         setSelectedIndicatorsListTemporary(updatedIndicatorsList);
       }
-    } else if (indicator.options) {
-      // If the indicator has options, update the selected option state
-      setSelectedOption(indicator);
-    }
 
-    if (!indicator.options) {
-      setSelectedOption(null);
+      if (indicator.options) {
+        setSelectedOption(indicator);
+      }
+
+      if (!indicator.options) {
+        setSelectedOption(null);
+      }
     }
   };
 
   const handleOptionSelection = (option) => {
-    // Check if the selected option is already present
     const optionIndex = selectedOptions.indexOf(option.val);
     const isOptionSelected = optionIndex !== -1;
 
-    // Construct the indicator object with the selected option
     const selectedIndicator = {
       technicalName: `${option.val}`,
       displayName: `${selectedOption.displayName}-${option.val}`,
-      location: "main",
+      location: "side",
     };
 
-    // Update selected options
     const updatedOptions = isOptionSelected
       ? selectedOptions.filter((val) => val !== option.val)
       : [...selectedOptions, option.val];
     setSelectedOptions(updatedOptions);
 
-    // Update temporary selected indicators list
     const indicatorToRemove = `${option.val}`;
     const updatedIndicatorsList = isOptionSelected
       ? selectedIndicatorsListTemporary.filter(
@@ -117,7 +140,6 @@ const EquitiesChartsPage = () => {
       : [...selectedIndicatorsListTemporary, selectedIndicator];
     setSelectedIndicatorsListTemporary(updatedIndicatorsList);
 
-    // Update indicators list
     const updatedIndicators = indicators.map((indicator) => {
       if (indicator.technicalName === selectedOption.technicalName) {
         const updatedOptions = indicator.options.map((opt) => {
@@ -134,19 +156,18 @@ const EquitiesChartsPage = () => {
   };
 
   const handleSubmitIndicators = () => {
-    // Convert the temporary list to a Set to ensure uniqueness
     const uniqueIndicatorsSet = new Set(
       selectedIndicatorsListTemporary.map((indicator) =>
         JSON.stringify(indicator),
       ),
     );
-    // Convert the Set back to an array of unique indicators
     const uniqueIndicatorsArray = Array.from(uniqueIndicatorsSet).map(
       (indicator) => JSON.parse(indicator),
     );
     setSelectedIndicatorsList(uniqueIndicatorsArray);
 
     console.log(uniqueIndicatorsArray);
+
     if (
       uniqueIndicatorsArray.filter((indicator) => indicator.location === "side")
         .length > 0
@@ -157,16 +178,15 @@ const EquitiesChartsPage = () => {
     }
 
     setShowIndicatorsDialog(false);
+
+    console.log(indicators);
   };
 
   const handleResetIndicators = () => {
-    // Reset selected indicators list and temporary list
     setSelectedIndicatorsListTemporary([]);
     setSelectedIndicatorsList([]);
-
-    // Reset selected options
     setSelectedOptions([]);
-    // Reset sel field for all options in the indicators state
+
     const updatedIndicators = indicators.map((indicator) => {
       if (indicator.options) {
         const updatedOptions = indicator.options.map((option) => ({
@@ -191,13 +211,14 @@ const EquitiesChartsPage = () => {
           flexDirection: "column",
           textAlign: "center",
           gap: "8px",
+          height: "92vh",
         }}
       >
         <h2>Charts Page</h2>
         <Button
           variant="outlined"
           onClick={() => setShowIndicatorsDialog(true)}
-          sx={{ maxWidth: "320px" }}
+          sx={{ maxWidth: "320px", ml: "180px" }}
         >
           Add/Remove Indicators
         </Button>
@@ -235,14 +256,6 @@ const EquitiesChartsPage = () => {
                             {selectedIndicatorsListTemporary.some(
                               (item) =>
                                 item.technicalName === indicator.technicalName,
-                            ) && (
-                              <CheckCircleIcon
-                                color="primary"
-                                style={{
-                                  verticalAlign: "middle",
-                                  float: "right",
-                                }}
-                              />
                             )}
                             {indicator.options && (
                               <span
@@ -344,6 +357,7 @@ const EquitiesChartsPage = () => {
             graphLightMode={graphLightMode}
             selectedIndicatorsList={[...selectedIndicatorsList]}
             viewMode={viewMode}
+            indicators={indicators}
           />
         </Grid>
       </Box>
