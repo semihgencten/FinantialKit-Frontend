@@ -23,6 +23,7 @@
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "highcharts": "^11.4.0",
+    "highcharts-more": "^0.1.7",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "prop-types": "^15.8.1",

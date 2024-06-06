@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Highcharts from "highcharts/highstock";
 import { Box } from "@mui/material";
 import { useChartData } from "@/hooks/useChartData";
+import { useParams } from "react-router-dom";
 import "./Graph.css";
 import axios from "axios";
 
@@ -9,15 +10,15 @@ export const Graph = ({
   graphLightMode = "light",
   selectedIndicatorsList = [],
   viewMode = "simple",
-  indicators,
-  stockName = "NVDA",
+  indicators
 }) => {
   const [stockGraphData, setStockGraphData] = useState([]);
   const [stockVolumeData, setStockVolumeData] = useState([]);
+  const { symbol } = useParams();
 
   const fetchStockData = async (startDate, endDate) => {
     try {
-      const url = `http://13.50.126.209:8000/api/stocks/${stockName}/priceHistory/${startDate}/${endDate}/1d`;
+      const url = `http://13.50.126.209:8000/api/stocks/${symbol}/priceHistory/${startDate}/${endDate}/1d`;
       const response = await axios.get(url);
       const stockData = response.data.priceHistory;
       const chartData = stockData.map((data) => {
@@ -40,7 +41,7 @@ export const Graph = ({
 
   const fetchIndicator = async () => {
     const postBody = {
-      symbol: "AAPL",
+      symbol: symbol,
       start_date: "2024-05-14",
       end_date: "2024-05-20",
       indicator: "MA",
@@ -75,7 +76,7 @@ export const Graph = ({
 
     fetchStockData(formattedLastYearToday, formattedToday);
     fetchIndicator();
-  }, [stockName]);
+  }, [symbol]);
 
   const chartRef = useRef(null);
   const data = useChartData(
@@ -96,7 +97,7 @@ export const Graph = ({
       const series = [
         {
           type: "candlestick",
-          name: "NVDA",
+          name: symbol,
           data: stockGraphData,
           id: "main",
           dataGrouping: {
@@ -151,7 +152,7 @@ export const Graph = ({
         },
 
         title: {
-          text: "NVIDIA Corp (NVDA)",
+          text: symbol,
         },
 
         chart: {
@@ -196,7 +197,6 @@ export const Graph = ({
             let s = "";
 
             if (this.points) {
-              console.log(this.points);
               this.points.forEach(function (point) {
                 if (point.point.open !== undefined) {
                   s +=
@@ -249,7 +249,7 @@ export const Graph = ({
       console.log(series);
       if (
         series.name &&
-        series.name !== "NVDA" &&
+        series.name !== symbol &&
         series.yAxis.userOptions.id !== "mainAxis"
       ) {
         series.update(
@@ -262,7 +262,7 @@ export const Graph = ({
         );
       } else if (
         series.name &&
-        series.name !== "NVDA" &&
+        series.name !== symbol &&
         series.yAxis.userOptions.id === "mainAxis"
       ) {
         series.update(
@@ -384,6 +384,7 @@ export const Graph = ({
   };
 
   const updateGraphIndicators = () => {
+    console.log(selectedIndicatorsList);
     const chart = chartRef.current;
 
     const mainAxis = chart.get("mainAxis");
@@ -552,6 +553,7 @@ export const Graph = ({
   }, [graphLightMode]);
 
   useEffect(() => {
+    console.log(selectedIndicatorsList);
     if (chartRef.current) {
       updateGraphIndicators();
       updateAxisColors();
