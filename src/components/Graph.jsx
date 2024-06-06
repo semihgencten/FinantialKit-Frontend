@@ -10,7 +10,7 @@ export const Graph = ({
   graphLightMode = "light",
   selectedIndicatorsList = [],
   viewMode = "simple",
-  indicators
+  indicators,
 }) => {
   const [stockGraphData, setStockGraphData] = useState([]);
   const [stockVolumeData, setStockVolumeData] = useState([]);

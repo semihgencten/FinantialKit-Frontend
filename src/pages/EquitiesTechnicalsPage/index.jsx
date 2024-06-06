@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { getTechnical } from "@/actions/stockActions";
 import { useParams } from "react-router-dom";
 import { Gauge } from "@/components/Gauge";
-import axios from 'axios';
+import axios from "axios";
 
 const maColumns = [
   { field: "name", headerName: "Moving Average", width: 125 },
@@ -40,28 +40,30 @@ const EquitiesTechnicalsPage = () => {
   const dispatch = useDispatch();
   const { symbol } = useParams();
 
-    const fetchTechnicals = async () => {
-        try {
-            const response = await axios.get(`http://13.50.126.209:8000/api/stocks/${symbol}/technicals`);
-            const technicalsData = response.data;
-            if (technicalsData) {
-                // Apply addIds to each category of data before setting state
-                const dataWithIds = {
-                    movingAverages: addIds(technicalsData.movingAverages),
-                    oscillators: addIds(technicalsData.oscillators),
-                    pivots: addIds(technicalsData.pivots),
-                };
-                setData(dataWithIds);
-                setGaugeData(technicalsData.gaugeCharts);
-                console.log(technicalsData.gaugeCharts);
-            } else {
-                console.error('No data received from the API');
-            }
-        } catch (error) {
-            console.error('Error fetching or processing data:', error);
-        }
-    };
-/*   const technicalAction = async () => {
+  const fetchTechnicals = async () => {
+    try {
+      const response = await axios.get(
+        `http://13.50.126.209:8000/api/stocks/${symbol}/technicals`,
+      );
+      const technicalsData = response.data;
+      if (technicalsData) {
+        // Apply addIds to each category of data before setting state
+        const dataWithIds = {
+          movingAverages: addIds(technicalsData.movingAverages),
+          oscillators: addIds(technicalsData.oscillators),
+          pivots: addIds(technicalsData.pivots),
+        };
+        setData(dataWithIds);
+        setGaugeData(technicalsData.gaugeCharts);
+        console.log(technicalsData.gaugeCharts);
+      } else {
+        console.error("No data received from the API");
+      }
+    } catch (error) {
+      console.error("Error fetching or processing data:", error);
+    }
+  };
+  /*   const technicalAction = async () => {
     const action = await dispatch(getTechnical(symbol));
 
     if (!action.error) {
@@ -100,10 +102,32 @@ const EquitiesTechnicalsPage = () => {
       <Box sx={{ textAlign: "center" }}>
         <h2>Technicals Page {symbol}</h2>
       </Box>
-      <div style={{paddingBottom:'64px'}}>
-        <div style={{ textAlign: '-webkit-center', display: 'flex', flexDirection: 'row', gap:'64px', placeContent: 'center', paddingTop: '32px', paddingBottom: '32px'}}>
-            { gaugeData.action && gaugeData.action.length > 0 && <Gauge id="gauge-0" action={gaugeData.action} confidence={gaugeData.confidence} /> }
-            { gaugeData.action && gaugeData.action.length > 0 && <Gauge id="gauge-1" action={gaugeData.action} confidence={gaugeData.confidence} /> }
+      <div style={{ paddingBottom: "64px" }}>
+        <div
+          style={{
+            textAlign: "-webkit-center",
+            display: "flex",
+            flexDirection: "row",
+            gap: "64px",
+            placeContent: "center",
+            paddingTop: "32px",
+            paddingBottom: "32px",
+          }}
+        >
+          {gaugeData.action && gaugeData.action.length > 0 && (
+            <Gauge
+              id="gauge-0"
+              action={gaugeData.action}
+              confidence={gaugeData.confidence}
+            />
+          )}
+          {gaugeData.action && gaugeData.action.length > 0 && (
+            <Gauge
+              id="gauge-1"
+              action={gaugeData.action}
+              confidence={gaugeData.confidence}
+            />
+          )}
         </div>
         {/* <Gauge idd="gauge-1" action={gaugeData[1]?.action} confidence={gaugeData[1]?.confidence} /> */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
