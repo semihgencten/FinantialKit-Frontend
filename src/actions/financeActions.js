@@ -97,7 +97,7 @@ export const getIndicators = createAsyncThunk(
     //   "range": "annual"
     // }
     const response = await httpFetch({
-      method: "POST",
+      method: "GET",
       url: "/indicators/",
       data: body,
     });

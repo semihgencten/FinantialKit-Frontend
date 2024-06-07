@@ -31,9 +31,12 @@ const SignUp = () => {
     const payload = {
       username: data.get("username"),
       email: data.get("email"),
+      first_name :data.get("firstName"),
+      last_name :data.get("lastName"),
       password: data.get("password1"),
       password2: data.get("password2"),
     };
+    console.log(payload);
     let res = await dispatch(registerUser(payload));
     if (res.error) {
       alert("The user is already exists");
