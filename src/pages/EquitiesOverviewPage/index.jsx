@@ -1,3 +1,4 @@
+// File path: src/pages/EquitiesOverviewPage.js
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import TabsLayout from "@/pages/EquitiesPage";
@@ -7,6 +8,7 @@ import Button from "@mui/material/Button";
 import LeftBriefTable from "./sections/LeftBriefTable";
 import RightBriefTable from "./sections/RightBriefTable";
 import DividendsTable from "./sections/DividendsTable";
+import { useParams } from "react-router-dom";
 
 const movingAverages = [
   { id: 1, name: "Prev. Close", value: "$100" },
@@ -18,6 +20,7 @@ const movingAverages = [
   { id: 7, name: "1 Year Change", value: "+20%" },
   { id: 8, name: "Shares Outstanding", value: "10000000" },
 ];
+
 const marketDetails = [
   { id: 1, name: "Market Cap", value: "$1B" },
   { id: 2, name: "Revenue", value: "$500M" },
@@ -28,6 +31,8 @@ const marketDetails = [
 ];
 
 const EquitiesOverviewPage = () => {
+  const { symbol } = useParams(); // Get symbol from route params
+
   return (
     <TabsLayout>
       <Box sx={{ textAlign: "center" }}>
@@ -45,7 +50,7 @@ const EquitiesOverviewPage = () => {
               }}
             >
               <span style={{ fontSize: "1.5em", marginRight: "0.5em" }}>
-                {"NVDA"} 859(+4%)
+                {symbol} 859(+4%)
               </span>
 
               <Box
@@ -77,13 +82,17 @@ const EquitiesOverviewPage = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box style={{ height: 150, width: "100%" }}>
-        <Grid container spacing={0.004} item xs={16}>
-          <Grid item xs={6}>
-            <LeftBriefTable data={movingAverages} />
+      <Box sx={{ padding: "2rem 0" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Box border={1} borderColor="grey.500" borderRadius={5} p={2}>
+              <LeftBriefTable data={movingAverages} />
+            </Box>
           </Grid>
-          <Grid marginTop="2rem" item xs={6}>
-            <DividendsTable />
+          <Grid item xs={12} sm={6}>
+            <Box border={1} borderColor="grey.500" borderRadius={5} p={2}>
+              <DividendsTable />
+            </Box>
           </Grid>
         </Grid>
       </Box>

@@ -69,6 +69,7 @@ export const getStocks = createAsyncThunk("stocks/getStocks", async () => {
     url: "/stocks/",
     method: "GET",
   });
+  console.log("helloo")
   return response.data;
 });
 
