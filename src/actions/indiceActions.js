@@ -10,18 +10,21 @@ export const getIndices = createAsyncThunk("user/getIndices", async () => {
   return response.data;
 });
 
-export const getIndicesHome = createAsyncThunk("/indices/getIndices", async () => {
+export const getIndicesHome = createAsyncThunk(
+  "/indices/getIndices",
+  async () => {
     const response = await httpFetch({
       url: "/indices",
       method: "GET",
     });
-  
+
     if (!response.ok) {
       console.error("Failed to fetch indices:", response.error);
       throw Error("Could not fetch indices.");
     }
-  
+
     console.log("Response Data:", response.data);
     console.log("Hello");
     return response.data;
-  });
+  },
+);

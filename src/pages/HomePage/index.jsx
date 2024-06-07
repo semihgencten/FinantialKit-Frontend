@@ -1,7 +1,14 @@
 // File path: /path/to/HomePage.jsx
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Grid, Button, Paper, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -12,13 +19,13 @@ import { Link } from "react-router-dom";
 
 const columns = [
   { field: "symbol", headerName: "Symbol", width: 120 },
-  { 
-    field: "name", 
-    headerName: "Name", 
+  {
+    field: "name",
+    headerName: "Name",
     width: 200,
     renderCell: (params) => (
-        <Link to={`/equities/${params.row.symbol}/overview`}>{params.value}</Link>
-      ),
+      <Link to={`/equities/${params.row.symbol}/overview`}>{params.value}</Link>
+    ),
   },
   { field: "price", headerName: "Last", width: 120 },
   {
@@ -46,64 +53,66 @@ const columns = [
 ];
 
 const HomePage = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-  
-    const [indices, setIndices] = useState([]);
-    const [topGainers, setTopGainers] = useState([]);
-    const [trendings, setTrendings] = useState([]);
-  
-    const [loadingIndices, setLoadingIndices] = useState(true);
-    const [loadingTopGainers, setLoadingTopGainers] = useState(true);
-    const [loadingTrendings, setLoadingTrendings] = useState(true);
-  
-    const [errorIndices, setErrorIndices] = useState(null);
-    const [errorTopGainers, setErrorTopGainers] = useState(null);
-    const [errorTrendings, setErrorTrendings] = useState(null);
-  
-    const fetchIndices = async () => {
-        try {
-            const response = await axios.get(
-              `http://13.50.126.209:8000/api/indices`,
-            );
-            let indicesData = response.data;
-            setIndices(indicesData.map((item, index) => ({ id: index + 1, ...item })));
-            setLoadingIndices(false);
-        } catch (error) {
-            setErrorIndices("Failed to fetch indices data");
-            setLoadingIndices(false);
-        }
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-      };
-  
-    const fetchTopGainers = async () => {
-      try {
-        const data = await dispatch(getTopGainers());
-        setTopGainers(data.payload.map((item, index) => ({ id: index + 1, ...item })));
-        setLoadingTopGainers(false);
-      } catch (error) {
-        setErrorTopGainers("Failed to fetch top gainers data");
-        setLoadingTopGainers(false);
-      }
-    };
-  
-    const fetchTrendings = async () => {
-      try {
-        const data = await dispatch(getTrendings());
-        setTrendings(data.payload.map((item, index) => ({ id: index + 1, ...item })));
-        setLoadingTrendings(false);
-      } catch (error) {
-        setErrorTrendings("Failed to fetch trending stocks data");
-        setLoadingTrendings(false);
-      }
-    };
-  
-    useEffect(() => {
-      fetchIndices();
-      fetchTopGainers();
-      fetchTrendings();
-    }, [dispatch]);
-  
+  const [indices, setIndices] = useState([]);
+  const [topGainers, setTopGainers] = useState([]);
+  const [trendings, setTrendings] = useState([]);
+
+  const [loadingIndices, setLoadingIndices] = useState(true);
+  const [loadingTopGainers, setLoadingTopGainers] = useState(true);
+  const [loadingTrendings, setLoadingTrendings] = useState(true);
+
+  const [errorIndices, setErrorIndices] = useState(null);
+  const [errorTopGainers, setErrorTopGainers] = useState(null);
+  const [errorTrendings, setErrorTrendings] = useState(null);
+
+  const fetchIndices = async () => {
+    try {
+      const response = await axios.get(`http://13.50.126.209:8000/api/indices`);
+      let indicesData = response.data;
+      setIndices(
+        indicesData.map((item, index) => ({ id: index + 1, ...item })),
+      );
+      setLoadingIndices(false);
+    } catch (error) {
+      setErrorIndices("Failed to fetch indices data");
+      setLoadingIndices(false);
+    }
+  };
+
+  const fetchTopGainers = async () => {
+    try {
+      const data = await dispatch(getTopGainers());
+      setTopGainers(
+        data.payload.map((item, index) => ({ id: index + 1, ...item })),
+      );
+      setLoadingTopGainers(false);
+    } catch (error) {
+      setErrorTopGainers("Failed to fetch top gainers data");
+      setLoadingTopGainers(false);
+    }
+  };
+
+  const fetchTrendings = async () => {
+    try {
+      const data = await dispatch(getTrendings());
+      setTrendings(
+        data.payload.map((item, index) => ({ id: index + 1, ...item })),
+      );
+      setLoadingTrendings(false);
+    } catch (error) {
+      setErrorTrendings("Failed to fetch trending stocks data");
+      setLoadingTrendings(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchIndices();
+    fetchTopGainers();
+    fetchTrendings();
+  }, [dispatch]);
 
   return (
     <Box sx={{ padding: "20px" }}>

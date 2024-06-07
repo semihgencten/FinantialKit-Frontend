@@ -1,7 +1,7 @@
 // File path: /path/to/MarketsPage.jsx
 
 import { Box, CircularProgress } from "@mui/material";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { CountryDropdown } from "@/pages/MarketsPage/sections";
@@ -34,7 +34,7 @@ const stocksAction = () => async (dispatch) => {
   } catch (error) {
     throw new Error("Failed to fetch stocks data");
   }
-}
+};
 
 const MarketsPage = () => {
   const dispatch = useDispatch();
