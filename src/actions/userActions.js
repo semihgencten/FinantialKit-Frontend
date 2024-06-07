@@ -7,7 +7,7 @@ export const getUserData = createAsyncThunk("user/getUserData", async () => {
     method: "GET",
   });
   return response.data;
-} )
+});
 
 export const getWatchlist = createAsyncThunk("user/getWatchlist", async () => {
   const response = await httpFetch({

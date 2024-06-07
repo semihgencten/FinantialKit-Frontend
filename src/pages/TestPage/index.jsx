@@ -13,13 +13,12 @@ import { getIndicators } from "@/actions/financeActions";
 const TestPage = () => {
   const [data, setData] = useState();
   const dispatch = useDispatch();
-  
 
-  const get_indicators  =  async () => {
+  const get_indicators = async () => {
     let response = await dispatch(getIndicators());
     let response2 = await dispatch(getAllPortfolios());
     console.log(response);
-  }
+  };
 
   const add_new_portfolio = (body) => {
     console.log(body);
@@ -33,7 +32,6 @@ const TestPage = () => {
     );
   };
 
-
   const testAction = async () => {
     console.log("action çalıştırılıyor");
     const action = await dispatch(getAllPortfolios());
@@ -43,11 +41,11 @@ const TestPage = () => {
     }
   };
 
-  let indicatorler="";
+  let indicatorler = "";
   // const { user, status, error, isAuth } = useSelector((state) => state.user);
   // const {portfolios} = useSelector((state)=> state.portfolio )
-  const {indicators} = useSelector((state)=> state.finance );
-  const {portfolios} = useSelector((state)=>state.portfolio);
+  const { indicators } = useSelector((state) => state.finance);
+  const { portfolios } = useSelector((state) => state.portfolio);
   return (
     <>
       <Typography variant="h3">
@@ -58,16 +56,13 @@ const TestPage = () => {
       <Typography variant="h5">
         {data ? JSON.stringify(data) : "No data"}
       </Typography>
-      <Typography>
-        Portfolios: {
-        Object.keys(indicators).join(" ,")}
-      </Typography>
+      <Typography>Portfolios: {Object.keys(indicators).join(" ,")}</Typography>
       <Typography>
         Object keys
-         {
-        //  typeof(portfolios)
-         Object.keys(portfolios).join(" ,")
-         }
+        {
+          //  typeof(portfolios)
+          Object.keys(portfolios).join(" ,")
+        }
       </Typography>
       {/* <Typography>{user?.token}</Typography> */}
     </>

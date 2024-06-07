@@ -31,8 +31,8 @@ const SignUp = () => {
     const payload = {
       username: data.get("username"),
       email: data.get("email"),
-      first_name :data.get("firstName"),
-      last_name :data.get("lastName"),
+      first_name: data.get("firstName"),
+      last_name: data.get("lastName"),
       password: data.get("password1"),
       password2: data.get("password2"),
     };

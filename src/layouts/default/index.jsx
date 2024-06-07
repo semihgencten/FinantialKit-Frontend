@@ -69,10 +69,10 @@ const DefaultLayout = () => {
 
   let isAuthenticated = false;
 
-  let cookies = new Cookies;
-  const try_connect = () =>{
-    isAuthenticated = cookies.get("token") ? true:false; 
-  }
+  let cookies = new Cookies();
+  const try_connect = () => {
+    isAuthenticated = cookies.get("token") ? true : false;
+  };
 
   try_connect();
 

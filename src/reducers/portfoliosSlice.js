@@ -37,7 +37,8 @@ export const portfolioSlice = createSlice({
         } else {
           state.error = action.error.message;
         }
-        state.status = "failed";})
+        state.status = "failed";
+      })
       .addCase(getAllPortfolios.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.error = null;
