@@ -1,6 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import httpFetch from "@/utils/httpFetch";
 
+export const getUserData = createAsyncThunk("user/getUserData", async () => {
+  const response = await httpFetch({
+    url: "/user/data",
+    method: "GET",
+  });
+  return response.data;
+} )
+
 export const getWatchlist = createAsyncThunk("user/getWatchlist", async () => {
   const response = await httpFetch({
     url: "/user/watchlist",
