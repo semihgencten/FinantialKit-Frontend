@@ -52,7 +52,7 @@ const TabsLayout = ({ children }) => {
   return (
     <div>
       <Box sx={{ textAlign: "left" }}>
-        <h2>{routeSymbol ? routeSymbol.toUpperCase() : ""} Overview</h2>
+        <h2>{routeSymbol ? routeSymbol.toUpperCase() : ""}</h2>
       </Box>
 
       <Tabs
