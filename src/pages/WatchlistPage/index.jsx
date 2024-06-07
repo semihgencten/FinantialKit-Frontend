@@ -282,7 +282,7 @@ const MarketsPage = () => {
   return (
     <div>
       <Box sx={{ textAlign: "center" }}>
-        <h2>Watchlist</h2>;
+        <h2>Watchlist</h2>
       </Box>
 
       <div className="row">

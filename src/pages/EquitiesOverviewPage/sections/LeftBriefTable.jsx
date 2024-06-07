@@ -1,30 +1,29 @@
+// File path: src/pages/sections/LeftBriefTable.js
+
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 const LeftBriefTable = ({ data }) => {
   const columns = [
-    { field: "name", headerName: "Name", width: 250 },
-    { field: "value", headerName: "Value", width: 250 },
+    { field: "name", headerName: "Name", width: 200 },
+    { field: "value", headerName: "Value", width: 200 },
   ];
 
   return (
-    <Grid marginTop="2rem" item xs={6}>
-      <Box style={{ height: 450, width: "100%" }}>
-        <Typography variant="h4" gutterBottom>
-          Moving Averages
-        </Typography>
-        <DataGrid
-          rows={data}
-          columns={columns}
-          disableColumnMenu
-          disableColumnSelector
-          disableSelectionOnClick
-          autoHeight
-          hideFooter
-        />
-      </Box>
-    </Grid>
+    <Box style={{ height: 500, width: "100%" }}>
+      <Typography variant="h4" gutterBottom>
+        Moving Averages
+      </Typography>
+      <DataGrid
+        rows={data}
+        columns={columns}
+        disableColumnMenu
+        disableColumnSelector
+        disableSelectionOnClick
+        hideFooter
+      />
+    </Box>
   );
 };
 

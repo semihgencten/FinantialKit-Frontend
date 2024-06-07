@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { getTechnical } from "@/actions/stockActions";
 import { useParams } from "react-router-dom";
+import { Gauge } from "@/components/Gauge";
+import axios from "axios";
 
 const maColumns = [
   { field: "name", headerName: "Moving Average", width: 125 },
@@ -31,46 +33,37 @@ const pivotColumns = [
   { field: "R3", headerName: "R3", width: 90 },
 ];
 
-const GaugeChart1 = () => {
-  return (
-    <div
-      style={{
-        height: 200,
-        width: "100%",
-        marginBottom: "20px",
-        border: "1px solid #ccc",
-      }}
-    >
-      {/* Placeholder for Gauge Chart 1 */}
-      <h3 style={{ textAlign: "center" }}>Gauge Chart 1</h3>
-      <p style={{ textAlign: "center" }}>Placeholder for Gauge Chart 1</p>
-    </div>
-  );
-};
-
-const GaugeChart2 = () => {
-  return (
-    <div
-      style={{
-        height: 200,
-        width: "100%",
-        marginBottom: "20px",
-        border: "1px solid #ccc",
-      }}
-    >
-      {/* Placeholder for Gauge Chart 2 */}
-      <h3 style={{ textAlign: "center" }}>Gauge Chart 2</h3>
-      <p style={{ textAlign: "center" }}>Placeholder for Gauge Chart 2</p>
-    </div>
-  );
-};
-
 const EquitiesTechnicalsPage = () => {
   const [data, setData] = useState(null);
-  const dispatch = useDispatch();
-  const { symbol } = useParams(); // Access the symbol parameter from the route
+  const [gaugeData, setGaugeData] = useState([]);
 
-  const technicalAction = async () => {
+  const dispatch = useDispatch();
+  const { symbol } = useParams();
+
+  const fetchTechnicals = async () => {
+    try {
+      const response = await axios.get(
+        `http://13.50.126.209:8000/api/stocks/${symbol}/technicals`,
+      );
+      const technicalsData = response.data;
+      if (technicalsData) {
+        // Apply addIds to each category of data before setting state
+        const dataWithIds = {
+          movingAverages: addIds(technicalsData.movingAverages),
+          oscillators: addIds(technicalsData.oscillators),
+          pivots: addIds(technicalsData.pivots),
+        };
+        setData(dataWithIds);
+        setGaugeData(technicalsData.gaugeCharts);
+        console.log(technicalsData.gaugeCharts);
+      } else {
+        console.error("No data received from the API");
+      }
+    } catch (error) {
+      console.error("Error fetching or processing data:", error);
+    }
+  };
+  /*   const technicalAction = async () => {
     const action = await dispatch(getTechnical(symbol));
 
     if (!action.error) {
@@ -86,7 +79,7 @@ const EquitiesTechnicalsPage = () => {
     } else {
       console.error("Error fetching technical data:", action.error);
     }
-  };
+  }; */
   const addIds = (rows) => {
     if (Array.isArray(rows)) {
       return rows.map((row, index) => ({
@@ -99,7 +92,9 @@ const EquitiesTechnicalsPage = () => {
     }
   };
   useEffect(() => {
-    technicalAction();
+    fetchTechnicals();
+
+    //technicalAction();
   }, [symbol]); // Run the effect when the symbol parameter changes
 
   return (
@@ -107,11 +102,34 @@ const EquitiesTechnicalsPage = () => {
       <Box sx={{ textAlign: "center" }}>
         <h2>Technicals Page {symbol}</h2>
       </Box>
-      <div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <GaugeChart1 />
-          <GaugeChart2 />
+      <div style={{ paddingBottom: "64px" }}>
+        <div
+          style={{
+            textAlign: "-webkit-center",
+            display: "flex",
+            flexDirection: "row",
+            gap: "64px",
+            placeContent: "center",
+            paddingTop: "32px",
+            paddingBottom: "32px",
+          }}
+        >
+          {gaugeData.action && gaugeData.action.length > 0 && (
+            <Gauge
+              id="gauge-0"
+              action={gaugeData.action}
+              confidence={gaugeData.confidence}
+            />
+          )}
+          {gaugeData.action && gaugeData.action.length > 0 && (
+            <Gauge
+              id="gauge-1"
+              action={gaugeData.action}
+              confidence={gaugeData.confidence}
+            />
+          )}
         </div>
+        {/* <Gauge idd="gauge-1" action={gaugeData[1]?.action} confidence={gaugeData[1]?.confidence} /> */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ height: 450, width: "48%" }}>
             <h3>Moving Averages</h3>
@@ -147,12 +165,7 @@ const EquitiesTechnicalsPage = () => {
           <DataGrid
             rows={data?.pivots || []}
             columns={pivotColumns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
+            pageSizeOptions={10}
             checkboxSelection={false}
           />
         </div>

@@ -69,6 +69,7 @@ export const getStocks = createAsyncThunk("stocks/getStocks", async () => {
     url: "/stocks/",
     method: "GET",
   });
+  console.log("helloo");
   return response.data;
 });
 
@@ -88,7 +89,7 @@ export const getTechnical = createAsyncThunk(
   async (symbol) => {
     const response = await httpFetch({
       url: `/stocks/${symbol}/technicals/`,
-      method: "POST",
+      method: "GET",
     });
     return response.data;
   },
