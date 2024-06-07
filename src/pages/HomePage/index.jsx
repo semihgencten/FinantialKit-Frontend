@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid, Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { Opacity } from "@mui/icons-material";
@@ -311,85 +311,93 @@ const topGainersRows = [
 // ... (same data arrays as before)
 
 const HomePage = () => {
-  const navigate = useNavigate();
-  return (
-    <div>
-      <Box
-        sx={{
-          backgroundColor: "#f5f5f5",
-          padding: "60px 20px",
-          textAlign: "center",
-          color: "#555",
-        }}
-        style={{
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: "100%",
-        }}
-      >
-        <Typography
-          variant="h3"
-          gutterBottom
-          style={{ fontWeight: "bold", color: "#000" }}
+    const navigate = useNavigate();
+  
+    return (
+      <Box sx={{ padding: "20px" }}>
+        <Box
+          sx={{
+            backgroundColor: "#f5f5f5",
+            padding: "60px 20px",
+            textAlign: "center",
+            color: "#555",
+            marginBottom: "40px",
+            borderRadius: "8px",
+          }}
         >
-          Welcome to Stock Market Insights
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          gutterBottom
-          style={{ fontWeight: "bold", color: "#000" }}
-        >
-          Stay updated with the latest market trends and analysis.
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() => navigate("/markets")}
-        >
-          Explore Markets
-        </Button>
-      </Box>
-      <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
-        <Typography variant="h4">Home Page</Typography>
-      </Box>
-      <Box>
-        <Typography variant="h6" gutterBottom>
-          Indices
-        </Typography>
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid rows={indicesRows} columns={columns} pageSize={10} />
-        </div>
-      </Box>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              Trending Stocks
-            </Typography>
-            <div style={{ height: 600, width: "100%" }}>
-              <DataGrid
-                rows={trendingStocksRows}
-                columns={columns}
-                pageSize={10}
-              />
-            </div>
-          </Box>
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ fontWeight: "bold", color: "#000" }}
+          >
+            Welcome to Stock Market Insights
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{ fontWeight: "bold", color: "#000" }}
+          >
+            Stay updated with the latest market trends and analysis.
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => navigate("/markets")}
+            sx={{ marginTop: "20px" }}
+          >
+            Explore Markets
+          </Button>
+        </Box>
+  
+        <Grid container spacing={4} alignItems="flex-start">
+          <Grid item xs={12} md={8}>
+            <Paper elevation={3} sx={{ padding: "20px", borderRadius: "8px" }}>
+              <Typography variant="h6" gutterBottom>
+                Indices
+              </Typography>
+              <div style={{ height: 400, width: "100%" }}>
+                <DataGrid rows={indicesRows} columns={columns} pageSize={10} />
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper elevation={3} sx={{ padding: "20px", borderRadius: "8px" }}>
+              <Typography variant="body1" sx={{ fontSize: "16px", lineHeight: "1.5" }}>
+                Our platform offers a <span style={{ color: "#1976d2", fontWeight: "bold" }}>comprehensive suite of tools</span> to help you navigate the stock market with ease. Enjoy features such as <span style={{ color: "#1976d2", fontWeight: "bold" }}>portfolio optimization</span> to maximize your returns and <span style={{ color: "#1976d2", fontWeight: "bold" }}>AI-supported news labeling</span> for the latest market insights.
+              </Typography>
+            </Paper>
+          </Grid>
         </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              Top Gainers
-            </Typography>
-            <div style={{ height: 600, width: "100%" }}>
-              <DataGrid rows={topGainersRows} columns={columns} pageSize={10} />
-            </div>
-          </Box>
+  
+        <Grid container spacing={4} style={{ marginTop: "40px" }}>
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} sx={{ padding: "20px", borderRadius: "8px" }}>
+              <Typography variant="h6" gutterBottom>
+                Trending Stocks
+              </Typography>
+              <div style={{ height: 600, width: "100%" }}>
+                <DataGrid
+                  rows={trendingStocksRows}
+                  columns={columns}
+                  pageSize={10}
+                />
+              </div>
+            </Paper>
+          </Grid>
+  
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} sx={{ padding: "20px", borderRadius: "8px" }}>
+              <Typography variant="h6" gutterBottom>
+                Top Gainers
+              </Typography>
+              <div style={{ height: 600, width: "100%" }}>
+                <DataGrid rows={topGainersRows} columns={columns} pageSize={10} />
+              </div>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
-  );
-};
-
+      </Box>
+    );
+  };
 export default HomePage;
