@@ -39,20 +39,23 @@ export const Gauge = ({ id, action, confidence }) => {
           },
         },
         lineWidth: 0,
-        plotBands: [{
+        plotBands: [
+          {
             from: 0,
             to: 40,
-            color: '#DF5353' // red
-        }, {
+            color: "#DF5353", // red
+          },
+          {
             from: 40,
             to: 70,
-            color: '#DDDF0D' // yellow
-        }, {
+            color: "#DDDF0D", // yellow
+          },
+          {
             from: 70,
             to: 100,
-            color: '#55BF3B' // green
-        }
-      ]
+            color: "#55BF3B", // green
+          },
+        ],
       },
       series: [
         {
