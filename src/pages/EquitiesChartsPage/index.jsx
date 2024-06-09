@@ -18,7 +18,6 @@ const EquitiesChartsPage = () => {
 
   const [graphReservedViewHeight, setGraphReservedViewHeight] = useState(100);
 
-
   const fetchAndFormatIndicators = async () => {
     try {
       const response = await axios.get(
@@ -26,16 +25,22 @@ const EquitiesChartsPage = () => {
       );
       const indicatorsList = response.data;
       if (indicatorsList) {
-        const indicatorTypesToRemove = ["Math Operators", "Math Transform", "Statistic Functions"];
-        
-        const filteredIndicatorsList = Object.entries(indicatorsList)
-        .reduce((acc, [key, value]) => {
+        const indicatorTypesToRemove = [
+          "Math Operators",
+          "Math Transform",
+          "Statistic Functions",
+        ];
+
+        const filteredIndicatorsList = Object.entries(indicatorsList).reduce(
+          (acc, [key, value]) => {
             if (!indicatorTypesToRemove.includes(key)) {
-                acc[key] = value;
+              acc[key] = value;
             }
             return acc;
-        }, {});
-    
+          },
+          {},
+        );
+
         const formattedIndicators = Object.keys(filteredIndicatorsList).map(
           (category) => ({
             technicalName: category.toLowerCase(),
@@ -115,13 +120,14 @@ const EquitiesChartsPage = () => {
     }
 
     let indicatorCountSide = selectedIndicatorsList.filter(
-        (indicator) => indicator.location === "side" && !indicator.displayName.startsWith("Overlap Studies")
-      ).length;
-    if(indicatorCountSide === 0){
-        setGraphReservedViewHeight(100);
-    }
-    else{
-        setGraphReservedViewHeight(100 + (2 * indicatorCountSide));
+      (indicator) =>
+        indicator.location === "side" &&
+        !indicator.displayName.startsWith("Overlap Studies"),
+    ).length;
+    if (indicatorCountSide === 0) {
+      setGraphReservedViewHeight(100);
+    } else {
+      setGraphReservedViewHeight(100 + 2 * indicatorCountSide);
     }
     setFinalizedIndicators(selectedIndicatorsList);
     setShowIndicatorsDialog(false);
@@ -129,19 +135,20 @@ const EquitiesChartsPage = () => {
   };
 
   useEffect(() => {
-    document.getElementById('box123').style.height = graphReservedViewHeight + "vh";
+    document.getElementById("box123").style.height =
+      graphReservedViewHeight + "vh";
   }, [graphReservedViewHeight]);
 
   return (
     <TabsLayout>
       <Box
-      id="box123"
+        id="box123"
         sx={{
           display: "flex",
           flexDirection: "column",
           textAlign: "center",
           gap: "8px",
-          height: (graphReservedViewHeight.toString() + "vh")
+          height: graphReservedViewHeight.toString() + "vh",
         }}
       >
         <h2>Charts Page</h2>

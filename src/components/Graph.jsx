@@ -11,7 +11,7 @@ export const Graph = ({
   selectedIndicatorsList = [],
   viewMode = "simple",
   indicators,
-  graphReservedViewHeight
+  graphReservedViewHeight,
 }) => {
   const [stockGraphData, setStockGraphData] = useState([]);
   const [stockVolumeData, setStockVolumeData] = useState([]);
@@ -44,13 +44,13 @@ export const Graph = ({
     }
   };
 
-  const fetchIndicator = async( indicatorName ) => {
+  const fetchIndicator = async (indicatorName) => {
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
     const day = today.getDate(); // getDate() returns the day of the month (1-31)
 
-    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
 
     const postBody = {
       symbol: symbol,
@@ -420,35 +420,56 @@ export const Graph = ({
     sideIndicatorSeriesToRemove.forEach((series) => series.remove(false));
 
     // dynamically check and add missing indicators
-    selectedIndicatorsList.forEach(async(indicator) => {
+    selectedIndicatorsList.forEach(async (indicator) => {
       // check if the series already exists
       let axisName;
       if (!chart.get(indicator)) {
         // series doesn't exist, so add it based on the type of indicator
-        if(indicator.displayName.startsWith("Overlap Studies")){
-            const indicatorData = await fetchIndicator(indicator.technicalName.toUpperCase());
+        if (indicator.displayName.startsWith("Overlap Studies")) {
+          const indicatorData = await fetchIndicator(
+            indicator.technicalName.toUpperCase(),
+          );
 
-            const combinedIndicatorDataWithTimestamps = timestampList.map((timestamp, index) => {
-                return [timestamp, indicatorData[index]];
-            });
+          const combinedIndicatorDataWithTimestamps = timestampList.map(
+            (timestamp, index) => {
+              return [timestamp, indicatorData[index]];
+            },
+          );
 
-            addIndicatorSeries(chart, "mainAxis", indicator, combinedIndicatorDataWithTimestamps);
-            chart.redraw();
-        }
-        else{
-            axisName = indicator.technicalName + "Axis";
-            if(!chart.get(axisName)){
-                addIndicatorAxis(chart, axisName, indicator.technicalName.substring(0, 8));
-            }
+          addIndicatorSeries(
+            chart,
+            "mainAxis",
+            indicator,
+            combinedIndicatorDataWithTimestamps,
+          );
+          chart.redraw();
+        } else {
+          axisName = indicator.technicalName + "Axis";
+          if (!chart.get(axisName)) {
+            addIndicatorAxis(
+              chart,
+              axisName,
+              indicator.technicalName.substring(0, 8),
+            );
+          }
 
-            const indicatorData = await fetchIndicator(indicator.technicalName.toUpperCase());
+          const indicatorData = await fetchIndicator(
+            indicator.technicalName.toUpperCase(),
+          );
 
-            const combinedIndicatorDataWithTimestamps = timestampList.map((timestamp, index) => {
-                return [timestamp, indicatorData[index]];
-            });
+          const combinedIndicatorDataWithTimestamps = timestampList.map(
+            (timestamp, index) => {
+              return [timestamp, indicatorData[index]];
+            },
+          );
 
-            addIndicatorSeries(chart, axisName, indicator, combinedIndicatorDataWithTimestamps);
-            chart.redraw();
+          addIndicatorSeries(
+            chart,
+            axisName,
+            indicator,
+            combinedIndicatorDataWithTimestamps,
+          );
+          chart.redraw();
         }
       }
     });
@@ -470,34 +491,31 @@ export const Graph = ({
     console.log(graphReservedViewHeight);
 
     let sideIndicatorCount = selectedIndicatorsList.filter(
-        (indicator) => indicator.location === "side" && !indicator.displayName.startsWith("Overlap Studies"),
-      ).length; // the amount remaining from the default graph is 40% for side indicators
+      (indicator) =>
+        indicator.location === "side" &&
+        !indicator.displayName.startsWith("Overlap Studies"),
+    ).length; // the amount remaining from the default graph is 40% for side indicators
 
-      /* const defaultMainGraphHeight = viewMode === "simple" ? 60 : (graphReservedViewHeight - 60); // main OHLC graph is 60% default */
+    /* const defaultMainGraphHeight = viewMode === "simple" ? 60 : (graphReservedViewHeight - 60); // main OHLC graph is 60% default */
 
-      let threshold;
-      if(sideIndicatorCount === 1){
-        threshold = 62;
-      }
-      else if(sideIndicatorCount <= 3){
-        threshold = 65;
-      }
-      else if(sideIndicatorCount <= 6){
-        threshold = 68;
-      }
-      else if(sideIndicatorCount <= 10){
-        threshold = 75;
-      }
-      else if(sideIndicatorCount <= 20){
-        threshold = 80;
-      }
-      else{
-        threshold = 90;
-      }
-    const computedIndicatorHeight = (graphReservedViewHeight - threshold) / sideIndicatorCount;
+    let threshold;
+    if (sideIndicatorCount === 1) {
+      threshold = 62;
+    } else if (sideIndicatorCount <= 3) {
+      threshold = 65;
+    } else if (sideIndicatorCount <= 6) {
+      threshold = 68;
+    } else if (sideIndicatorCount <= 10) {
+      threshold = 75;
+    } else if (sideIndicatorCount <= 20) {
+      threshold = 80;
+    } else {
+      threshold = 90;
+    }
+    const computedIndicatorHeight =
+      (graphReservedViewHeight - threshold) / sideIndicatorCount;
 
     // iterate over the remaining axes to update their height and top values
-
 
     chart.yAxis.forEach((axis) => {
       // ensure we're only dealing with indicator axes, not the main or navigator axis
@@ -506,7 +524,9 @@ export const Graph = ({
         axis.options.id !== "navigator-y-axis"
       ) {
         const sideIndicators = selectedIndicatorsList.filter(
-          (indicator) => indicator.location === "side" && !indicator.displayName.startsWith("Overlap Studies"),
+          (indicator) =>
+            indicator.location === "side" &&
+            !indicator.displayName.startsWith("Overlap Studies"),
         );
         const indicator = sideIndicators.find(
           (ind) => axis.options.id === ind.technicalName + "Axis",
@@ -514,7 +534,8 @@ export const Graph = ({
         if (indicator) {
           // If the axis is found in the selectedIndicatorsList
           const indicatorIndex = sideIndicators.indexOf(indicator);
-          const topPositionValue = 60 + indicatorIndex * computedIndicatorHeight;
+          const topPositionValue =
+            60 + indicatorIndex * computedIndicatorHeight;
           const topPositionString = `${topPositionValue}%`;
           const indicatorHeightString = `${computedIndicatorHeight}%`;
 
@@ -533,7 +554,6 @@ export const Graph = ({
     chart.reflow();
   };
 
-
   useEffect(() => {
     initializeGraph();
     if (chartRef.current) {
@@ -551,14 +571,20 @@ export const Graph = ({
 
   useEffect(() => {
     if (chartRef.current) {
-        document.getElementById("stockGraph").style.height = graphReservedViewHeight + "vh";
-        chartRef.current.redraw();
-        chartRef.current.reflow();
+      document.getElementById("stockGraph").style.height =
+        graphReservedViewHeight + "vh";
+      chartRef.current.redraw();
+      chartRef.current.reflow();
       updateGraphIndicators();
       updateAxisColors();
       updatePlotOptions();
     }
-  }, [graphReservedViewHeight, selectedIndicatorsList, stockGraphData, viewMode]);
+  }, [
+    graphReservedViewHeight,
+    selectedIndicatorsList,
+    stockGraphData,
+    viewMode,
+  ]);
 
   return <Box id="stockGraph"></Box>;
 };
