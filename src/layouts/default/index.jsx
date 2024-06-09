@@ -179,7 +179,7 @@ const DefaultLayout = () => {
       <Grid container bgcolor="#F9F7F7" alignItems="center">
         {[
           { route: "/", titleId: "homepage.title" },
-          { route: "/analysis", titleId: "analysis.page.title" },
+          { route: "/filter", titleId: "analysis.page.title" },
           { route: "/markets", titleId: "markets.page.title" },
           { route: "/my-portfolio", titleId: "portfolio.page.title" },
           { route: "/news", titleId: "news.page.title" },

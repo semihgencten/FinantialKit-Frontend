@@ -6,7 +6,7 @@ import DefaultLayout from "@/layouts/default";
 import HomePage from "@/pages/HomePage";
 import TestPage from "@/pages/TestPage";
 import NewsPage from "@/pages/NewsPage";
-import AnalysisPage from "@/pages/AnalysisPage";
+import FilterPage from "@/pages/FilterPage";
 import WatchlistPage from "@/pages/WatchlistPage";
 import PortfolioPage from "@/pages/PortfolioPage";
 import PortfolioDetailPage from "@/pages/PortfolioDetailPage";
@@ -134,8 +134,8 @@ const App = () => {
           element: <TestPage />,
         },
         {
-          path: "/analysis",
-          element: <AnalysisPage />,
+          path: "/filter",
+          element: <FilterPage />,
         },
         {
           path: "/watchlist",
