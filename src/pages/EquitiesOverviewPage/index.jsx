@@ -71,7 +71,7 @@ const EquitiesOverviewPage = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={8} md={8} lg={9.6}>
               <Box border={1} borderColor="grey.500" borderRadius={5} p={2}>
-                <Graph style={{ width: "90%" }} />
+                <Graph style={{ width: "80%" }} graphReservedViewHeight="80" />
               </Box>
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={2.4}>

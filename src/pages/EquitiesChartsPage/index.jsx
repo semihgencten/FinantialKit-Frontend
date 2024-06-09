@@ -16,6 +16,9 @@ const EquitiesChartsPage = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [finalizedIndicators, setFinalizedIndicators] = useState([]);
 
+  const [graphReservedViewHeight, setGraphReservedViewHeight] = useState(100);
+
+
   const fetchAndFormatIndicators = async () => {
     try {
       const response = await axios.get(
@@ -23,12 +26,22 @@ const EquitiesChartsPage = () => {
       );
       const indicatorsList = response.data;
       if (indicatorsList) {
-        const formattedIndicators = Object.keys(indicatorsList).map(
+        const indicatorTypesToRemove = ["Math Operators", "Math Transform", "Statistic Functions"];
+        
+        const filteredIndicatorsList = Object.entries(indicatorsList)
+        .reduce((acc, [key, value]) => {
+            if (!indicatorTypesToRemove.includes(key)) {
+                acc[key] = value;
+            }
+            return acc;
+        }, {});
+    
+        const formattedIndicators = Object.keys(filteredIndicatorsList).map(
           (category) => ({
             technicalName: category.toLowerCase(),
             displayName: category,
             location: "main",
-            options: indicatorsList[category].map((technicalName) => ({
+            options: filteredIndicatorsList[category].map((technicalName) => ({
               val: technicalName.toLowerCase(),
               sel: false,
             })),
@@ -100,22 +113,35 @@ const EquitiesChartsPage = () => {
     } else {
       setViewMode("simple");
     }
-    console.log(indicators);
-    console.log(selectedIndicatorsList);
+
+    let indicatorCountSide = selectedIndicatorsList.filter(
+        (indicator) => indicator.location === "side" && !indicator.displayName.startsWith("Overlap Studies")
+      ).length;
+    if(indicatorCountSide === 0){
+        setGraphReservedViewHeight(100);
+    }
+    else{
+        setGraphReservedViewHeight(100 + (2 * indicatorCountSide));
+    }
     setFinalizedIndicators(selectedIndicatorsList);
     setShowIndicatorsDialog(false);
     setShowOptions(false);
   };
 
+  useEffect(() => {
+    document.getElementById('box123').style.height = graphReservedViewHeight + "vh";
+  }, [graphReservedViewHeight]);
+
   return (
     <TabsLayout>
       <Box
+      id="box123"
         sx={{
           display: "flex",
           flexDirection: "column",
           textAlign: "center",
           gap: "8px",
-          height: "92vh",
+          height: (graphReservedViewHeight.toString() + "vh")
         }}
       >
         <h2>Charts Page</h2>
@@ -130,7 +156,7 @@ const EquitiesChartsPage = () => {
           open={showIndicatorsDialog}
           onClose={handleCloseDialog}
           PaperProps={{
-            sx: { maxHeight: "65vh", overflowY: "auto", width: "25vw" },
+            sx: { maxHeight: "50vh", overflowY: "auto", width: "25vw" },
           }}
         >
           {!showOptions ? (
@@ -141,7 +167,6 @@ const EquitiesChartsPage = () => {
                 overflowY: "auto",
                 justifyContent: "center",
                 placeContent: "center",
-                pb: "2rem",
               }}
             >
               <h4
@@ -256,6 +281,7 @@ const EquitiesChartsPage = () => {
           selectedIndicatorsList={finalizedIndicators}
           viewMode={viewMode}
           indicators={indicators}
+          graphReservedViewHeight={graphReservedViewHeight}
         />
       </Box>
     </TabsLayout>
