@@ -15,20 +15,23 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const columns = [
-    { field: "id", headerName: "ID", width: 90 },
-    { field: "symbol", headerName: "Symbol", width: 150 },
-    { field: "companyName", headerName: "Company Name", width: 200 ,
-      renderCell: (params) => (
-          <Link to={`/equities/${params.row.symbol}/overview`}>{params.value}</Link>
-        ),
-    },
-    { field: "lastPrice", headerName: "Last Price", width: 130 },
-    { field: "changeAmount", headerName: "Change Amount", width: 150 },
-    { field: "changePercentage", headerName: "Change Percentage", width: 180 },
-    { field: "volume", headerName: "Volume", width: 130 },
-    { field: "marketCap", headerName: "Market Cap", width: 150 },
-    { field: "peRatio", headerName: "PE Ratio", width: 130 },
-  ];
+  { field: "id", headerName: "ID", width: 90 },
+  { field: "symbol", headerName: "Symbol", width: 150 },
+  {
+    field: "companyName",
+    headerName: "Company Name",
+    width: 200,
+    renderCell: (params) => (
+      <Link to={`/equities/${params.row.symbol}/overview`}>{params.value}</Link>
+    ),
+  },
+  { field: "lastPrice", headerName: "Last Price", width: 130 },
+  { field: "changeAmount", headerName: "Change Amount", width: 150 },
+  { field: "changePercentage", headerName: "Change Percentage", width: 180 },
+  { field: "volume", headerName: "Volume", width: 130 },
+  { field: "marketCap", headerName: "Market Cap", width: 150 },
+  { field: "peRatio", headerName: "PE Ratio", width: 130 },
+];
 
 const AnalysisPage = () => {
   const [rows, setRows] = useState([]);
@@ -49,12 +52,14 @@ const AnalysisPage = () => {
     console.log(priceRange);
     if (priceRange) {
       if (newPriceRange === "800") query += "last_price_min=800";
-      else if (newPriceRange === "300-800") query += "last_price_min=300&last_price_max=800";
+      else if (newPriceRange === "300-800")
+        query += "last_price_min=300&last_price_max=800";
       else if (newPriceRange === "300") query += "last_price_max=300";
     }
     if (changeAmount) {
       if (changeAmount === "5") query += "&change_amount_max=5";
-      else if (changeAmount === "5-30") query += "&change_amount_min=5&change_amount_max=30";
+      else if (changeAmount === "5-30")
+        query += "&change_amount_min=5&change_amount_max=30";
       else if (changeAmount === "30") query += "&change_amount_min=30";
     }
     if (changePercentage) {
@@ -71,7 +76,8 @@ const AnalysisPage = () => {
     }
     if (marketCap) {
       if (marketCap === "200B") query += "&market_cap_min=200000000";
-      else if (marketCap === "10B-200B") query += "&market_cap_min=10000000&market_cap_max=200000000";
+      else if (marketCap === "10B-200B")
+        query += "&market_cap_min=10000000&market_cap_max=200000000";
       else if (marketCap === "10B") query += "&market_cap_min=10000000";
       else if (marketCap === "2B") query += "&market_cap_min=2000000";
     }
