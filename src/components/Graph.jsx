@@ -11,18 +11,23 @@ export const Graph = ({
   selectedIndicatorsList = [],
   viewMode = "simple",
   indicators,
+  graphReservedViewHeight
 }) => {
   const [stockGraphData, setStockGraphData] = useState([]);
   const [stockVolumeData, setStockVolumeData] = useState([]);
   const { symbol } = useParams();
+  const [timestampList, setTimestampList] = useState([]);
 
   const fetchStockData = async (startDate, endDate) => {
     try {
       const url = `http://13.50.126.209:8000/api/stocks/${symbol}/priceHistory/${startDate}/${endDate}/1d`;
       const response = await axios.get(url);
       const stockData = response.data.priceHistory;
+      const timestamps = [];
+
       const chartData = stockData.map((data) => {
         const timestamp = new Date(data.Date).getTime();
+        timestamps.push(timestamp);
         return [timestamp, data.Open, data.High, data.Low, data.Close];
       });
 
@@ -31,23 +36,31 @@ export const Graph = ({
         return [timestamp, data.Volume];
       });
 
-      console.log(chartData, volumeData);
       setStockGraphData(chartData);
       setStockVolumeData(volumeData);
+      setTimestampList(timestamps);
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
   };
 
-  const fetchIndicator = async () => {
+  const fetchIndicator = async( indicatorName ) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
+    const day = today.getDate(); // getDate() returns the day of the month (1-31)
+
+    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
     const postBody = {
       symbol: symbol,
-      start_date: "2024-05-14",
-      end_date: "2024-05-20",
-      indicator: "MA",
+      start_date: "1975-05-14",
+      end_date: formattedDate,
+      indicator: indicatorName,
       period: 14,
       price_type: "close",
     };
+
     const response = await axios.post(
       "http://13.50.126.209:8000/api/indicators/",
       postBody,
@@ -57,6 +70,8 @@ export const Graph = ({
         },
       },
     );
+
+    return response.data.values;
   };
 
   const getFormattedDate = (date) => {
@@ -148,7 +163,7 @@ export const Graph = ({
 
       chartRef.current = Highcharts.stockChart("stockGraph", {
         rangeSelector: {
-          selected: 4,
+          selected: 5,
         },
 
         title: {
@@ -246,7 +261,6 @@ export const Graph = ({
 
   const updatePlotOptions = () => {
     chartRef.current.series.forEach((series) => {
-      console.log(series);
       if (
         series.name &&
         series.name !== symbol &&
@@ -384,7 +398,6 @@ export const Graph = ({
   };
 
   const updateGraphIndicators = () => {
-    console.log(selectedIndicatorsList);
     const chart = chartRef.current;
 
     const mainAxis = chart.get("mainAxis");
@@ -407,77 +420,35 @@ export const Graph = ({
     sideIndicatorSeriesToRemove.forEach((series) => series.remove(false));
 
     // dynamically check and add missing indicators
-    selectedIndicatorsList.forEach((indicator) => {
+    selectedIndicatorsList.forEach(async(indicator) => {
       // check if the series already exists
       let axisName;
       if (!chart.get(indicator)) {
         // series doesn't exist, so add it based on the type of indicator
-        if (indicator.technicalName === "ad") {
-          axisName = indicator.technicalName + "Axis";
-          if (!chart.get(axisName)) {
-            addIndicatorAxis(chart, axisName, indicator.technicalName);
-          }
-          console.log(stockVolumeData);
-          console.log(data.volume);
-          addIndicatorSeries(chart, axisName, indicator, stockVolumeData);
-        }
-        if (indicator.technicalName === "rsi") {
-          const rsidata = data.volume;
-          axisName = indicator.technicalName + "Axis";
-          if (!chart.get(axisName)) {
-            addIndicatorAxis(chart, axisName, indicator.technicalName);
-          }
-          addIndicatorSeries(chart, axisName, indicator, rsidata);
-        }
-        if (indicator.technicalName === "mom") {
-          const momdata = data.volume;
-          axisName = indicator.technicalName + "Axis";
-          if (!chart.get(axisName)) {
-            addIndicatorAxis(
-              chart,
-              axisName,
-              indicator.technicalName,
-              indicator.location,
-            );
-          }
-          addIndicatorSeries(chart, axisName, indicator, momdata);
-        }
-        if (indicator.technicalName === "bop") {
-          const bopdata = data.volume;
-          axisName = indicator.technicalName + "Axis";
-          if (!chart.get(axisName)) {
-            addIndicatorAxis(
-              chart,
-              axisName,
-              indicator.technicalName,
-              indicator.location,
-            );
-          }
-          addIndicatorSeries(chart, axisName, indicator, bopdata);
-        }
-        // uncomment below for code which work with correct data
-        /* if (indicator.location === "main") {
-                    addIndicatorSeries(chart, axisName, indicator, data.ohlc, indicator.location);
-                } */
-        // for mockup purposes, temporarily some values close to data.ohlc will be provided for ma7, ma14 and ma30
-        if (indicator.technicalName === "ma7") {
-          let b = data.ohlc.map((index) => {
-            return [index[0], index[1] - 15];
-          });
+        if(indicator.displayName.startsWith("Overlap Studies")){
+            const indicatorData = await fetchIndicator(indicator.technicalName.toUpperCase());
 
-          addIndicatorSeries(chart, "mainAxis", indicator, b);
+            const combinedIndicatorDataWithTimestamps = timestampList.map((timestamp, index) => {
+                return [timestamp, indicatorData[index]];
+            });
+
+            addIndicatorSeries(chart, "mainAxis", indicator, combinedIndicatorDataWithTimestamps);
+            chart.redraw();
         }
+        else{
+            axisName = indicator.technicalName + "Axis";
+            if(!chart.get(axisName)){
+                addIndicatorAxis(chart, axisName, indicator.technicalName.substring(0, 8));
+            }
 
-        if (indicator.technicalName === "ma14") {
-          let c = data.ohlc.map((index) => {
-            return [index[0], index[1] + 15];
-          });
+            const indicatorData = await fetchIndicator(indicator.technicalName.toUpperCase());
 
-          addIndicatorSeries(chart, "mainAxis", indicator, c);
-        }
+            const combinedIndicatorDataWithTimestamps = timestampList.map((timestamp, index) => {
+                return [timestamp, indicatorData[index]];
+            });
 
-        if (indicator.technicalName === "ma30") {
-          addIndicatorSeries(chart, "mainAxis", indicator, data.ohlc);
+            addIndicatorSeries(chart, axisName, indicator, combinedIndicatorDataWithTimestamps);
+            chart.redraw();
         }
       }
     });
@@ -496,14 +467,38 @@ export const Graph = ({
     axesToRemove.forEach((axis) => {
       axis.remove(false);
     });
+    console.log(graphReservedViewHeight);
 
-    const defaultMainGraphHeight = viewMode === "simple" ? 100 : 60; // main OHLC graph is 60% default
-    const computedIndicatorHeight =
-      40 /
-      selectedIndicatorsList.filter(
-        (indicator) => indicator.location === "side",
+    let sideIndicatorCount = selectedIndicatorsList.filter(
+        (indicator) => indicator.location === "side" && !indicator.displayName.startsWith("Overlap Studies"),
       ).length; // the amount remaining from the default graph is 40% for side indicators
+
+      /* const defaultMainGraphHeight = viewMode === "simple" ? 60 : (graphReservedViewHeight - 60); // main OHLC graph is 60% default */
+
+      let threshold;
+      if(sideIndicatorCount === 1){
+        threshold = 62;
+      }
+      else if(sideIndicatorCount <= 3){
+        threshold = 65;
+      }
+      else if(sideIndicatorCount <= 6){
+        threshold = 68;
+      }
+      else if(sideIndicatorCount <= 10){
+        threshold = 75;
+      }
+      else if(sideIndicatorCount <= 20){
+        threshold = 80;
+      }
+      else{
+        threshold = 90;
+      }
+    const computedIndicatorHeight = (graphReservedViewHeight - threshold) / sideIndicatorCount;
+
     // iterate over the remaining axes to update their height and top values
+
+
     chart.yAxis.forEach((axis) => {
       // ensure we're only dealing with indicator axes, not the main or navigator axis
       if (
@@ -511,7 +506,7 @@ export const Graph = ({
         axis.options.id !== "navigator-y-axis"
       ) {
         const sideIndicators = selectedIndicatorsList.filter(
-          (indicator) => indicator.location === "side",
+          (indicator) => indicator.location === "side" && !indicator.displayName.startsWith("Overlap Studies"),
         );
         const indicator = sideIndicators.find(
           (ind) => axis.options.id === ind.technicalName + "Axis",
@@ -519,8 +514,7 @@ export const Graph = ({
         if (indicator) {
           // If the axis is found in the selectedIndicatorsList
           const indicatorIndex = sideIndicators.indexOf(indicator);
-          const topPositionValue =
-            defaultMainGraphHeight + indicatorIndex * computedIndicatorHeight;
+          const topPositionValue = 60 + indicatorIndex * computedIndicatorHeight;
           const topPositionString = `${topPositionValue}%`;
           const indicatorHeightString = `${computedIndicatorHeight}%`;
 
@@ -535,7 +529,10 @@ export const Graph = ({
         }
       }
     });
+    chart.redraw();
+    chart.reflow();
   };
+
 
   useEffect(() => {
     initializeGraph();
@@ -553,13 +550,15 @@ export const Graph = ({
   }, [graphLightMode]);
 
   useEffect(() => {
-    console.log(selectedIndicatorsList);
     if (chartRef.current) {
+        document.getElementById("stockGraph").style.height = graphReservedViewHeight + "vh";
+        chartRef.current.redraw();
+        chartRef.current.reflow();
       updateGraphIndicators();
       updateAxisColors();
       updatePlotOptions();
     }
-  }, [selectedIndicatorsList, stockGraphData, viewMode]);
+  }, [graphReservedViewHeight, selectedIndicatorsList, stockGraphData, viewMode]);
 
   return <Box id="stockGraph"></Box>;
 };
