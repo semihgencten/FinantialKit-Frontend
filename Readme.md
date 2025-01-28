@@ -1,6 +1,6 @@
 ## Final Presentation
-<a href="[https://www.w3schools.com](https://docs.google.com/presentation/d/1XW0Jjn5vSwsqpyKxs5TH4B6wW3OUgPzL/edit?usp=sharing&ouid=100521493383373880670&rtpof=true&sd=true)">Presentation Link</a>
-
+<a href="https://docs.google.com/presentation/d/1XW0Jjn5vSwsqpyKxs5TH4B6wW3OUgPzL/edit?usp=sharing&ouid=100521493383373880670&rtpof=true&sd=true">Presentation Link</a>
+## About
 This project is a React project. You need to install `NodeJS` and `npm` before you can run this application. After installation run
 
 `npm install`
